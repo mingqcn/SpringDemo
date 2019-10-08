@@ -23,7 +23,7 @@ public class GoodsControllerTests {
 
     @Test
     public void detailTest() throws Exception {
-        this.mvc.perform(get("/wx/goods/detail?id=1"))
+        this.mvc.perform(get("/wx/goods/1/detail"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8")).
                 andExpect(content().json("{\"errno\":0,\"data\":{\"id\":1,\"goodsSn\":\"111111\"," +
