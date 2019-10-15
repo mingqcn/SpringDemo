@@ -27,4 +27,17 @@ public class GoodsController {
         Goods goods = goodsService.findById(id);
         return ResponseUtil.ok(goods);
     }
+
+    @RequestMapping("search")
+    public Object search(@NotNull @RequestParam String name) {
+
+        Goods goods = goodsService.searchByName(name);
+        return ResponseUtil.ok(goods);
+    }
+
+    @PostMapping("")
+    public Object createGood(@RequestBody Goods goods){
+        Goods new_goods = goodsService.create(goods);
+        return ResponseUtil.ok(new_goods);
+    }
 }
