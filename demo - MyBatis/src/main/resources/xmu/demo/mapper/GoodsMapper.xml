@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.demo.mapper.GoodsMapper">
+    <select id="findById" parameterType="Integer" resultType="Goods">
+            select * from goods where id = #{id}
+    </select>
+
+    <insert id="create" parameterType="Goods" keyProperty="id" useGeneratedKeys="true">
+        insert into goods(goods_sn, name, keywords, brief) values(#{goodsSn},#{name},#{keywords},#{brief})
+    </insert>
+
+</mapper>
+
