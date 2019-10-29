@@ -1,0 +1,49 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: *
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.52.88.176:3306/cib
+    data-username: cib
+    password: 123
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      #初始化时建立物理连接的个数
+      initial-size: 3
+       neophyte
+        最小连接池数量
+      min-idle: 3
+      #最大连接池数量
+      max-active: 10
+      #获取连接时最大等待时间
+      max-wait: 60000
+      #配置监控页面访问登录名及密码
+      stat-view-servlet:
+        login-username: admin
+        login-password: 123456
+      filter:
+        stat:
+          #是否开启慢sql查询监控
+          log-slow-sql: true
+          #慢SQL执行时间
+          slow-sql-millis: 100
+
+
+mybatis:
+  type-aliases-package: xmu.demo.domain
+  mapper-locations: classpath:xmu.demo.mapper/*.xml
+
+logging:
+  #设置日志打印级别
+  level:
+    root: warning
+    xmu.demo: debug
+  #设置log文件输出地址
+  path: c://Users//mingqiu//log
