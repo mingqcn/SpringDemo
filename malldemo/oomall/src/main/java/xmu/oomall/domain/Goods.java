@@ -1,32 +1,77 @@
 package xmu.oomall.domain;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
+/**
+ * 商品信息
+ * 该对象不可以删除
+ */
 public class Goods {
-    public static final Boolean IS_DELETED = Deleted.IS_DELETED.value();
-
-    public static final Boolean NOT_DELETED = Deleted.NOT_DELETED.value();
-
     private Integer id;
-
-    private Integer goodsId;
-
-    private String[] specifications;
-
-    private BigDecimal price;
-
-    private Integer number;
-
-    private String url;
-
+    private String goodsSN; //商品编码
+    private String name; //商品名称
+    private String shortName; //简称
+    private String englishName; //英文名称
+    private String barCode; //条码
+    private String stockUnit; //库存单位
+    private Integer length; //长 单位mm
+    private Integer width; //宽 单位mm
+    private Integer height; //高 单位mm
+    private Integer grossWeight; //毛重 单位克
+    private Integer netWeight; //净重 单位克
+    private Short status; //商品状态，下架，上架，
+    private Boolean isHot; //是否人气推荐，如果设置则可以在人气推荐页面展示
+    private Boolean isNew; //是否新品首发，如果设置则可以在新品首发页面展示
+    private String gallery; //商品宣传图片列表，采用JSON数组格式
+    private String brief; //商品简介
+    private String picUrl; //商品页面商品图片
+    private String shareUrl; //商品分享朋友圈图片
+    private List<Product> products; //商品的不同规格货品
     private LocalDateTime addTime;
-
     private LocalDateTime updateTime;
 
-    private Boolean deleted;
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id=" + id +
+                ", goodsSN='" + goodsSN + '\'' +
+                ", name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", englishName='" + englishName + '\'' +
+                ", barCode='" + barCode + '\'' +
+                ", stockUnit='" + stockUnit + '\'' +
+                ", length=" + length +
+                ", width=" + width +
+                ", height=" + height +
+                ", grossWeight=" + grossWeight +
+                ", netWeight=" + netWeight +
+                ", status=" + status +
+                ", isHot=" + isHot +
+                ", isNew=" + isNew +
+                ", gallery='" + gallery + '\'' +
+                ", brief='" + brief + '\'' +
+                ", picUrl='" + picUrl + '\'' +
+                ", shareUrl='" + shareUrl + '\'' +
+                ", products=" + products +
+                ", addTime=" + addTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Goods goods = (Goods) o;
+        return id.equals(goods.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public Integer getId() {
         return id;
@@ -36,44 +81,100 @@ public class Goods {
         this.id = id;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public String getGoodsSN() {
+        return goodsSN;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setGoodsSN(String goodsSN) {
+        this.goodsSN = goodsSN;
     }
 
-    public String[] getSpecifications() {
-        return specifications;
+    public String getName() {
+        return name;
     }
 
-    public void setSpecifications(String[] specifications) {
-        this.specifications = specifications;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getShortName() {
+        return shortName;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
-    public Integer getNumber() {
-        return number;
+    public String getEnglishName() {
+        return englishName;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setEnglishName(String englishName) {
+        this.englishName = englishName;
     }
 
-    public String getUrl() {
-        return url;
+    public String getBarCode() {
+        return barCode;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
+
+    public String getStockUnit() {
+        return stockUnit;
+    }
+
+    public void setStockUnit(String stockUnit) {
+        this.stockUnit = stockUnit;
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getGrossWeight() {
+        return grossWeight;
+    }
+
+    public void setGrossWeight(Integer grossWeight) {
+        this.grossWeight = grossWeight;
+    }
+
+    public Integer getNetWeight() {
+        return netWeight;
+    }
+
+    public void setNetWeight(Integer netWeight) {
+        this.netWeight = netWeight;
+    }
+
+    public Boolean getNew() {
+        return isNew;
+    }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
     }
 
     public LocalDateTime getAddTime() {
@@ -92,102 +193,60 @@ public class Goods {
         this.updateTime = updateTime;
     }
 
-    public void andLogicalDeleted(boolean deleted) {
-        setDeleted(deleted ? Deleted.IS_DELETED.value() : Deleted.NOT_DELETED.value());
+    public Short getStatus() {
+        return status;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
+    public void setStatus(Short status) {
+        this.status = status;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+    public Boolean getHot() {
+        return isHot;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", IS_DELETED=").append(IS_DELETED);
-        sb.append(", NOT_DELETED=").append(NOT_DELETED);
-        sb.append(", id=").append(id);
-        sb.append(", goodsId=").append(goodsId);
-        sb.append(", specifications=").append(specifications);
-        sb.append(", price=").append(price);
-        sb.append(", number=").append(number);
-        sb.append(", url=").append(url);
-        sb.append(", addTime=").append(addTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", deleted=").append(deleted);
-        sb.append("]");
-        return sb.toString();
+    public void setHot(Boolean hot) {
+        isHot = hot;
     }
 
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        Goods other = (Goods) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
-            && (Arrays.equals(this.getSpecifications(), other.getSpecifications()))
-            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
-            && (this.getNumber() == null ? other.getNumber() == null : this.getNumber().equals(other.getNumber()))
-            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getAddTime() == null ? other.getAddTime() == null : this.getAddTime().equals(other.getAddTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()));
+    public String getGallery() {
+        return gallery;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getGoodsId() == null) ? 0 : getGoodsId().hashCode());
-        result = prime * result + (Arrays.hashCode(getSpecifications()));
-        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
-        result = prime * result + ((getNumber() == null) ? 0 : getNumber().hashCode());
-        result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
-        result = prime * result + ((getAddTime() == null) ? 0 : getAddTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
-        return result;
+    public void setGallery(String gallery) {
+        this.gallery = gallery;
     }
 
-    public enum Deleted {
-        NOT_DELETED(new Boolean("0"), "未删除"),
-        IS_DELETED(new Boolean("1"), "已删除");
+    public String getBrief() {
+        return brief;
+    }
 
-        private final Boolean value;
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
 
-        private final String name;
+    public String getPicUrl() {
+        return picUrl;
+    }
 
-        Deleted(Boolean value, String name) {
-            this.value = value;
-            this.name = name;
-        }
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
 
-        public Boolean getValue() {
-            return this.value;
-        }
+    public String getShareUrl() {
+        return shareUrl;
+    }
 
-        public Boolean value() {
-            return this.value;
-        }
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
+    }
 
-        public String getName() {
-            return this.name;
-        }
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
 }
