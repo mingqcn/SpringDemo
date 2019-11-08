@@ -4,6 +4,7 @@ import xmu.oomall.util.JacksonUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,33 @@ import java.util.List;
  */
 public class Order {
     private OrderPO realObj;
+
+    /**
+     * 计算订单的成交价格
+     */
+    public void cacuDealPrice(){
+        ACoupon aCoupon = this.getCoupon();
+        List<OrderItem> itemWithCoupon = new ArrayList<OrderItem>(this.getItems().size());
+        List<OrderItem> itemWithoutCoupon = new ArrayList<OrderItem>(this.getItems().size());
+        BigDecimal TotalPrice = new BigDecimal(0.0);
+        for (OrderItem item:this.getItems()) {
+            Product product = item.getProduct();
+            item.setPrice(new BigDecimal(item.getNumber())*product.getPurchasePrice());
+            TotalPrice += item.getPrice();
+            Goods goods = product.getDesc();
+
+            if (aCoupon.isBeUsedByGoods(goods)) {
+                itemWithCoupon.add(item);
+            } else {
+                itemWithoutCoupon.add(item);
+            }
+
+
+        }
+
+
+
+    }
 
     public Order(OrderPO realObj) {
         this.realObj = realObj;

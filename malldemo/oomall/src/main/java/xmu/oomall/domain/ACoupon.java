@@ -22,4 +22,14 @@ public class ACoupon {
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
     private Boolean deleted;
+
+    /**
+     * 判断商品是否能用于这张优惠卷
+     * @param goods
+     * @return
+     */
+    public boolean isBeUsedByGoods(Goods goods){
+        //TODO:查询时按照Goods-ID排序，然后用二分法查询
+        return true;
+    }
 }

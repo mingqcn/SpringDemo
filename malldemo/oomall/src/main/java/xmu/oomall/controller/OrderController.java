@@ -55,6 +55,10 @@ public class OrderController {
         }
         GroupOnRule groupOnRule = goodsService.findGroupOnRuleById(submitVO.getGroupOnRule_id());
 
+        if (groupOnRule.isExpired()){
+
+        }
+
         return orderService.submit(newOrder, cartItems, groupOnRule);
     }
 }

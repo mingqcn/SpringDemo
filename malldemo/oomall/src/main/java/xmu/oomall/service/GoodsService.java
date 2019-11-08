@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import xmu.oomall.domain.CartItem;
 import xmu.oomall.domain.GroupOnRule;
 
+import java.util.List;
+
 /**
  * @Author: Ming Qiu
  * @Description: 商品有关的服务
@@ -27,6 +29,12 @@ public interface GoodsService {
      * @return GroupOnRule对象
      */
     public GroupOnRule findGroupOnRuleById(Integer id);
+
+    /**
+     * 清空购物车里的指定项目
+     * @param cartItems 待清空的项目
+     */
+    public void clearCartItem(List<CartItem> cartItems);
 
 
 

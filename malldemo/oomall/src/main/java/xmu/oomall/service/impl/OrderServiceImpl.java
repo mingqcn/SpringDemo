@@ -5,6 +5,7 @@ import xmu.oomall.domain.CartItem;
 import xmu.oomall.domain.GroupOnRule;
 import xmu.oomall.domain.Order;
 import xmu.oomall.domain.OrderItem;
+import xmu.oomall.service.GoodsService;
 import xmu.oomall.service.OrderService;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
+    GoodsService goodsService;
 
     @Override
     public Order submit(Order order, List<CartItem> cartItems, GroupOnRule groupOnRule) {
@@ -29,6 +31,10 @@ public class OrderServiceImpl implements OrderService {
             OrderItem orderItem = new OrderItem(cartItem);
             orderItems.add(orderItem);
         }
+        order.setItems(orderItems);
+        goodsService.clearCartItem(cartItems);
+
+
 
 
     }
