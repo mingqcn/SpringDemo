@@ -3,6 +3,7 @@ package xmu.oomall.domain;
 import xmu.oomall.util.JacksonUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,12 @@ public class Order {
         ACoupon aCoupon = this.getCoupon();
         List<OrderItem> itemWithCoupon = new ArrayList<OrderItem>(this.getItems().size());
         List<OrderItem> itemWithoutCoupon = new ArrayList<OrderItem>(this.getItems().size());
-        BigDecimal TotalPrice = new BigDecimal(0.0);
+        BigDecimal TotalPrice = BigDecimal.ZERO;
         for (OrderItem item:this.getItems()) {
             Product product = item.getProduct();
-            item.setPrice(new BigDecimal(item.getNumber())*product.getPurchasePrice());
-            TotalPrice += item.getPrice();
+            BigDecimal itemPrice = product.getPurchasePrice().multiply(new BigDecimal(item.getNumber())).setScale(2, RoundingMode.UP);
+            item.setPrice(itemPrice);
+            TotalPrice = TotalPrice.add(item.getPrice());
             Goods goods = product.getDesc();
 
             if (aCoupon.isBeUsedByGoods(goods)) {
