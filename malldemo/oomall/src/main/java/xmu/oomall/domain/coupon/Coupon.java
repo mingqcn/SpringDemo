@@ -1,5 +1,6 @@
 package xmu.oomall.domain.coupon;
 
+import org.apache.ibatis.type.Alias;
 import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.order.Order;
 
@@ -14,6 +15,7 @@ import java.util.Objects;
  * @Date: Created in 14:10 2019/11/5
  * @Modified By:
  **/
+@Alias("coupon")
 public class Coupon {
 
     /**
@@ -42,6 +44,11 @@ public class Coupon {
      * 所属的优惠卷类别
      */
     private CouponRule couponRule;
+    /**
+     * 所属的优惠卷类别id
+     */
+    private Integer couponRuleId;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
     private Boolean isDeleted = false;
@@ -114,12 +121,10 @@ public class Coupon {
      * @param order 订单
      * @return 优惠的费用
      */
-    public BigDecimal getReductPrice(Order order) {
-        BigDecimal reductPrice = BigDecimal.ZERO;
+    public void cacuCouponPrice(Order order) {
         if (this.isReadyToUse()){
-            reductPrice = this.getCouponRule().getReductPrice(order);
+            this.getCouponRule().cacuCouponPrice(order);
         }
-        return reductPrice;
     }
 
     /**
@@ -232,6 +237,14 @@ public class Coupon {
 
     public void setCouponRule(CouponRule couponRule) {
         this.couponRule = couponRule;
+    }
+
+    public Integer getCouponRuleId() {
+        return couponRuleId;
+    }
+
+    public void setCouponRuleId(Integer couponRuleId) {
+        this.couponRuleId = couponRuleId;
     }
 
     public LocalDateTime getAddTime() {

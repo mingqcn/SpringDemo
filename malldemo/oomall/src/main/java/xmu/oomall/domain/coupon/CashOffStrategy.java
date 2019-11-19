@@ -33,7 +33,12 @@ public final class CashOffStrategy extends AbstractCouponStrategy {
 
     @Override
     protected BigDecimal getDealPrice(BigDecimal itemPrice, BigDecimal totalPrice) {
-        return  itemPrice.subtract(this.offCash.multiply(itemPrice.divide(totalPrice, 2,RoundingMode.HALF_UP)));
+        return  itemPrice.subtract(this.offCash.multiply(itemPrice.divide(totalPrice, 3, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP));
+    }
+
+    @Override
+    protected BigDecimal getError(BigDecimal totalPrice, BigDecimal dealPrice) {
+        return totalPrice.subtract(dealPrice).subtract(this.offCash);
     }
 
     @Override

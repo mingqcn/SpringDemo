@@ -33,7 +33,10 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setItems(orderItems);
         goodsService.clearCartItem(cartItems);
-    return null;
+
+        //计算优惠价
+        order.cacuDealPrice();;
+    return order;
 
     }
 }

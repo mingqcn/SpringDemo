@@ -14,7 +14,10 @@ import java.util.Objects;
  **/
 public class GroupOnRule{
     private Integer id;
-    private LocalDateTime endTime; //团购活动结束时间
+    /**
+     * 团购活动结束时间
+     */
+    private LocalDateTime endTime;
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;

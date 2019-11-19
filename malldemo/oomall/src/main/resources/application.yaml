@@ -10,9 +10,9 @@ management:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.52.88.176:3306/cib
-    data-username: cib
-    password: 123
+    url: jdbc:mysql://47.52.88.176:3306/oomall
+    data-username: ooadUser
+    password: ooad
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       #初始化时建立物理连接的个数
@@ -44,6 +44,7 @@ logging:
   #设置日志打印级别
   level:
     root: warning
-    xmu.demo: debug
+    xmu.oomall: info
   #设置log文件输出地址
-  path: c://Users//mingqiu//log
+  file:
+    path: c://Users//mingqiu//log

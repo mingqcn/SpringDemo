@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.oomall.mapper.CouponMapper">
+
+    <resultMap type="coupon" id="couponMap">
+        <id property="id" column="id"/>
+        <result property="couponSn" column="coupon_sn"/>
+        <result property="beginTime" column="begin_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="status" column="status"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="couponRuleId" column="coupon_rule_id"/>
+    </resultMap>
+
+    <resultMap type="couponRulePo" id="couponRuleMap">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="beginTime" column="begin_time"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="brief" column="brief"/>
+        <result property="validPeriod" column="valid_period"/>
+        <result property="goodsIds" column="goods_ids1"/>
+        <result property="strategy" column="strategy"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <select id="findCouponById" parameterType="Integer" resultMap="couponMap">
+            select id,
+                   coupon_sn,
+                    begin_time,
+                    end_time,
+                    status,
+                    add_time,
+                    update_time,
+                    is_deleted,
+                    coupon_rule_id
+                    from coupon where id = #{id}
+    </select>
+
+    <select id="findCouponRuleById" parameterType="Integer" resultMap="couponRuleMap">
+            select id,
+                   name,
+                   desc,
+                    begin_time,
+                    pci_url,
+                    brief,
+                    valid_period,
+                    goods_ids1,
+                    strategy,
+                    add_time,
+                    update_time,
+                    is_deleted,
+                    from coupon_rule where id = #{id}
+    </select>
+
+
+</mapper>

@@ -11,7 +11,7 @@ import java.util.List;
  * @Date: Created in 17:02 2019/11/5
  * @Modified By:
  **/
-public class OrderDAO {
+public class OrderDao {
 
     /**
      * 将购物车中物品加入订单

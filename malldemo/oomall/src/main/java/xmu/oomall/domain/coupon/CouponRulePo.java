@@ -1,5 +1,7 @@
 package xmu.oomall.domain.coupon;
 
+import org.apache.ibatis.type.Alias;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -9,6 +11,7 @@ import java.util.Objects;
  * @Date: Created in 11:28 2019/11/14
  * @Modified By:
  **/
+@Alias("couponRulePo")
 public class CouponRulePo {
     private Integer id;
     /**

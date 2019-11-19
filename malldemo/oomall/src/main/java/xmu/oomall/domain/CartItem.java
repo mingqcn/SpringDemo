@@ -15,9 +15,18 @@ import java.util.Objects;
  **/
 public class CartItem {
     private Integer id;
-    private Integer number; //数量
-    private User owner; //归属的用户
-    private Product product; //货品
+    /**
+     * 数量
+     */
+    private Integer quantity;
+    /**
+     * 归属的用户
+     */
+    private User owner;
+    /**
+     * 货品
+     */
+    private Product product;
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
 
@@ -26,7 +35,7 @@ public class CartItem {
     public String toString() {
         return "CartItem{" +
                 "id=" + id +
-                ", number=" + number +
+                ", quantity=" + quantity +
                 ", owner=" + owner +
                 ", product=" + product +
                 ", addTime=" + addTime +
@@ -55,12 +64,12 @@ public class CartItem {
         this.id = id;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public User getOwner() {

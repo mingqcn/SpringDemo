@@ -22,15 +22,21 @@ public class Order {
     /**
      * 计算订单的总费用和货物件数
      */
-    private void cacuTotalPriceNumber(){
+    private void cacuTotal(){
         BigDecimal total = BigDecimal.ZERO;
+        BigDecimal dealTotal = BigDecimal.ZERO;
         Integer totalQuantity = 0;
         for (OrderItem item:this.getItems()){
-            total.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+            total = total.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
             totalQuantity += item.getQuantity();
+            BigDecimal dealPrice = item.getDealPrice();
+            if (dealPrice != null){
+                dealTotal = dealTotal.add(dealPrice);
+            }
         }
         this.setGoodPrice(total);
         this.setQuantity(totalQuantity);
+        this.setCouponPrice(total.subtract(dealTotal));
     }
 
     /**
@@ -39,8 +45,8 @@ public class Order {
     public void cacuDealPrice(){
         //目前设计只支持一个订单中同类优惠卷只能使用一张优惠卷，一个货品只能选择使用一张优惠卷
         Coupon coupon = this.getCoupon();
-        BigDecimal dealPrice = coupon.getReductPrice(this);
-        this.setCouponPrice(dealPrice);
+        coupon.cacuCouponPrice(this);
+        this.cacuTotal();
     }
 
     /**

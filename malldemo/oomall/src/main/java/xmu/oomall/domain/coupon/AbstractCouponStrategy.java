@@ -1,6 +1,7 @@
 package xmu.oomall.domain.coupon;
 
-import xmu.oomall.domain.order.Order;
+import com.alibaba.druid.support.logging.Log;
+import com.alibaba.druid.support.logging.LogFactory;
 import xmu.oomall.domain.order.OrderItem;
 
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.util.List;
  * @Modified By:
  * */
 public abstract class AbstractCouponStrategy {
+    private Log logger = LogFactory.getLog(AbstractCouponStrategy.class);
 
     /**
      * 用于判断是否已经满足优惠门槛
@@ -33,49 +35,90 @@ public abstract class AbstractCouponStrategy {
     protected abstract BigDecimal getDealPrice(BigDecimal itemPrice, BigDecimal totalPrice);
 
     /**
+     * 获得优惠金额与设定的误差
+     * @param totalPrice 订单原价
+     * @param dealPrice 优惠价
+     * @return 误差值
+     */
+    protected abstract BigDecimal getError(BigDecimal totalPrice, BigDecimal dealPrice);
+
+    /**
      * 获得优惠的费用
      * @param validItems 订单中可以用于优惠卷的明细
-     * @return 优惠減免的费用
+     * @return 更新的订单列表，包含可能因为误差拆开的明细
      */
-    public BigDecimal cacuDiscount(List<OrderItem> validItems){
+    public List<OrderItem> cacuDiscount(List<OrderItem> validItems){
         //优惠商品的总价和数量
         BigDecimal totalPrice = BigDecimal.ZERO;
         Integer totalQuantity = 0;
 
         //优惠的货品
-        List<OrderItem> discountItems = new ArrayList<OrderItem>(validItems.size());
+        List<OrderItem> discountItems = new ArrayList<>(validItems.size());
 
         Iterator<OrderItem> itemIterator = validItems.iterator();
         //判断是否达到优惠门槛
         boolean enough = this.isEnough(totalPrice, totalQuantity);
 
         while (itemIterator.hasNext() && !enough){
+            logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity+" 优惠门槛 enough = "+enough);
             OrderItem item = itemIterator.next();
-            totalPrice.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+            totalPrice = totalPrice.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
             totalQuantity += item.getQuantity();
             discountItems.add(item);
             enough = this.isEnough(totalPrice, totalQuantity);
         }
+
+        logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity+" 优惠门槛 enough = "+enough);
 
         //计算优惠后的价格
         BigDecimal dealTotalPrice = BigDecimal.ZERO;
         if (enough) {
             for (OrderItem item: discountItems){
                 //按照比例分配，可能会出现精度误差，在后面补偿到第一个货品上
-                BigDecimal dealPrice = this.getDealPrice(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())), totalPrice);
+                BigDecimal dealPrice = this.getDealPrice(item.getPrice(), totalPrice);
+                logger.debug("优惠价格 dealPrice="+ dealPrice);
                 item.setDealPrice(dealPrice);
-                dealTotalPrice.add(dealPrice);
+                dealTotalPrice = dealTotalPrice.add(dealPrice.multiply(BigDecimal.valueOf(item.getQuantity())));
+                logger.debug("总优惠价 dealTotalPrice="+ dealTotalPrice);
+                logger.debug("优惠明细 item="+ item);
             }
 
-            BigDecimal error =  totalPrice.subtract(dealTotalPrice);
-
+            BigDecimal error = this.getError(totalPrice, dealTotalPrice);
+            logger.debug("误差 error="+ error);
             if (error.compareTo(BigDecimal.ZERO) != 0){
                 //前面保留小数两位数可能出现的精度误差
-                //TODO：处理优惠后的精度误差
+                //寻找数量为1的明细，将误差补偿在此明细上，否则拆开一个现有明细
+
+                Boolean gotIt = false;
+                for (OrderItem item : validItems){
+                    if (item.getQuantity() == 1){
+                        BigDecimal dealPrice = item.getDealPrice();
+                        item.setDealPrice(dealPrice.subtract(error));
+                        gotIt = true;
+                        break;
+                    }
+                }
+
+                OrderItem newItem = null;
+                if (!gotIt){
+                    //无数量为1的明细，拆第一个
+                    OrderItem item = validItems.get(0);
+                    Integer quantity = item.getQuantity();
+                    item.setQuantity(quantity - 1);
+                    try {
+                        newItem = (OrderItem) item.clone();
+                        newItem.setQuantity(1);
+                        BigDecimal dealPrice = newItem.getDealPrice();
+                        newItem.setDealPrice(dealPrice.subtract(error));
+                        validItems.add(newItem);
+                    } catch (CloneNotSupportedException e) {
+                        logger.error(e.getMessage(), e);
+                    }
+                }
             }
 
         }
 
-        return totalPrice.subtract(dealTotalPrice);
+        return validItems;
     }
 }

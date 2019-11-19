@@ -2,6 +2,7 @@ package xmu.oomall.domain.coupon;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.type.Alias;
 import xmu.oomall.domain.GroupOnRule;
 import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.order.Order;
@@ -121,12 +122,11 @@ public class CouponRule {
     /**
      * 获得优惠的费用
      * @param order 订单
-     * @return
      */
-    public BigDecimal getReductPrice(Order order){
+    public void cacuCouponPrice(Order order){
         List<OrderItem> validItems = this.getValidItems(order.getItems());
-        return this.getStrategy().cacuDiscount(validItems);
-
+        List<OrderItem> newItems = this.getStrategy().cacuDiscount(validItems);
+        order.setItems(newItems);
     }
 
     /**

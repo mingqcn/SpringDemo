@@ -15,7 +15,7 @@ import java.util.Objects;
  * @Date: Created in 16:08 2019/11/5
  * @Modified By:
  */
-public class OrderItem {
+public class OrderItem implements Cloneable{
 
     private Integer id;
     /**
@@ -37,13 +37,14 @@ public class OrderItem {
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+    private Boolean isDeleted = false;
 
     /**
      * 由购物车对象构造订单明细对象
      * @param cartItem 购物车对象
      */
     public OrderItem(CartItem cartItem) {
-        this.setQuantity(cartItem.getNumber());
+        this.setQuantity(cartItem.getQuantity());
         this.setProduct(cartItem.getProduct());
         this.setPrice(this.getProduct().getPurchasePrice());
         this.setAddTime(LocalDateTime.now());
@@ -56,28 +57,42 @@ public class OrderItem {
         this.setAddTime(LocalDateTime.now());
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        OrderItem newItem = (OrderItem) super.clone();
+        newItem.setId(null);
+        newItem.setAddTime(LocalDateTime.now());
+        newItem.setUpdateTime(null);
+        newItem.setDeleted(false);
+        return newItem;
+    }
+
     /****************************************************
      * 生成代码
      ****************************************************/
-
 
     @Override
     public String toString() {
         return "OrderItem{" +
                 "id=" + id +
-                ", number=" + quantity +
+                ", quantity=" + quantity +
                 ", price=" + price +
                 ", dealPrice=" + dealPrice +
                 ", product=" + product +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         OrderItem orderItem = (OrderItem) o;
         return id.equals(orderItem.id);
     }
@@ -141,5 +156,13 @@ public class OrderItem {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

@@ -14,7 +14,7 @@ public class Product {
     /**
      * 货品编号
      */
-    private String productSN;
+    private String productSn;
     /**
      * sku属性，用于描述特定货品，如红色，41码
      */
@@ -58,7 +58,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", productSN='" + productSN + '\'' +
+                ", productSn='" + productSn + '\'' +
                 ", productPropery='" + productPropery + '\'' +
                 ", stock=" + stock +
                 ", retailPrice=" + retailPrice +
@@ -95,12 +95,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductSN() {
-        return productSN;
+    public String getProductSn() {
+        return productSn;
     }
 
-    public void setProductSN(String productSN) {
-        this.productSN = productSN;
+    public void setProductSn(String productSn) {
+        this.productSn = productSn;
     }
 
     public String getProductPropery() {
