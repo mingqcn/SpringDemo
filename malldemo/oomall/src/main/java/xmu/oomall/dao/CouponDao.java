@@ -23,6 +23,7 @@ public class CouponDao {
         CouponRulePo couponRulePo = couponMapper.findCouponRuleById(coupon.getCouponRuleId());
         CouponRule couponRule = new CouponRule(couponRulePo);
         coupon.setCouponRule(couponRule);
+        return coupon;
     }
 
 }
