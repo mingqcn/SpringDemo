@@ -1,22 +1,42 @@
-package xmu.oomall.domain;
+package xmu.oomall.domain.user;
 
 import java.util.Objects;
 
 /**
  * @Author: Ming Qiu
- * @Description:地址
- * 本对象以JSON方式存数据库
+ * @Description:地址 本对象以JSON方式存数据库
  * @Date: Created in 14:49 2019/11/5
  * @Modified By:
  **/
 public class Address {
     private Integer id;
+    /**
+     * 收件人姓名
+     */
     private String name;
+    /**
+     * 省份
+     */
     private String province;
+    /**
+     * 城市
+     */
     private String city;
+    /**
+     * 县区
+     */
     private String county;
-    private String address_detail;
+    /**
+     * 地址详情
+     */
+    private String addressDetail;
+    /**
+     * 联系电话
+     */
     private String tel;
+    /**
+     * 是否是默认地址
+     */
     private boolean isDefault;
 
     @Override
@@ -27,7 +47,7 @@ public class Address {
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", county='" + county + '\'' +
-                ", address_detail='" + address_detail + '\'' +
+                ", address_detail='" + addressDetail + '\'' +
                 ", tel='" + tel + '\'' +
                 ", isDefault=" + isDefault +
                 '}';
@@ -35,8 +55,12 @@ public class Address {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Address address = (Address) o;
         return getId().equals(address.getId());
     }
@@ -86,12 +110,12 @@ public class Address {
         this.county = county;
     }
 
-    public String getAddress_detail() {
-        return address_detail;
+    public String getAddressDetail() {
+        return addressDetail;
     }
 
-    public void setAddress_detail(String address_detail) {
-        this.address_detail = address_detail;
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
     }
 
     public String getTel() {

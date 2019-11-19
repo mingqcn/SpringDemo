@@ -1,4 +1,4 @@
-package xmu.oomall.domain;
+package xmu.oomall.domain.user;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,18 +13,55 @@ import java.util.Objects;
 public class User {
 
     private Integer id;
-    private String userName; //用户名
-    private String password; //密码
-    private Short gender; //0：男， 1：女
-    private LocalDateTime birthDay; //生日
-    private LocalDateTime lastLoginTime; //最后一次登录时间
-    private String lastLoginIP; //最后一次登录IP
-    private Short userLevel; //用户级别
-    private Integer credits; //用户积分
-    private String avatar; //用户头像图片
-    private String wxOpenID; //微信Open ID
-    private String sessionKey; //微信会话Key
-    private List<Address> address; //地址簿
+    /**
+     * 用户名
+     */
+    private String userName;
+    /**
+     * 密码
+     */
+    private String password;
+    /**
+     * 0：男， 1：女
+     */
+    private Integer gender;
+    /**
+     * 生日
+     */
+    private LocalDateTime birthDay;
+    /**
+     * 最后一次登录时间
+     */
+    private LocalDateTime lastLoginTime;
+    /**
+     * 最后一次登录IP
+     */
+    private String lastLoginIP;
+    /**
+     * 用户级别
+     */
+    private Short userLevel;
+    /**
+     * 用户积分
+     */
+    private Integer credits;
+    /**
+     * 用户头像图片
+     */
+    private String avatar;
+    /**
+     * 微信Open ID
+     */
+    private String wxOpenID;
+    /**
+     * 微信会话Key
+     */
+    private String sessionKey;
+    /**
+     * 地址簿
+     */
+    private List<Address> address;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
     private Boolean deleted;
@@ -52,8 +89,12 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return getId().equals(user.getId());
     }
@@ -87,11 +128,11 @@ public class User {
         this.password = password;
     }
 
-    public Short getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Short gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 

@@ -1,5 +1,8 @@
 package xmu.oomall.domain;
 
+import xmu.oomall.domain.goods.Product;
+import xmu.oomall.domain.user.User;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -17,6 +20,7 @@ public class CartItem {
     private Product product; //货品
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+
 
     @Override
     public String toString() {

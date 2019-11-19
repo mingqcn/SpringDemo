@@ -2,7 +2,7 @@ package xmu.oomall.service;
 
 import xmu.oomall.domain.CartItem;
 import xmu.oomall.domain.GroupOnRule;
-import xmu.oomall.domain.Order;
+import xmu.oomall.domain.order.Order;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ public interface OrderService {
      * 提交订单
      * @param order 新订单
      * @param cartItems 购物车中加入订单的货品
-     * @param groupOnRule 团购规则
+     * @return 新产生的订单
      */
-    public Order submit(Order order, List<CartItem> cartItems, GroupOnRule groupOnRule);
+    public Order submit(Order order, List<CartItem> cartItems);
 
 }

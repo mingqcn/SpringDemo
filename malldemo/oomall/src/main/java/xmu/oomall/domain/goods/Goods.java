@@ -1,4 +1,4 @@
-package xmu.oomall.domain;
+package xmu.oomall.domain.goods;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,33 +10,105 @@ import java.util.Objects;
  */
 public class Goods {
     private Integer id;
-    private String goodsSN; //商品编码
-    private String name; //商品名称
-    private String shortName; //简称
-    private String englishName; //英文名称
-    private String barCode; //条码
-    private String stockUnit; //库存单位
-    private Integer length; //长 单位mm
-    private Integer width; //宽 单位mm
-    private Integer height; //高 单位mm
-    private Integer grossWeight; //毛重 单位克
-    private Integer netWeight; //净重 单位克
-    private Short status; //商品状态，下架，上架，
-    private Boolean isHot; //是否人气推荐，如果设置则可以在人气推荐页面展示
-    private Boolean isNew; //是否新品首发，如果设置则可以在新品首发页面展示
-    private String gallery; //商品宣传图片列表，采用JSON数组格式
-    private String brief; //商品简介
-    private String picUrl; //商品页面商品图片
-    private String shareUrl; //商品分享朋友圈图片
-    private List<Product> products; //商品的不同规格货品
+    /**
+     * 商品编码
+     */
+    private String goodsSn;
+    /**
+     * 商品名称
+     */
+    private String name;
+    /**
+     * 简称
+     */
+    private String shortName;
+    /**
+     * 英文名称
+     */
+    private String englishName;
+    /**
+     * 条码
+     */
+    private String barCode;
+    /**
+     * 库存单位
+     */
+    private String stockUnit;
+    /**
+     * 长 单位mm
+     */
+    private Integer length;
+    /**
+     * 宽 单位mm
+     */
+    private Integer width;
+    /**
+     * 高 单位mm
+     */
+    private Integer height;
+    /**
+     * 毛重 单位克
+     */
+    private Integer grossWeight;
+    /**
+     * 净重 单位克
+     */
+    private Integer netWeight;
+    /**
+     * 商品状态，下架，上架，
+     */
+    private Short status;
+    /**
+     * 是否人气推荐，如果设置则可以在人气推荐页面展示
+     */
+    private Boolean isHot;
+    /**
+     * 是否新品首发，如果设置则可以在新品首发页面展示
+     */
+    private Boolean isNew;
+    /**
+     * 商品宣传图片列表，采用JSON数组格式
+     */
+    private String gallery;
+    /**
+     * 商品简介
+     */
+    private String brief;
+    /**
+     * 商品页面商品图片
+     */
+    private String picUrl;
+    /**
+     * 商品分享朋友圈图片
+     */
+    private String shareUrl;
+    /**
+     * 商品的不同规格货品
+     */
+    private List<Product> products;
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+
+    public static Goods ALL_GOODS = new Goods(0);
+
+    /**
+     * 用id构造Goods
+     * @param id
+     */
+    public Goods(Integer id) {
+        this.id = id;
+        this.setAddTime(LocalDateTime.now());
+    }
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
 
     @Override
     public String toString() {
         return "Goods{" +
                 "id=" + id +
-                ", goodsSN='" + goodsSN + '\'' +
+                ", goodsSN='" + goodsSn + '\'' +
                 ", name='" + name + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", englishName='" + englishName + '\'' +
@@ -81,12 +153,12 @@ public class Goods {
         this.id = id;
     }
 
-    public String getGoodsSN() {
-        return goodsSN;
+    public String getGoodsSn() {
+        return goodsSn;
     }
 
-    public void setGoodsSN(String goodsSN) {
-        this.goodsSN = goodsSN;
+    public void setGoodsSn(String goodsSn) {
+        this.goodsSn = goodsSn;
     }
 
     public String getName() {

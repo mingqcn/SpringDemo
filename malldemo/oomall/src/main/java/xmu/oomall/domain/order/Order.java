@@ -1,53 +1,78 @@
-package xmu.oomall.domain;
+package xmu.oomall.domain.order;
 
+import xmu.oomall.domain.*;
+import xmu.oomall.domain.coupon.Coupon;
+import xmu.oomall.domain.user.Address;
+import xmu.oomall.domain.user.User;
 import xmu.oomall.util.JacksonUtil;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
- * 订单
+ * @author  Ming Qiu
+ * @Description: 订单
+ * @Date: Created in 16:08 2019/11/5
+ * @Modified By:
  */
 public class Order {
-    private OrderPO realObj;
+    private OrderPo realObj;
+
+    /**
+     * 计算订单的总费用和货物件数
+     */
+    private void cacuTotalPriceNumber(){
+        BigDecimal total = BigDecimal.ZERO;
+        Integer totalQuantity = 0;
+        for (OrderItem item:this.getItems()){
+            total.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+            totalQuantity += item.getQuantity();
+        }
+        this.setGoodPrice(total);
+        this.setQuantity(totalQuantity);
+    }
 
     /**
      * 计算订单的成交价格
      */
     public void cacuDealPrice(){
-        ACoupon aCoupon = this.getCoupon();
-        List<OrderItem> itemWithCoupon = new ArrayList<OrderItem>(this.getItems().size());
-        List<OrderItem> itemWithoutCoupon = new ArrayList<OrderItem>(this.getItems().size());
-        BigDecimal TotalPrice = BigDecimal.ZERO;
-        for (OrderItem item:this.getItems()) {
-            Product product = item.getProduct();
-            BigDecimal itemPrice = product.getPurchasePrice().multiply(new BigDecimal(item.getNumber())).setScale(2, RoundingMode.UP);
-            item.setPrice(itemPrice);
-            TotalPrice = TotalPrice.add(item.getPrice());
-            Goods goods = product.getDesc();
-
-            if (aCoupon.isBeUsedByGoods(goods)) {
-                itemWithCoupon.add(item);
-            } else {
-                itemWithoutCoupon.add(item);
-            }
-
-
-        }
-
-
-
+        //目前设计只支持一个订单中同类优惠卷只能使用一张优惠卷，一个货品只能选择使用一张优惠卷
+        Coupon coupon = this.getCoupon();
+        BigDecimal dealPrice = coupon.getReductPrice(this);
+        this.setCouponPrice(dealPrice);
     }
 
-    public Order(OrderPO realObj) {
-        this.realObj = realObj;
+    /**
+     * 获得地址
+     * JSON格式{ name：“XXX”, obj:{XXX}}
+      * @return 地址对象
+     */
+    public Address getAddress() {
+        return JacksonUtil.parseObject(realObj.getAddress(),"obj", Address.class);
     }
+
+    /**
+     * 设置定制
+     * @param address 地址对象
+     */
+    public void setAddress(Address address) {
+        Map<String, Object> addressMap= new HashMap<String, Object>();
+        addressMap.put("name", Address.class.getName());
+        addressMap.put("obj", address);
+        realObj.setAddress(JacksonUtil.toJson(addressMap));
+    }
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
 
     public Order() {
-        this.realObj = new OrderPO();
+        this.realObj = new OrderPo();
+    }
+
+    public Order(OrderPo realObj) {
+        this.realObj = realObj;
     }
 
 
@@ -60,26 +85,18 @@ public class Order {
     }
 
     public String getOrderSN() {
-        return realObj.getOrderSN();
+        return realObj.getOrderSn();
     }
 
     public void setOrderSN(String orderSN) {
-        realObj.setOrderSN(orderSN);
+        realObj.setOrderSn(orderSN);
     }
 
-    public Address getAddress() {
-        return JacksonUtil.toObject(realObj.getAddress(), Address.class);
-    }
-
-    public void setAddress(Address address) {
-        realObj.setAddress(JacksonUtil.toJson(address));
-    }
-
-    public Short getOrderStatus() {
+    public Integer getOrderStatus() {
         return realObj.getOrderStatus();
     }
 
-    public void setOrderStatus(Short orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         realObj.setOrderStatus(orderStatus);
     }
 
@@ -124,11 +141,11 @@ public class Order {
     }
 
     public String getShipSN() {
-        return realObj.getShipSN();
+        return realObj.getShipSn();
     }
 
     public void setShipSN(String shipSN) {
-        realObj.setShipSN(shipSN);
+        realObj.setShipSn(shipSN);
     }
 
     public Short getShipChannel() {
@@ -187,6 +204,30 @@ public class Order {
         realObj.setUser(user);
     }
 
+    public Coupon getCoupon() {
+        return realObj.getCoupon();
+    }
+
+    public void setCoupon(Coupon coupon) {
+        realObj.setCoupon(coupon);
+    }
+
+    public Integer getQuantity() {
+        return realObj.getQuantity();
+    }
+
+    public void setQuantity(Integer quantity) {
+        realObj.setQuantity(quantity);
+    }
+
+    public Integer getGrossWeight() {
+        return realObj.getGrossWeight();
+    }
+
+    public void setGrossWeight(Integer grossWeight) {
+        realObj.setGrossWeight(grossWeight);
+    }
+
     public LocalDateTime getAddTime() {
         return realObj.getAddTime();
     }
@@ -203,19 +244,8 @@ public class Order {
         realObj.setUpdateTime(updateTime);
     }
 
-    public OrderPO getRealObj() {
+    public OrderPo getRealObj() {
         return realObj;
     }
 
-    public void setAddress(String address) {
-        realObj.setAddress(address);
-    }
-
-    public ACoupon getCoupon() {
-        return realObj.getCoupon();
-    }
-
-    public void setCoupon(ACoupon coupon) {
-        realObj.setCoupon(coupon);
-    }
 }

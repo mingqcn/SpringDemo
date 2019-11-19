@@ -6,7 +6,7 @@
 		<groupId>xmu</groupId>
 		<artifactId>mall-demo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath>../</relativePath>
 	</parent>
 
 	<groupId>xmu</groupId>

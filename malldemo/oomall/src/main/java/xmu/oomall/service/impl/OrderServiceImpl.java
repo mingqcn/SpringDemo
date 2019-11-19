@@ -3,8 +3,8 @@ package xmu.oomall.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import xmu.oomall.domain.CartItem;
 import xmu.oomall.domain.GroupOnRule;
-import xmu.oomall.domain.Order;
-import xmu.oomall.domain.OrderItem;
+import xmu.oomall.domain.order.Order;
+import xmu.oomall.domain.order.OrderItem;
 import xmu.oomall.service.GoodsService;
 import xmu.oomall.service.OrderService;
 
@@ -23,19 +23,17 @@ public class OrderServiceImpl implements OrderService {
     GoodsService goodsService;
 
     @Override
-    public Order submit(Order order, List<CartItem> cartItems, GroupOnRule groupOnRule) {
+    public Order submit(Order order, List<CartItem> cartItems) {
 
         //把购物车中的物品加入订单
         List<OrderItem> orderItems = new ArrayList<OrderItem>(cartItems.size());
-        for (CartItem cartItem: cartItems){
+        for (CartItem cartItem: cartItems) {
             OrderItem orderItem = new OrderItem(cartItem);
             orderItems.add(orderItem);
         }
         order.setItems(orderItems);
         goodsService.clearCartItem(cartItems);
-
-
-
+    return null;
 
     }
 }

@@ -1,21 +1,40 @@
-package xmu.oomall.domain;
+package xmu.oomall.domain.order;
 
+
+import xmu.oomall.domain.CartItem;
+import xmu.oomall.domain.goods.Product;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * 订单明细
+ * @author  Ming Qiu
+ * @Description: 订单明细
  *  当用户删除一条明细时，这一对象会真实在数据库中删除
+ * @Date: Created in 16:08 2019/11/5
+ * @Modified By:
  */
 public class OrderItem {
 
     private Integer id;
-    private Integer number; //数量
-    private BigDecimal price; //价格
-    private BigDecimal dealPrice; //成交价格，用于退货
-    private Product product; //货品
+    /**
+     * 数量
+     */
+    private Integer quantity;
+    /**
+     * 价格
+     */
+    private BigDecimal price;
+    /**
+     * 成交价格，用于退货
+     */
+    private BigDecimal dealPrice;
+    /**
+     * 货品
+     */
+    private Product product;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
 
@@ -24,16 +43,29 @@ public class OrderItem {
      * @param cartItem 购物车对象
      */
     public OrderItem(CartItem cartItem) {
-        this.setNumber(cartItem.getNumber());
+        this.setQuantity(cartItem.getNumber());
         this.setProduct(cartItem.getProduct());
         this.setPrice(this.getProduct().getPurchasePrice());
+        this.setAddTime(LocalDateTime.now());
     }
+
+    /**
+     * 默认构造函数
+     */
+    public OrderItem() {
+        this.setAddTime(LocalDateTime.now());
+    }
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
+
 
     @Override
     public String toString() {
         return "OrderItem{" +
                 "id=" + id +
-                ", number=" + number +
+                ", number=" + quantity +
                 ", price=" + price +
                 ", dealPrice=" + dealPrice +
                 ", product=" + product +
@@ -63,12 +95,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public BigDecimal getPrice() {

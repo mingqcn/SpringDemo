@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Payment {
 
     private Integer id;
-    private String paySN; //付款编号
+    private String paySn; //付款编号
     private LocalDateTime payTime; //付款时间
     private Short payChannel; //付款渠道，微信，银行等等
     private LocalDateTime beginTime; //付款的开始时间 （在开始时间和结束时间之间才可以付款）
@@ -25,7 +25,7 @@ public class Payment {
     public String toString() {
         return "Payment{" +
                 "id=" + id +
-                ", paySN='" + paySN + '\'' +
+                ", paySN='" + paySn + '\'' +
                 ", payTime=" + payTime +
                 ", payChannel=" + payChannel +
                 ", beginTime=" + beginTime +
@@ -57,12 +57,12 @@ public class Payment {
         this.id = id;
     }
 
-    public String getPaySN() {
-        return paySN;
+    public String getPaySn() {
+        return paySn;
     }
 
-    public void setPaySN(String paySN) {
-        this.paySN = paySN;
+    public void setPaySn(String paySn) {
+        this.paySn = paySn;
     }
 
     public LocalDateTime getPayTime() {

@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xmu.oomall.controller.vo.OrderSubmitVO;
+import xmu.oomall.controller.vo.OrderSubmitVo;
 import xmu.oomall.domain.*;
+import xmu.oomall.domain.coupon.Coupon;
+import xmu.oomall.domain.order.Order;
+import xmu.oomall.domain.user.User;
 import xmu.oomall.service.*;
 
 
@@ -30,11 +33,11 @@ public class OrderController {
      * 提交订单
      *
      * @param userId 用户ID
-     * @param body   订单信息，{ cartId：xxx, addressId: xxx, couponId: xxx, message: xxx, grouponRulesId: xxx,  grouponLinkId: xxx}
+     * @param body   订单信息，{ cartId：xxx, couponId: xxx, message: xxx, address: {XXXX}}
      * @return 提交订单操作结果
      */
     @PostMapping("")
-    public Object submit(@RequestBody OrderSubmitVO submitVO) {
+    public Object submit(@RequestBody OrderSubmitVo submitVo) {
 
         //例子代码中把用户id强制设定为1
         User user = new User();
@@ -43,22 +46,17 @@ public class OrderController {
 
         Order newOrder = new Order();
         newOrder.setUser(user);
-        newOrder.setAddress(submitVO.getAddress());
-        ACoupon aCoupon = couponService.findACouponById(submitVO.getACoupon_id());
-        if (null != aCoupon){
-            newOrder.setCoupon(aCoupon);
+        newOrder.setAddress(submitVo.getAddress());
+        Coupon coupon = couponService.findACouponById(submitVo.getCouponId());
+        if (null != coupon){
+            newOrder.setCoupon(coupon);
         }
 
-        List<CartItem> cartItems = new ArrayList<CartItem>(submitVO.getCartItem_ids().size())
-        for (Integer cartId: submitVO.getCartItem_ids() ){
+        List<CartItem> cartItems = new ArrayList<CartItem>(submitVo.getCartItemIds().size());
+        for (Integer cartId: submitVo.getCartItemIds() ){
             cartItems.add(goodsService.findCartItemById(cartId));
         }
-        GroupOnRule groupOnRule = goodsService.findGroupOnRuleById(submitVO.getGroupOnRule_id());
 
-        if (groupOnRule.isExpired()){
-
-        }
-
-        return orderService.submit(newOrder, cartItems, groupOnRule);
+        return orderService.submit(newOrder, cartItems);
     }
 }

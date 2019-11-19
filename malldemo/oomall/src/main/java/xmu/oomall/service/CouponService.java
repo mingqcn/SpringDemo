@@ -1,6 +1,6 @@
 package xmu.oomall.service;
 
-import xmu.oomall.domain.ACoupon;
+import xmu.oomall.domain.coupon.Coupon;
 
 /**
  * @Author: Ming Qiu
@@ -16,5 +16,5 @@ public interface CouponService {
      * @return
      */
 
-    public ACoupon findACouponById(Integer id);
+    public Coupon findACouponById(Integer id);
 }

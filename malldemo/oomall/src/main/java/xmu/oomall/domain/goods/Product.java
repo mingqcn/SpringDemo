@@ -1,4 +1,4 @@
-package xmu.oomall.domain;
+package xmu.oomall.domain.goods;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,14 +11,48 @@ import java.util.Objects;
  */
 public class Product {
     private Integer id;
-    private String productSN; //货品编号
-    private String productPropery; //sku属性，用于描述特定货品，如红色，41码
-    private Integer stock; //库存量
-    private BigDecimal retailPrice; //零售价
-    private BigDecimal purchasePrice; //销售价
-    private Goods desc; //商品
+    /**
+     * 货品编号
+     */
+    private String productSN;
+    /**
+     * sku属性，用于描述特定货品，如红色，41码
+     */
+    private String productPropery;
+    /**
+     * 库存量
+     */
+    private Integer stock;
+    /**
+     * 零售价
+     */
+    private BigDecimal retailPrice;
+    /**
+     * 销售价
+     */
+    private BigDecimal purchasePrice;
+    /**
+     * 商品
+     */
+    private Goods desc;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+    private Boolean isDeleted = false;
+
+
+    /**
+     * 默认构造函数
+     */
+    public Product() {
+        this.setAddTime(LocalDateTime.now());
+    }
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
+
+
 
     @Override
     public String toString() {
@@ -32,13 +66,18 @@ public class Product {
                 ", desc=" + desc +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         Product product = (Product) o;
         return id.equals(product.id);
     }
@@ -96,6 +135,14 @@ public class Product {
         this.purchasePrice = purchasePrice;
     }
 
+    public Goods getDesc() {
+        return desc;
+    }
+
+    public void setDesc(Goods desc) {
+        this.desc = desc;
+    }
+
     public LocalDateTime getAddTime() {
         return addTime;
     }
@@ -112,11 +159,11 @@ public class Product {
         this.updateTime = updateTime;
     }
 
-    public Goods getDesc() {
-        return desc;
+    public Boolean getDeleted() {
+        return isDeleted;
     }
 
-    public void setDesc(Goods desc) {
-        this.desc = desc;
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

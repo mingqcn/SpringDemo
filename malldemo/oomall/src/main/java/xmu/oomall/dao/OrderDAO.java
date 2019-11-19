@@ -1,7 +1,7 @@
 package xmu.oomall.dao;
 
 import xmu.oomall.domain.CartItem;
-import xmu.oomall.domain.Order;
+import xmu.oomall.domain.order.Order;
 
 import java.util.List;
 

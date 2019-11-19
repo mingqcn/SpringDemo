@@ -136,19 +136,6 @@ public class JacksonUtil {
         return null;
     }
 
-    public static <T> T toObject(String json, Class<T> clazz) {
-        if (json == null) {
-            return null;
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.readValue(json, clazz);
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
     public static Object toNode(String json) {
         if (json == null) {
             return null;
