@@ -1,6 +1,7 @@
 package xmu.oomall.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import xmu.oomall.domain.coupon.Coupon;
 import xmu.oomall.domain.coupon.CouponRule;
@@ -13,7 +14,7 @@ import xmu.oomall.mapper.CouponMapper;
  * @Date: Created in 17:02 2019/11/5
  * @Modified By:
  **/
-@Repository
+@Component
 public class CouponDao {
     @Autowired
     private CouponMapper couponMapper;
