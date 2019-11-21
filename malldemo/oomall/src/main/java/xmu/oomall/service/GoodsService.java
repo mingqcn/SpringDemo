@@ -13,7 +13,6 @@ import java.util.List;
  * @Modified By:
  **/
 
-@Service
 public interface GoodsService {
 
     /**
@@ -22,13 +21,6 @@ public interface GoodsService {
      * @return cartItem对象
      */
     public CartItem findCartItemById(Integer id);
-
-    /**
-     * 用ID获得GroupOnRule对象
-     * @param id 对象ID
-     * @return GroupOnRule对象
-     */
-    public GroupOnRule findGroupOnRuleById(Integer id);
 
     /**
      * 清空购物车里的指定项目

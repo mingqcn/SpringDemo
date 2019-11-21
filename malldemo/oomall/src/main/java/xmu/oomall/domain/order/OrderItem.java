@@ -57,6 +57,16 @@ public class OrderItem {
         this.setAddTime(LocalDateTime.now());
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        OrderItem newItem = (OrderItem) super.clone();
+        newItem.setId(null);
+        newItem.setAddTime(LocalDateTime.now());
+        newItem.setUpdateTime(null);
+        newItem.setDeleted(false);
+        return newItem;
+    }
+
     /****************************************************
      * 生成代码
      ****************************************************/
@@ -66,7 +76,7 @@ public class OrderItem {
     public String toString() {
         return "OrderItem{" +
                 "id=" + id +
-                ", number=" + quantity +
+                ", quantity=" + quantity +
                 ", price=" + price +
                 ", dealPrice=" + dealPrice +
                 ", product=" + product +

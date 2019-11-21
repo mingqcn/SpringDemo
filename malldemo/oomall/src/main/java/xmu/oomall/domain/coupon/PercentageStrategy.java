@@ -1,6 +1,7 @@
 package xmu.oomall.domain.coupon;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -34,6 +35,10 @@ public class PercentageStrategy extends AbstractCouponStrategy {
         return  itemPrice.subtract(this.percentage.multiply(itemPrice));
     }
 
+    @Override
+    protected BigDecimal getError(BigDecimal totalPrice, BigDecimal dealPrice) {
+        return dealPrice.subtract(totalPrice.multiply(this.percentage).setScale(2, RoundingMode.HALF_UP));
+    }
 
 
     /****************************************************

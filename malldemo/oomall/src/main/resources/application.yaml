@@ -2,17 +2,13 @@ management:
   endpoint:
     health:
       show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: *
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.52.88.176:3306/cib
-    data-username: cib
-    password: 123
+    url: jdbc:mysql://47.52.88.176:3306/oomall
+    data-username: ooadUser
+    password: ooad
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       #初始化时建立物理连接的个数
@@ -37,13 +33,6 @@ spring:
 
 
 mybatis:
-  type-aliases-package: xmu.demo.domain
-  mapper-locations: classpath:xmu.demo.mapper/*.xml
+  type-aliases-package: xmu.oomall.domain
+  mapper-locations: classpath:xmu.oomall.mapper/*.xml
 
-logging:
-  #设置日志打印级别
-  level:
-    root: warning
-    xmu.demo: debug
-  #设置log文件输出地址
-  path: c://Users//mingqiu//log

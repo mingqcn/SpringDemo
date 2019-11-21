@@ -1,5 +1,6 @@
 package xmu.oomall.domain.coupon;
 
+import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.order.Order;
 
 import java.math.BigDecimal;
@@ -163,7 +164,7 @@ public class Coupon {
                 ", couponRule=" + couponRule +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
-                ", beDeleted=" + beDeleted +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 
