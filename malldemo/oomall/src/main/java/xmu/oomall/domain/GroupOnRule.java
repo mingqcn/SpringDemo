@@ -14,10 +14,15 @@ import java.util.Objects;
  **/
 public class GroupOnRule{
     private Integer id;
-    private LocalDateTime endTime; //团购活动结束时间
+    /**
+     * 团购活动结束时间
+     */
+
+    private LocalDateTime endTime;
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+    private Boolean beDeleted = false;
 
     /**
      * 检查团购活动是否过期
@@ -27,6 +32,10 @@ public class GroupOnRule{
         return this.getEndTime().isBefore(LocalDateTime.now());
     }
 
+    /****************************************************
+     * 生成代码
+     ****************************************************/
+
     @Override
     public String toString() {
         return "GroupOnRule{" +
@@ -34,13 +43,18 @@ public class GroupOnRule{
                 ", endTime=" + endTime +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
+                ", beDeleted=" + beDeleted +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         GroupOnRule that = (GroupOnRule) o;
         return getId().equals(that.getId());
     }
@@ -80,5 +94,13 @@ public class GroupOnRule{
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Boolean getBeDeleted() {
+        return beDeleted;
+    }
+
+    public void setBeDeleted(Boolean beDeleted) {
+        this.beDeleted = beDeleted;
     }
 }

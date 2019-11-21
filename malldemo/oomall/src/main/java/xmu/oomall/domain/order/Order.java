@@ -1,23 +1,191 @@
 package xmu.oomall.domain.order;
 
-import xmu.oomall.domain.*;
 import xmu.oomall.domain.coupon.Coupon;
+import xmu.oomall.domain.Payment;
 import xmu.oomall.domain.user.Address;
 import xmu.oomall.domain.user.User;
-import xmu.oomall.util.JacksonUtil;
+import xmu.oomall.util.Common;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 /**
- * @author  Ming Qiu
- * @Description: 订单
+ * @Author: Ming Qiu
+ * @Description:
  * @Date: Created in 16:08 2019/11/5
  * @Modified By:
- */
+ **/
 public class Order {
-    private OrderPo realObj;
+    private Integer id;
+    /**
+     * 订单序号
+     */
+    private String orderSn;
+    /**
+     * 地址
+     */
+    private Address address;
+    /**
+     * 订单状态
+     */
+    private Integer orderStatus;
+    /**
+     * 留言
+     */
+    private String message;
+    /**
+     * 订单费用
+     */
+    private BigDecimal goodPrice;
+    /**
+     * 优惠卷减免费用
+     */
+    private BigDecimal couponPrice;
+    /**
+     * 配送费用
+     */
+    private BigDecimal freightPrice;
+    /**
+     * 积分费用
+     */
+    private BigDecimal integralPrice;
+    /**
+     * 订单中货品件数
+     */
+    private Integer quantity;
+    /**
+     * 订单毛重 单位克
+     */
+    private Integer grossWeight;
+    /**
+     * 快递单编号
+     */
+    private String shipSn;
+    /**
+     * 发货快递公司
+     */
+    private Short shipChannel;
+    /**
+     * 发货时间
+     */
+    private LocalDateTime shipTime;
+    /**
+     * 用户收货确认时间
+     */
+    private LocalDateTime confirmTime;
+    /**
+     * 订单关闭时间
+     */
+    private LocalDateTime endTime;
+    /**
+     * 订单明细
+     */
+    private List<OrderItem> items;
+    /**
+     *付款记录
+     */
+    private List<Payment> payments;
+    /**
+     * 下单用户
+     */
+    private User user;
+    /**
+     * 使用的优惠卷（一个订单只能使用一张优惠卷）
+     */
+    private Coupon coupon;
+
+    private LocalDateTime addTime;
+    private LocalDateTime updateTime;
+    private Boolean beDeleted = false;
+
+    /**
+     * 订单号起头字母
+     */
+    private final static String PREFIX = "O";
+    /**
+     * 尾部随机数长度
+     */
+    private final static int RANDOM_LEN = 1;
+    /**
+     * 订单的状态
+     * <p>
+     *
+     * <p>
+     * 用户操作：
+     * 当101用户未付款时，此时用户可以进行的操作是取消订单，或者付款操作
+     * 当201支付完成而商家未发货时，此时用户可以取消订单并申请退款
+     * 当301商家已发货时，此时用户可以有确认收货的操作
+     * 当401用户确认收货以后，此时用户可以进行的操作是删除订单，评价商品，或者再次购买
+     * 当402系统自动确认收货以后，此时用户可以删除订单，评价商品，或者再次购买
+     */
+    public enum Status {
+        /**
+         * 订单状态：
+         * NEW：101 订单生成，未支付；NOTPAID_CANCELLED:102，下单后未支付用户取消；TIMEOUT:103，下单后未支付超时系统自动取消
+         * PAID:201 支付完成，商家未发货；PAID_CANCELLED:202，订单生产，已付款未发货，但是退款取消；REFUND:203 已退款
+         * DELIVERED:301 商家发货，用户未确认；
+         * USER_CONFIRMED: 401 用户确认收货； AUTO_CONFIRMED：402 用户没有确认收货超过一定时间，系统自动确认收货；
+         */
+        NEW("未支付", Integer.valueOf(101)),
+        NOTPAID_CANCELLED("未付款取消", Integer.valueOf(102)),
+        TIMEOUT("付款超时", Integer.valueOf(103)),
+        PAID("已付款", Integer.valueOf(201)),
+        PAID_CANCELLED("已付款取消", Integer.valueOf(202)),
+        REFUND("已退款", Integer.valueOf(203)),
+        DELIVERED("已发货", Integer.valueOf(301)),
+        USER_CONFIRM("用户收货", Integer.valueOf(401)),
+        AUTO_CONFIRM("默认收货", Integer.valueOf(402));
+
+        /**
+         * 值
+         */
+        private final Integer value;
+
+        /**
+         * 名称
+         */
+        private final String name;
+
+        /**
+         * 构造函数
+         * @param name 名称
+         * @param value 值
+         */
+        Status(String name, Integer value) {
+            this.value = value;
+            this.name = name;
+        }
+
+        /**
+         * 获得值
+         * @return 值
+         */
+        public Integer getValue() {
+            return this.value;
+        }
+
+        /**
+         * 获得名称
+         * @return 名
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+
+    public Order() {
+        this.orderStatus = Status.NEW.getValue();
+        this.orderSn = PREFIX+ Common.getRandomNum(RANDOM_LEN);
+        this.addTime = LocalDateTime.now();
+    }
 
     /**
      * 计算订单的总费用和货物件数
@@ -43,209 +211,235 @@ public class Order {
         this.setCouponPrice(dealPrice);
     }
 
-    /**
-     * 获得地址
-     * JSON格式{ name：“XXX”, obj:{XXX}}
-      * @return 地址对象
-     */
-    public Address getAddress() {
-        return JacksonUtil.parseObject(realObj.getAddress(),"obj", Address.class);
+
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderSn='" + orderSn + '\'' +
+                ", address='" + address + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", message='" + message + '\'' +
+                ", goodPrice=" + goodPrice +
+                ", couponPrice=" + couponPrice +
+                ", freightPrice=" + freightPrice +
+                ", integralPrice=" + integralPrice +
+                ", quantity=" + quantity +
+                ", grossWeight=" + grossWeight +
+                ", shipSn='" + shipSn + '\'' +
+                ", shipChannel=" + shipChannel +
+                ", shipTime=" + shipTime +
+                ", confirmTime=" + confirmTime +
+                ", endTime=" + endTime +
+                ", items=" + items +
+                ", payments=" + payments +
+                ", user=" + user +
+                ", coupon=" + coupon +
+                ", addTime=" + addTime +
+                ", updateTime=" + updateTime +
+                ", beDeleted=" + beDeleted +
+                '}';
     }
 
-    /**
-     * 设置定制
-     * @param address 地址对象
-     */
-    public void setAddress(Address address) {
-        Map<String, Object> addressMap= new HashMap<String, Object>();
-        addressMap.put("name", Address.class.getName());
-        addressMap.put("obj", address);
-        realObj.setAddress(JacksonUtil.toJson(addressMap));
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Order orderPo = (Order) o;
+        return getId().equals(orderPo.getId());
     }
 
-    /****************************************************
-     * 生成代码
-     ****************************************************/
-
-    public Order() {
-        this.realObj = new OrderPo();
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
-
-    public Order(OrderPo realObj) {
-        this.realObj = realObj;
-    }
-
 
     public Integer getId() {
-        return realObj.getId();
+        return id;
     }
 
     public void setId(Integer id) {
-        realObj.setId(id);
+        this.id = id;
     }
 
-    public String getOrderSN() {
-        return realObj.getOrderSn();
+    public String getOrderSn() {
+        return orderSn;
     }
 
-    public void setOrderSN(String orderSN) {
-        realObj.setOrderSn(orderSN);
+    public void setOrderSn(String orderSn) {
+        this.orderSn = orderSn;
     }
 
     public Integer getOrderStatus() {
-        return realObj.getOrderStatus();
+        return orderStatus;
     }
 
     public void setOrderStatus(Integer orderStatus) {
-        realObj.setOrderStatus(orderStatus);
+        this.orderStatus = orderStatus;
     }
 
     public String getMessage() {
-        return realObj.getMessage();
+        return message;
     }
 
     public void setMessage(String message) {
-        realObj.setMessage(message);
+        this.message = message;
     }
 
     public BigDecimal getGoodPrice() {
-        return realObj.getGoodPrice();
+        return goodPrice;
     }
 
     public void setGoodPrice(BigDecimal goodPrice) {
-        realObj.setGoodPrice(goodPrice);
+        this.goodPrice = goodPrice;
     }
 
     public BigDecimal getCouponPrice() {
-        return realObj.getCouponPrice();
+        return couponPrice;
     }
 
     public void setCouponPrice(BigDecimal couponPrice) {
-        realObj.setCouponPrice(couponPrice);
+        this.couponPrice = couponPrice;
     }
 
     public BigDecimal getFreightPrice() {
-        return realObj.getFreightPrice();
+        return freightPrice;
     }
 
     public void setFreightPrice(BigDecimal freightPrice) {
-        realObj.setFreightPrice(freightPrice);
+        this.freightPrice = freightPrice;
     }
 
     public BigDecimal getIntegralPrice() {
-        return realObj.getIntegralPrice();
+        return integralPrice;
     }
 
     public void setIntegralPrice(BigDecimal integralPrice) {
-        realObj.setIntegralPrice(integralPrice);
+        this.integralPrice = integralPrice;
     }
 
-    public String getShipSN() {
-        return realObj.getShipSn();
+    public String getShipSn() {
+        return shipSn;
     }
 
-    public void setShipSN(String shipSN) {
-        realObj.setShipSn(shipSN);
+    public void setShipSn(String shipSn) {
+        this.shipSn = shipSn;
     }
 
     public Short getShipChannel() {
-        return realObj.getShipChannel();
+        return shipChannel;
     }
 
     public void setShipChannel(Short shipChannel) {
-        realObj.setShipChannel(shipChannel);
+        this.shipChannel = shipChannel;
     }
 
     public LocalDateTime getShipTime() {
-        return realObj.getShipTime();
+        return shipTime;
     }
 
     public void setShipTime(LocalDateTime shipTime) {
-        realObj.setShipTime(shipTime);
+        this.shipTime = shipTime;
     }
 
     public LocalDateTime getConfirmTime() {
-        return realObj.getConfirmTime();
+        return confirmTime;
     }
 
     public void setConfirmTime(LocalDateTime confirmTime) {
-        realObj.setConfirmTime(confirmTime);
+        this.confirmTime = confirmTime;
     }
 
     public LocalDateTime getEndTime() {
-        return realObj.getEndTime();
+        return endTime;
     }
 
     public void setEndTime(LocalDateTime endTime) {
-        realObj.setEndTime(endTime);
+        this.endTime = endTime;
     }
 
     public List<OrderItem> getItems() {
-        return realObj.getItems();
+        return items;
     }
 
     public void setItems(List<OrderItem> items) {
-        realObj.setItems(items);
+        this.items = items;
     }
 
     public List<Payment> getPayments() {
-        return realObj.getPayments();
+        return payments;
     }
 
     public void setPayments(List<Payment> payments) {
-        realObj.setPayments(payments);
+        this.payments = payments;
     }
 
     public User getUser() {
-        return realObj.getUser();
+        return user;
     }
 
     public void setUser(User user) {
-        realObj.setUser(user);
+        this.user = user;
     }
 
     public Coupon getCoupon() {
-        return realObj.getCoupon();
+        return coupon;
     }
 
     public void setCoupon(Coupon coupon) {
-        realObj.setCoupon(coupon);
+        this.coupon = coupon;
     }
 
     public Integer getQuantity() {
-        return realObj.getQuantity();
+        return quantity;
     }
 
     public void setQuantity(Integer quantity) {
-        realObj.setQuantity(quantity);
+        this.quantity = quantity;
     }
 
     public Integer getGrossWeight() {
-        return realObj.getGrossWeight();
+        return grossWeight;
     }
 
     public void setGrossWeight(Integer grossWeight) {
-        realObj.setGrossWeight(grossWeight);
+        this.grossWeight = grossWeight;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public LocalDateTime getAddTime() {
-        return realObj.getAddTime();
+        return addTime;
     }
 
     public void setAddTime(LocalDateTime addTime) {
-        realObj.setAddTime(addTime);
+        this.addTime = addTime;
     }
 
     public LocalDateTime getUpdateTime() {
-        return realObj.getUpdateTime();
+        return updateTime;
     }
 
     public void setUpdateTime(LocalDateTime updateTime) {
-        realObj.setUpdateTime(updateTime);
+        this.updateTime = updateTime;
     }
 
-    public OrderPo getRealObj() {
-        return realObj;
+    public Boolean getBeDeleted() {
+        return beDeleted;
     }
 
+    public void setBeDeleted(Boolean beDeleted) {
+        this.beDeleted = beDeleted;
+    }
 }

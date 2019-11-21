@@ -38,7 +38,7 @@ public class Product {
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
-    private Boolean isDeleted = false;
+    private Boolean beDeleted = false;
 
 
     /**
@@ -66,7 +66,7 @@ public class Product {
                 ", desc=" + desc +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
-                ", isDeleted=" + isDeleted +
+                ", beDeleted=" + beDeleted +
                 '}';
     }
 
@@ -159,11 +159,11 @@ public class Product {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
-        return isDeleted;
+    public Boolean getBeDeleted() {
+        return beDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
+    public void setBeDeleted(Boolean deleted) {
+        beDeleted = deleted;
     }
 }

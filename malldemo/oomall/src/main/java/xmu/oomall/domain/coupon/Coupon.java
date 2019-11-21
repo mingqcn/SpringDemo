@@ -1,6 +1,5 @@
 package xmu.oomall.domain.coupon;
 
-import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.order.Order;
 
 import java.math.BigDecimal;
@@ -44,7 +43,7 @@ public class Coupon {
     private CouponRule couponRule;
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
-    private Boolean isDeleted = false;
+    private Boolean beDeleted = false;
 
     /**
      * 优惠卷的状态
@@ -164,7 +163,7 @@ public class Coupon {
                 ", couponRule=" + couponRule +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
-                ", isDeleted=" + isDeleted +
+                ", beDeleted=" + beDeleted +
                 '}';
     }
 
@@ -250,11 +249,11 @@ public class Coupon {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
-        return isDeleted;
+    public Boolean getBeDeleted() {
+        return beDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
+    public void setBeDeleted(Boolean beDeleted) {
+        this.beDeleted = beDeleted;
     }
 }

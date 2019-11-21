@@ -57,15 +57,15 @@ public class Goods {
     /**
      * 商品状态，下架，上架，
      */
-    private Short status;
+    private Integer status;
     /**
      * 是否人气推荐，如果设置则可以在人气推荐页面展示
      */
-    private Boolean isHot;
+    private Boolean beHot = false;
     /**
      * 是否新品首发，如果设置则可以在新品首发页面展示
      */
-    private Boolean isNew;
+    private Boolean beNew = false;
     /**
      * 商品宣传图片列表，采用JSON数组格式
      */
@@ -88,6 +88,8 @@ public class Goods {
     private List<Product> products;
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+    private Boolean beDeleted = false;
+
 
     public static Goods ALL_GOODS = new Goods(0);
 
@@ -100,15 +102,11 @@ public class Goods {
         this.setAddTime(LocalDateTime.now());
     }
 
-    /****************************************************
-     * 生成代码
-     ****************************************************/
-
     @Override
     public String toString() {
         return "Goods{" +
                 "id=" + id +
-                ", goodsSN='" + goodsSn + '\'' +
+                ", goodsSn='" + goodsSn + '\'' +
                 ", name='" + name + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", englishName='" + englishName + '\'' +
@@ -120,8 +118,8 @@ public class Goods {
                 ", grossWeight=" + grossWeight +
                 ", netWeight=" + netWeight +
                 ", status=" + status +
-                ", isHot=" + isHot +
-                ", isNew=" + isNew +
+                ", beHot=" + beHot +
+                ", beNew=" + beNew +
                 ", gallery='" + gallery + '\'' +
                 ", brief='" + brief + '\'' +
                 ", picUrl='" + picUrl + '\'' +
@@ -129,13 +127,24 @@ public class Goods {
                 ", products=" + products +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
+                ", beDeleted=" + beDeleted +
                 '}';
     }
 
+    /****************************************************
+     * 生成代码
+     ****************************************************/
+
+
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Goods goods = (Goods) o;
         return id.equals(goods.getId());
     }
@@ -242,11 +251,11 @@ public class Goods {
     }
 
     public Boolean getNew() {
-        return isNew;
+        return beNew;
     }
 
     public void setNew(Boolean aNew) {
-        isNew = aNew;
+        beNew = aNew;
     }
 
     public LocalDateTime getAddTime() {
@@ -265,20 +274,20 @@ public class Goods {
         this.updateTime = updateTime;
     }
 
-    public Short getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Short status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
     public Boolean getHot() {
-        return isHot;
+        return beHot;
     }
 
     public void setHot(Boolean hot) {
-        isHot = hot;
+        beHot = hot;
     }
 
     public String getGallery() {
@@ -321,4 +330,27 @@ public class Goods {
         this.products = products;
     }
 
+    public Boolean getBeHot() {
+        return beHot;
+    }
+
+    public void setBeHot(Boolean beHot) {
+        this.beHot = beHot;
+    }
+
+    public Boolean getBeNew() {
+        return beNew;
+    }
+
+    public void setBeNew(Boolean beNew) {
+        this.beNew = beNew;
+    }
+
+    public Boolean getBeDeleted() {
+        return beDeleted;
+    }
+
+    public void setBeDeleted(Boolean beDeleted) {
+        this.beDeleted = beDeleted;
+    }
 }

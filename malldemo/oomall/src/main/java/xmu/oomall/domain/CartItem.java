@@ -15,19 +15,33 @@ import java.util.Objects;
  **/
 public class CartItem {
     private Integer id;
-    private Integer number; //数量
-    private User owner; //归属的用户
-    private Product product; //货品
+    /**
+     * 数量
+     */
+    private Integer quatity;
+    /**
+     * 归属的用户id
+     */
+    Integer  userId;
+    /**
+     * 货品
+     */
+    private Product product;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
 
 
     @Override
     public String toString() {
         return "CartItem{" +
                 "id=" + id +
-                ", number=" + number +
-                ", owner=" + owner +
+                ", quatity=" + quatity +
+                ", userId=" + userId +
                 ", product=" + product +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
@@ -36,8 +50,12 @@ public class CartItem {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CartItem cartItem = (CartItem) o;
         return id.equals(cartItem.id);
     }
@@ -55,20 +73,20 @@ public class CartItem {
         this.id = id;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getQuatity() {
+        return quatity;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setQuatity(Integer quatity) {
+        this.quatity = quatity;
     }
 
-    public User getOwner() {
-        return owner;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Product getProduct() {

@@ -12,14 +12,36 @@ import java.util.Objects;
 public class Payment {
 
     private Integer id;
-    private String paySn; //付款编号
-    private LocalDateTime payTime; //付款时间
-    private Short payChannel; //付款渠道，微信，银行等等
-    private LocalDateTime beginTime; //付款的开始时间 （在开始时间和结束时间之间才可以付款）
-    private LocalDateTime endTime; //付款的结束时间
-    private Short status; //付款状态，待付款，已付款，未付款（规定时间内未付款）
+    /**
+     * 付款编号
+     */
+    private String paySn;
+    /**
+     * 付款时间
+     */
+    private LocalDateTime payTime;
+    /**
+     * 付款渠道，微信，银行等等
+     */
+    private Short payChannel;
+    /**
+     * 付款的开始时间 （在开始时间和结束时间之间才可以付款）
+     */
+    private LocalDateTime beginTime;
+    /**
+     * 付款的结束时间
+     */
+    private LocalDateTime endTime;
+    /**
+     * 付款状态，待付款，已付款，未付款（规定时间内未付款）
+     */
+    private Integer status;
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
 
     @Override
     public String toString() {
@@ -97,11 +119,11 @@ public class Payment {
         this.endTime = endTime;
     }
 
-    public Short getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Short status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

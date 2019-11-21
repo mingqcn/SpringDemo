@@ -37,13 +37,14 @@ public class OrderItem {
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
+    private Boolean beDeleted = false;
 
     /**
      * 由购物车对象构造订单明细对象
      * @param cartItem 购物车对象
      */
     public OrderItem(CartItem cartItem) {
-        this.setQuantity(cartItem.getNumber());
+        this.setQuantity(cartItem.getQuatity());
         this.setProduct(cartItem.getProduct());
         this.setPrice(this.getProduct().getPurchasePrice());
         this.setAddTime(LocalDateTime.now());
@@ -76,8 +77,12 @@ public class OrderItem {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         OrderItem orderItem = (OrderItem) o;
         return id.equals(orderItem.id);
     }
@@ -141,5 +146,13 @@ public class OrderItem {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Boolean getBeDeleted() {
+        return beDeleted;
+    }
+
+    public void setBeDeleted(Boolean beDeleted) {
+        this.beDeleted = beDeleted;
     }
 }

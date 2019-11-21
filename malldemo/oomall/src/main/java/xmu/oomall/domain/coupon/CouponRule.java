@@ -2,7 +2,6 @@ package xmu.oomall.domain.coupon;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import xmu.oomall.domain.GroupOnRule;
 import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.order.OrderItem;
@@ -241,12 +240,12 @@ public class CouponRule {
         realObj.setUpdateTime(updateTime);
     }
 
-    public Boolean getDeleted() {
-        return realObj.getDeleted();
+    public Boolean getBeDeleted() {
+        return realObj.getBeDeleted();
     }
 
-    public void setDeleted(Boolean deleted) {
-        realObj.setDeleted(deleted);
+    public void setBeDeleted(Boolean deleted) {
+        realObj.setBeDeleted(deleted);
     }
 
 }
