@@ -1,0 +1,39 @@
+--
+-- Dumping data for table `cart_item`
+--
+
+/*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
+INSERT INTO `cart_item` VALUES (1,2,'2019-11-24 18:22:31',NULL,1,1),(2,3,'2019-11-24 18:22:49',NULL,1,2);
+/*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
+
+
+--
+-- Dumping data for table `coupon`
+--
+
+
+/*!40000 ALTER TABLE `coupon` DISABLE KEYS */;
+INSERT INTO `coupon` VALUES (1,'SF0001','2019-11-23 21:25:37','2019-12-23 21:25:44',0,'2019-11-23 21:26:03',NULL,0,1),(2,'SF0002','2019-12-24 13:32:33','2020-11-24 13:32:44',0,'2019-11-24 13:32:55',NULL,0,1),(3,'SF0003','2019-10-24 13:34:18','2019-11-23 13:34:27',0,'2019-11-24 13:34:35',NULL,0,2),(4,'SF0004','2019-11-24 13:35:16','2019-12-24 13:35:21',1,'2019-11-24 13:35:31',NULL,0,2);
+/*!40000 ALTER TABLE `coupon` ENABLE KEYS */;
+
+
+--
+-- Dumping data for table `coupon_rule`
+--
+
+
+/*!40000 ALTER TABLE `coupon_rule` DISABLE KEYS */;
+INSERT INTO `coupon_rule` VALUES (1,'测试优惠卷1',NULL,'2019-11-23 21:28:30',NULL,NULL,1,'','2019-11-23 21:28:39',NULL,0,NULL),(2,'测试优惠卷2',NULL,'2019-11-24 13:36:25',NULL,NULL,4,'','2019-11-24 13:36:43',NULL,0,NULL);
+/*!40000 ALTER TABLE `coupon_rule` ENABLE KEYS */;
+
+
+--
+-- Dumping data for table `product`
+--
+
+
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,'P001',NULL,10,100,99,'2019-11-24 18:20:45',NULL,0,1),(2,'P002',NULL,11,101,100,'2019-11-24 18:21:39',NULL,0,2);
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

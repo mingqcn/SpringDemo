@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  * 货品
+ * @author  Ming Qiu
  * 特定规格的商品被称为货品，如红色，41码的运动鞋被称为货品
  * 该对象不可以删除
  */

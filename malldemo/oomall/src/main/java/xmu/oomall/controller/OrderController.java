@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xmu.oomall.controller.vo.OrderSubmitVo;
-import xmu.oomall.domain.*;
+import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.coupon.Coupon;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.user.User;
@@ -16,6 +16,9 @@ import xmu.oomall.service.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Ming Qiu
+ */
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -32,8 +35,7 @@ public class OrderController {
     /**
      * 提交订单
      *
-     * @param userId 用户ID
-     * @param body   订单信息，{ cartId：xxx, couponId: xxx, message: xxx, address: {XXXX}}
+     * @param submitVo   订单信息
      * @return 提交订单操作结果
      */
     @PostMapping("")
@@ -47,7 +49,7 @@ public class OrderController {
         Order newOrder = new Order();
         newOrder.setUser(user);
         newOrder.setAddress(submitVo.getAddress());
-        Coupon coupon = couponService.findACouponById(submitVo.getCouponId());
+        Coupon coupon = couponService.findCouponById(submitVo.getCouponId());
         if (null != coupon){
             newOrder.setCoupon(coupon);
         }

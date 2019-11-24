@@ -1,7 +1,7 @@
 package xmu.oomall.service;
 
-import xmu.oomall.domain.CartItem;
-import xmu.oomall.domain.GroupOnRule;
+import org.springframework.stereotype.Service;
+import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.order.Order;
 
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
  * @Date: Created in 15:47 2019/11/5
  * @Modified By:
  **/
+@Service
 public interface OrderService {
 
     /**

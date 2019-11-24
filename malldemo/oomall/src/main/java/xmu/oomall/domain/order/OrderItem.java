@@ -1,7 +1,7 @@
 package xmu.oomall.domain.order;
 
 
-import xmu.oomall.domain.CartItem;
+import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.goods.Product;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import java.util.Objects;
  * @Date: Created in 16:08 2019/11/5
  * @Modified By:
  */
-public class OrderItem {
+public class OrderItem implements Cloneable {
 
     private Integer id;
     /**
@@ -63,7 +63,6 @@ public class OrderItem {
         newItem.setId(null);
         newItem.setAddTime(LocalDateTime.now());
         newItem.setUpdateTime(null);
-        newItem.setDeleted(false);
         return newItem;
     }
 

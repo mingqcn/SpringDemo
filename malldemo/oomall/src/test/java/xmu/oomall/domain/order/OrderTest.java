@@ -20,8 +20,7 @@ class OrderTest {
 
     @BeforeEach
     void setUp() {
-        OrderPo orderPo = new OrderPo();
-        orderPo.setAddress("{\"name\":\"xmu.oomall.domain.user.Address\", \"obj\":{\"name\":\"姓名\",\"province\":\"湖南\",\"city\":\"长沙\"}}");
+        Order orderPo = new Order();
         List<OrderItem> items = new ArrayList<OrderItem>(5);
 
         OrderItem item = new OrderItem();
@@ -67,7 +66,7 @@ class OrderTest {
 
         orderPo.setItems(items);
 
-        this.order = new Order(orderPo);
+        this.order = orderPo;
 
         CouponRulePo realObj = new CouponRulePo();
         realObj.setStrategy("{\"name\":\"xmu.oomall.domain.coupon.CashOffStrategy\", \"obj\":{\"threshold\":100.01, \"offCash\":10.01}}");
@@ -79,26 +78,6 @@ class OrderTest {
     @Test
     void cacuDealPrice() {
 
-
     }
 
-    @Test
-    void getAddress() {
-        Address a = this.order.getAddress();
-        assertEquals(a.getName(), "姓名");
-        assertEquals(a.getProvince(), "湖南");
-        assertEquals(a.getCity(),"长沙");
-    }
-
-    @Test
-    void setAddress() {
-        Address a = new Address();
-        a.setName("张山");
-        a.setProvince("福建");
-        a.setCity("厦门");
-        a.setCounty("同安");
-        this.order.setAddress(a);
-        OrderPo realObj = this.order.getRealObj();
-        assertEquals(realObj.getAddress(),"{\"obj\":{\"id\":null,\"name\":\"张山\",\"province\":\"福建\",\"city\":\"厦门\",\"county\":\"同安\",\"addressDetail\":null,\"tel\":null,\"default\":false},\"name\":\"xmu.oomall.domain.user.Address\"}");
-    }
 }

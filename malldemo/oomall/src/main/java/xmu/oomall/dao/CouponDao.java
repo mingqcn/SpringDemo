@@ -14,12 +14,14 @@ import xmu.oomall.mapper.CouponMapper;
  * @Date: Created in 17:02 2019/11/5
  * @Modified By:
  **/
+
 @Component
 public class CouponDao {
+
     @Autowired
     private CouponMapper couponMapper;
 
-    public Coupon findACouponById(Integer id) {
+    public Coupon findCouponById(Integer id) {
         Coupon coupon = couponMapper.findCouponById(id);
         CouponRulePo couponRulePo = couponMapper.findCouponRuleById(coupon.getCouponRuleId());
         CouponRule couponRule = new CouponRule(couponRulePo);

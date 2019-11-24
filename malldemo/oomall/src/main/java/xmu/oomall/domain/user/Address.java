@@ -37,7 +37,7 @@ public class Address {
     /**
      * 是否是默认地址
      */
-    private boolean bDefault;
+    private boolean beDefault;
 
     @Override
     public String toString() {
@@ -49,7 +49,7 @@ public class Address {
                 ", county='" + county + '\'' +
                 ", address_detail='" + addressDetail + '\'' +
                 ", tel='" + tel + '\'' +
-                ", bDefault=" + bDefault +
+                ", beDefault=" + beDefault +
                 '}';
     }
 
@@ -126,11 +126,11 @@ public class Address {
         this.tel = tel;
     }
 
-    public boolean isbDefault() {
-        return bDefault;
+    public boolean isBeDefault() {
+        return beDefault;
     }
 
-    public void setbDefault(boolean bDefault) {
-        this.bDefault = bDefault;
+    public void setBeDefault(boolean beDefault) {
+        this.beDefault = beDefault;
     }
 }

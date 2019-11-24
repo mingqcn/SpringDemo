@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
-		<groupId>xmu</groupId>
-		<artifactId>mall-demo</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../</relativePath>
-	</parent>
+        <groupId>xmu</groupId>
+        <artifactId>mall-demo</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
 
-	<groupId>xmu</groupId>
-	<artifactId>oomall</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>oomall</name>
-	<description>examples in litemall</description>
-	<packaging>jar</packaging>
+    <groupId>xmu</groupId>
+    <artifactId>oomall</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>oomall</name>
+    <description>examples in litemall</description>
+    <packaging>jar</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>xmu.oomall.OoMallApplication</mainClass>
+                </configuration>
+            </plugin>
 
+        </plugins>
+    </build>
 </project>

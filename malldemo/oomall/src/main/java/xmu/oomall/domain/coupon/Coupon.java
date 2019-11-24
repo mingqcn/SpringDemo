@@ -1,9 +1,8 @@
 package xmu.oomall.domain.coupon;
 
-import xmu.oomall.domain.goods.Goods;
+import org.apache.ibatis.type.Alias;
 import xmu.oomall.domain.order.Order;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +13,7 @@ import java.util.Objects;
  * @Date: Created in 14:10 2019/11/5
  * @Modified By:
  **/
+@Alias("coupon")
 public class Coupon {
 
     /**
@@ -42,6 +42,11 @@ public class Coupon {
      * 所属的优惠卷类别
      */
     private CouponRule couponRule;
+    /**
+     * 所属的优惠卷类别id
+     */
+    private Integer couponRuleId;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
     private Boolean beDeleted = false;
@@ -50,9 +55,18 @@ public class Coupon {
      * 优惠卷的状态
      */
     public enum Status {
-        NOT_USED("未用", Integer.valueOf(0)),
-        USED("已用", Integer.valueOf(1)),
-        EXPIRED("过期", Integer.valueOf(2));
+        /**
+         * 未用
+         */
+        NOT_USED("未用", 0),
+        /**
+         * 已用
+         */
+        USED("已用", 1),
+        /**
+         * 过期
+         */
+        EXPIRED("过期", 2);
 
         /**
          * 值
@@ -98,7 +112,6 @@ public class Coupon {
 
     /**
      * 判断某个优惠卷是否能用
-     *
      * @return
      */
     public boolean isReadyToUse() {
@@ -114,12 +127,10 @@ public class Coupon {
      * @param order 订单
      * @return 优惠的费用
      */
-    public BigDecimal getReductPrice(Order order) {
-        BigDecimal reductPrice = BigDecimal.ZERO;
+    public void cacuCouponPrice(Order order) {
         if (this.isReadyToUse()){
-            reductPrice = this.getCouponRule().getReductPrice(order);
+            this.getCouponRule().cacuCouponPrice(order);
         }
-        return reductPrice;
     }
 
     /**
@@ -164,7 +175,7 @@ public class Coupon {
                 ", couponRule=" + couponRule +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
-                ", isDeleted=" + isDeleted +
+                ", isDeleted=" + beDeleted +
                 '}';
     }
 
@@ -232,6 +243,14 @@ public class Coupon {
 
     public void setCouponRule(CouponRule couponRule) {
         this.couponRule = couponRule;
+    }
+
+    public Integer getCouponRuleId() {
+        return couponRuleId;
+    }
+
+    public void setCouponRuleId(Integer couponRuleId) {
+        this.couponRuleId = couponRuleId;
     }
 
     public LocalDateTime getAddTime() {

@@ -1,8 +1,8 @@
 package xmu.oomall.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import xmu.oomall.domain.CartItem;
-import xmu.oomall.domain.GroupOnRule;
+import org.springframework.stereotype.Service;
+import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.order.OrderItem;
 import xmu.oomall.service.GoodsService;
@@ -17,6 +17,7 @@ import java.util.List;
  * @Date: Created in 16:51 2019/11/5
  * @Modified By:
  **/
+@Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired

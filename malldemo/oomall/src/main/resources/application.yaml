@@ -1,38 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: oomall
+  profiles:
+    active: test
+  output:
+    ansi:
+      enabled: detect
+
 management:
   endpoint:
     health:
       show-details: always
-
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.52.88.176:3306/oomall
-    data-username: ooadUser
-    password: ooad
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      #初始化时建立物理连接的个数
-      initial-size: 3
-        neophyte
-        最小连接池数量
-      min-idle: 3
-      #最大连接池数量
-      max-active: 10
-      #获取连接时最大等待时间
-      max-wait: 60000
-      #配置监控页面访问登录名及密码
-      stat-view-servlet:
-        login-username: admin
-        login-password: 123456
-      filter:
-        stat:
-          #是否开启慢sql查询监控
-          log-slow-sql: true
-          #慢SQL执行时间
-          slow-sql-millis: 100
-
+  endpoints:
+    web:
+      exposure:
+        include: health, info
 
 mybatis:
+  #domain对象的包
   type-aliases-package: xmu.oomall.domain
+  #mapper。xml所在的位置
   mapper-locations: classpath:xmu.oomall.mapper/*.xml
+  configuration:
+    #自动将SQL中查出来的带下划线的字段，转换为驼峰标志，再去匹配类中的属性
+    map-underscore-to-camel-case: true
+
+logging:
+  #设置日志打印级别
+  level:
+    root: warn
+    xmu.omomall: warn
+  #使用logback日志，取代默认的common日志
 

@@ -9,6 +9,7 @@ import xmu.oomall.domain.coupon.Coupon;
  * @Date: Created in 15:47 2019/11/5
  * @Modified By:
  **/
+@Service
 public interface CouponService {
 
     /**
@@ -16,5 +17,5 @@ public interface CouponService {
      * @param id
      * @return
      */
-    public Coupon findACouponById(Integer id);
+    public Coupon findCouponById(Integer id);
 }

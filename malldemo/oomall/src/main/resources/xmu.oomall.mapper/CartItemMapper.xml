@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.oomall.mapper.CartItemMapper">
+    <select id="findCartItemById" parameterType="Integer" resultType="cartItem">
+            select id,
+                   quantity,
+                   add_time,
+                   update_time,
+                   product_id,
+                   user_id
+                    from cart_item where id = #{id}
+    </select>
+    
+    <delete id="clearCartItem" parameterType="java.util.List">
+        delete from cart_item where id in
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item.id, jdbcType=BIGINT}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,15 +1,15 @@
 package xmu.oomall.domain.coupon;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.order.OrderItem;
 import xmu.oomall.util.JacksonUtil;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @Author: Ming Qiu
@@ -18,7 +18,7 @@ import java.util.*;
  * @Modified By:
  **/
 public class CouponRule {
-    private static final Log logger = LogFactory.getLog(JacksonUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(JacksonUtil.class);
 
     private CouponRulePo realObj;
         /**
@@ -122,10 +122,10 @@ public class CouponRule {
      * @param order 订单
      * @return
      */
-    public BigDecimal getReductPrice(Order order){
+    public void cacuCouponPrice(Order order){
         List<OrderItem> validItems = this.getValidItems(order.getItems());
-        return this.getStrategy().cacuDiscount(validItems);
-
+        List<OrderItem> newItems = this.getStrategy().cacuDiscount(validItems);
+        order.setItems(newItems);
     }
 
     /**

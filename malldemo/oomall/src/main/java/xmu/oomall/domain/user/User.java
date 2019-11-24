@@ -36,7 +36,7 @@ public class User {
     /**
      * 最后一次登录IP
      */
-    private String lastLoginIP;
+    private String lastLoginIp;
     /**
      * 用户级别
      */
@@ -52,7 +52,7 @@ public class User {
     /**
      * 微信Open ID
      */
-    private String wxOpenID;
+    private String wxOpenId;
     /**
      * 微信会话Key
      */
@@ -64,7 +64,7 @@ public class User {
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
-    private Boolean deleted;
+    private Boolean beDeleted;
 
     @Override
     public String toString() {
@@ -75,15 +75,15 @@ public class User {
                 ", gender=" + gender +
                 ", birthDay=" + birthDay +
                 ", lastLoginTime=" + lastLoginTime +
-                ", lastLoginIP='" + lastLoginIP + '\'' +
+                ", lastLoginIP='" + lastLoginIp + '\'' +
                 ", userLevel=" + userLevel +
                 ", credits=" + credits +
                 ", avatar='" + avatar + '\'' +
-                ", wxOpenID='" + wxOpenID + '\'' +
+                ", wxOpenID='" + wxOpenId + '\'' +
                 ", sessionKey='" + sessionKey + '\'' +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
-                ", deleted=" + deleted +
+                ", beDeleted=" + beDeleted +
                 '}';
     }
 
@@ -152,12 +152,12 @@ public class User {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public String getLastLoginIP() {
-        return lastLoginIP;
+    public String getLastLoginIp() {
+        return lastLoginIp;
     }
 
-    public void setLastLoginIP(String lastLoginIP) {
-        this.lastLoginIP = lastLoginIP;
+    public void setLastLoginIp(String lastLoginIp) {
+        this.lastLoginIp = lastLoginIp;
     }
 
     public Short getUserLevel() {
@@ -184,12 +184,12 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getWxOpenID() {
-        return wxOpenID;
+    public String getWxOpenId() {
+        return wxOpenId;
     }
 
-    public void setWxOpenID(String wxOpenID) {
-        this.wxOpenID = wxOpenID;
+    public void setWxOpenId(String wxOpenId) {
+        this.wxOpenId = wxOpenId;
     }
 
     public String getSessionKey() {
@@ -216,12 +216,12 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
+    public Boolean getBeDeleted() {
+        return beDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+    public void setBeDeleted(Boolean beDeleted) {
+        this.beDeleted = beDeleted;
     }
 
     public List<Address> getAddress() {

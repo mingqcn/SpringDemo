@@ -1,0 +1,32 @@
+
+spring:
+  datasource:
+    #JDBC驱动的名称
+    driver-class-name: org.h2.Driver
+    #数据库的JDBC url
+    url: jdbc:h2:mem:test;MODE=MYSQL
+    #数据库用户名
+    data-username: root
+    #数据库密码
+    password: 123456
+    #建表的SQL
+    schema: classpath:sql/schema.sql
+    #初始化数据的SQL
+    data: classpath:sql/test/data.sql
+    #当数据库为内嵌数据库时，如h2，则执行初始化SQL
+    initialization-mode: embedded
+    #当上述SQL中有错误时，则终止执行
+    continue-on-error: false
+    #SQL脚本的编码
+    sql-script-encoding: utf-8
+    druid:
+      validation-query: select 1
+  h2:
+    console:
+      #开启好h2的控制内核
+      enabled: true
+      settings:
+        #不允许远程访问
+        web-allow-others: false
+
+
