@@ -25,7 +25,7 @@ public class Common {
         Random random = new Random();
         StringBuffer sb = new StringBuffer(longFormatter.format(LocalDateTime.now()));
         for (int i = 0; i < length; i++) {
-            sb.append(sb.append(random.nextInt(10)));
+            sb.append(random.nextInt(10));
         }
         return sb.toString();
     }

@@ -10,9 +10,7 @@ spring:
     #数据库密码
     password: 123456
     #建表的SQL
-    schema: classpath:sql/schema.sql
-    #初始化数据的SQL
-    data: classpath:sql/test/data.sql
+    schema: classpath:sql/test/schema.sql
     #当数据库为内嵌数据库时，如h2，则执行初始化SQL
     initialization-mode: embedded
     #当上述SQL中有错误时，则终止执行

@@ -13,31 +13,31 @@ public class Address {
     /**
      * 收件人姓名
      */
-    private String name;
+    private String name = "";
     /**
      * 省份
      */
-    private String province;
+    private String province  = "";
     /**
      * 城市
      */
-    private String city;
+    private String city  = "";
     /**
      * 县区
      */
-    private String county;
+    private String county  = "";
     /**
      * 地址详情
      */
-    private String addressDetail;
+    private String addressDetail  = "";
     /**
      * 联系电话
      */
-    private String tel;
+    private String tel  = "";
     /**
      * 是否是默认地址
      */
-    private boolean beDefault;
+    private boolean beDefault = false;
 
     @Override
     public String toString() {

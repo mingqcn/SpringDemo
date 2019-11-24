@@ -1,5 +1,7 @@
 package xmu.oomall.domain.goods;
 
+import org.apache.ibatis.type.Alias;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -8,6 +10,7 @@ import java.util.Objects;
  * 商品信息
  * 该对象不可以删除
  */
+@Alias("goods")
 public class Goods {
     private Integer id;
     /**

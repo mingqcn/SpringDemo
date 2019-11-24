@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.oomall.mapper.GoodsMapper">
+
+    <resultMap id="productMap" type="product" autoMapping="true">
+      <id property="id" column="id"/>
+      <association property="desc" column="goods_id" select="findGoodsById" fetchType="eager" javaType="goods"/>
+    </resultMap>
+
+    <select id="findProductById" parameterType="Integer" resultMap="productMap">
+      select id,
+        product_sn,
+        product_property,
+        stock,
+        retail_price,
+        purchase_price,
+        add_time,
+        update_time,
+        be_deleted,
+        goods_id
+        from product where id = #{id}
+    </select>
+
+  <select id="findGoodsById" parameterType="Integer" resultType="goods">
+        select id,
+          goods_sn,
+          name,
+          short_name,
+          english_name,
+          bar_code,
+          stock_unit,
+          length,
+          width,
+          height,
+          gross_weight,
+          net_weight,
+          category_name,
+          brand_name,
+          status,
+          be_new,
+          be_hot,
+          gallery,
+          brief,
+          pic_url,
+          share_url,
+          add_time,
+          update_time,
+          be_deleted
+        from goods where id = #{id}
+  </select>
+</mapper>

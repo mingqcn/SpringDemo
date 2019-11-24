@@ -1,5 +1,7 @@
 package xmu.oomall.domain.goods;
 
+import org.apache.ibatis.type.Alias;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,16 +12,17 @@ import java.util.Objects;
  * 特定规格的商品被称为货品，如红色，41码的运动鞋被称为货品
  * 该对象不可以删除
  */
+@Alias("product")
 public class Product {
     private Integer id;
     /**
      * 货品编号
      */
-    private String productSn;
+    private String productSn="";
     /**
      * sku属性，用于描述特定货品，如红色，41码
      */
-    private String productPropery;
+    private String productProperty ="";
     /**
      * 库存量
      */
@@ -60,7 +63,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", productSn='" + productSn + '\'' +
-                ", productPropery='" + productPropery + '\'' +
+                ", productProperty='" + productProperty + '\'' +
                 ", stock=" + stock +
                 ", retailPrice=" + retailPrice +
                 ", purchasePrice=" + purchasePrice +
@@ -104,12 +107,12 @@ public class Product {
         this.productSn = productSn;
     }
 
-    public String getProductPropery() {
-        return productPropery;
+    public String getProductProperty() {
+        return productProperty;
     }
 
-    public void setProductPropery(String productPropery) {
-        this.productPropery = productPropery;
+    public void setProductProperty(String productProperty) {
+        this.productProperty = productProperty;
     }
 
     public Integer getStock() {

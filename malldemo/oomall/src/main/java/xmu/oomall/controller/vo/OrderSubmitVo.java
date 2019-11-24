@@ -26,7 +26,7 @@ public class OrderSubmitVo {
     /**
      * 订单留言
      */
-    private String message;
+    private String message ="";
 
     /****************************************************
      * 生成代码

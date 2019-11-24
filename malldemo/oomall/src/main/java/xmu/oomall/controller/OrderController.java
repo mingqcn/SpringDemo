@@ -1,5 +1,7 @@
 package xmu.oomall.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +11,7 @@ import xmu.oomall.controller.vo.OrderSubmitVo;
 import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.coupon.Coupon;
 import xmu.oomall.domain.order.Order;
+import xmu.oomall.domain.user.Address;
 import xmu.oomall.domain.user.User;
 import xmu.oomall.service.*;
 
@@ -20,8 +23,10 @@ import java.util.List;
  * @author Ming Qiu
  */
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -41,15 +46,18 @@ public class OrderController {
     @PostMapping("")
     public Object submit(@RequestBody OrderSubmitVo submitVo) {
 
+        logger.info("submit方法的参数："+submitVo);
+
         //例子代码中把用户id强制设定为1
         User user = new User();
         user.setId(1);
         //**************
 
-        Order newOrder = new Order();
-        newOrder.setUser(user);
-        newOrder.setAddress(submitVo.getAddress());
+        Address address = submitVo.getAddress();
+        Order newOrder = new Order(user, address);
+
         Coupon coupon = couponService.findCouponById(submitVo.getCouponId());
+
         if (null != coupon){
             newOrder.setCoupon(coupon);
         }

@@ -24,14 +24,6 @@ public class GroupOnRule{
     private LocalDateTime updateTime;
     private Boolean beDeleted = false;
 
-    /**
-     * 检查团购活动是否过期
-     * @return Boolean
-     */
-    public boolean isExpired(){
-        return this.getEndTime().isBefore(LocalDateTime.now());
-    }
-
     /****************************************************
      * 生成代码
      ****************************************************/

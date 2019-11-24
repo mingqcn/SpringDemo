@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @Modified By:
  **/
 public class CouponRule {
-    private static final Logger logger = LoggerFactory.getLogger(JacksonUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(CouponRule.class);
 
     private CouponRulePo realObj;
         /**
@@ -123,7 +123,10 @@ public class CouponRule {
      * @return
      */
     public void cacuCouponPrice(Order order){
+        logger.debug("cacuCouponPrice: Order = "+ order);
+
         List<OrderItem> validItems = this.getValidItems(order.getItems());
+
         List<OrderItem> newItems = this.getStrategy().cacuDiscount(validItems);
         order.setItems(newItems);
     }
@@ -135,18 +138,16 @@ public class CouponRule {
         this.realObj = new CouponRulePo();
     }
 
+    @Override
+    public String toString() {
+        return "CouponRule{"+realObj.toString()+"}";
+    }
 
     /****************************************************
      * 生成代码
      ****************************************************/
     public CouponRule(CouponRulePo realObj) {
         this.realObj = realObj;
-    }
-
-
-    @Override
-    public String toString() {
-        return realObj.toString();
     }
 
     @Override

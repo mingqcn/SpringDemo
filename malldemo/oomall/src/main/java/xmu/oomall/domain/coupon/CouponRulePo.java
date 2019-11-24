@@ -17,19 +17,19 @@ public class CouponRulePo {
     /**
      * 优惠卷名称
      */
-    private String name;
+    private String name = "";
     /**
      * 优惠卷编号起始字母
      */
-    private String brief;
+    private String brief = "";
     /**
      * 优惠卷图片url
      */
-    private String picUrl;
+    private String picUrl = "";
     /**
      *优惠卷描述
      */
-    private String desc;
+    private String desc = "";
     /**
      * 优惠卷开始领取时间，默认设为2019年10月1日
      */
@@ -48,12 +48,12 @@ public class CouponRulePo {
      * 适用商品的id 长度小于65534
      * { gIDs：[xxx,xxx,xxx,xxx,xxx]}
      */
-    private String goodsIds;
+    private String goodsIds = "";
     /**
      * 折扣策略
      * { name：“XXX”, obj:{XXX}}
      */
-    private String strategy;
+    private String strategy = "";
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;

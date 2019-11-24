@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xmu.oomall.mapper.CartItemMapper">
-    <select id="findCartItemById" parameterType="Integer" resultType="cartItem">
+    <resultMap id="cartItemMap" type="cartItem" autoMapping="true">
+        <id property="id" column="id"/>
+        <association property="product" column="product_id" resultMap="xmu.oomall.mapper.GoodsMapper.productMap" select="xmu.oomall.mapper.GoodsMapper.findProductById" fetchType="eager"/>
+    </resultMap>
+
+    <select id="findCartItemById" parameterType="Integer" resultMap="cartItemMap">
             select id,
                    quantity,
                    add_time,
                    update_time,
                    product_id,
                    user_id
-                    from cart_item where id = #{id}
+            from cart_item where id = #{id}
     </select>
     
     <delete id="clearCartItem" parameterType="java.util.List">

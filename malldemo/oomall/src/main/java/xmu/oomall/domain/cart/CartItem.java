@@ -19,7 +19,7 @@ public class CartItem {
     /**
      * 数量
      */
-    private Integer quatity;
+    private Integer quantity;
     /**
      * 归属的用户id
      */
@@ -41,7 +41,7 @@ public class CartItem {
     public String toString() {
         return "CartItem{" +
                 "id=" + id +
-                ", quatity=" + quatity +
+                ", quantity=" + quantity +
                 ", userId=" + userId +
                 ", product=" + product +
                 ", addTime=" + addTime +
@@ -74,12 +74,12 @@ public class CartItem {
         this.id = id;
     }
 
-    public Integer getQuatity() {
-        return quatity;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQuatity(Integer quatity) {
-        this.quatity = quatity;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Integer getUserId() {

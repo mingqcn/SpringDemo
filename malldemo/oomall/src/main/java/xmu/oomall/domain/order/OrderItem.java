@@ -44,7 +44,7 @@ public class OrderItem implements Cloneable {
      * @param cartItem 购物车对象
      */
     public OrderItem(CartItem cartItem) {
-        this.setQuantity(cartItem.getQuatity());
+        this.setQuantity(cartItem.getQuantity());
         this.setProduct(cartItem.getProduct());
         this.setPrice(this.getProduct().getPurchasePrice());
         this.setAddTime(LocalDateTime.now());

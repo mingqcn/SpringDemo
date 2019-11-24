@@ -1,5 +1,7 @@
 package xmu.oomall.domain.order;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xmu.oomall.domain.coupon.Coupon;
 import xmu.oomall.domain.Payment;
 import xmu.oomall.domain.user.Address;
@@ -18,15 +20,13 @@ import java.util.Objects;
  * @Modified By:
  **/
 public class Order {
+    private static final Logger logger = LoggerFactory.getLogger(Order.class);
+
     private Integer id;
     /**
      * 订单序号
      */
-    private String orderSn;
-    /**
-     * 地址
-     */
-    private Address address;
+    private String orderSn = "";
     /**
      * 订单状态
      */
@@ -34,7 +34,7 @@ public class Order {
     /**
      * 留言
      */
-    private String message;
+    private String message ="";
     /**
      * 订单费用
      */
@@ -52,6 +52,34 @@ public class Order {
      */
     private BigDecimal integralPrice;
     /**
+     * 收件人姓名
+     */
+    private String consignee = "";
+    /**
+     * 省份
+     */
+    private String province  = "";
+    /**
+     * 城市
+     */
+    private String city  = "";
+    /**
+     * 县区
+     */
+    private String county  = "";
+    /**
+     * 地址详情
+     */
+    private String addressDetail  = "";
+    /**
+     * 联系电话
+     */
+    private String mobile = "";
+    /**
+     * 是否是默认地址
+     */
+
+    /**
      * 订单中货品件数
      */
     private Integer quantity;
@@ -62,11 +90,11 @@ public class Order {
     /**
      * 快递单编号
      */
-    private String shipSn;
+    private String shipSn = "";
     /**
      * 发货快递公司
      */
-    private Short shipChannel;
+    private Integer shipChannel;
     /**
      * 发货时间
      */
@@ -103,7 +131,7 @@ public class Order {
     /**
      * 订单号起头字母
      */
-    private final static String PREFIX = "O";
+    private final static String PREFIX = "P";
     /**
      * 尾部随机数长度
      */
@@ -187,6 +215,18 @@ public class Order {
         this.addTime = LocalDateTime.now();
     }
 
+    public Order(User user, Address address){
+        this.orderStatus = Status.NEW.getValue();
+        this.orderSn = PREFIX+ Common.getRandomNum(RANDOM_LEN);
+        this.addTime = LocalDateTime.now();
+        this.user = user;
+        this.consignee = address.getName();
+        this.province = address.getProvince();
+        this.city = address.getCity();
+        this.county = address.getCounty();
+        this.addressDetail = address.getAddressDetail();
+        this.mobile = address.getTel();
+    }
     /**
      * 计算订单的总费用和货物件数
      */
@@ -213,24 +253,32 @@ public class Order {
     public void cacuDealPrice(){
         //目前设计只支持一个订单中同类优惠卷只能使用一张优惠卷，一个货品只能选择使用一张优惠卷
         Coupon coupon = this.getCoupon();
+        logger.debug("coupon = "+ coupon);
         coupon.cacuCouponPrice(this);
         this.cacuTotal();
     }
 
-
+    /****************************************************
+     * 生成代码
+     ****************************************************/
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", orderSn='" + orderSn + '\'' +
-                ", address='" + address + '\'' +
                 ", orderStatus=" + orderStatus +
                 ", message='" + message + '\'' +
                 ", goodPrice=" + goodPrice +
                 ", couponPrice=" + couponPrice +
                 ", freightPrice=" + freightPrice +
                 ", integralPrice=" + integralPrice +
+                ", consignee='" + consignee + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", county='" + county + '\'' +
+                ", addressDetail='" + addressDetail + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", quantity=" + quantity +
                 ", grossWeight=" + grossWeight +
                 ", shipSn='" + shipSn + '\'' +
@@ -337,11 +385,11 @@ public class Order {
         this.shipSn = shipSn;
     }
 
-    public Short getShipChannel() {
+    public Integer getShipChannel() {
         return shipChannel;
     }
 
-    public void setShipChannel(Short shipChannel) {
+    public void setShipChannel(Integer shipChannel) {
         this.shipChannel = shipChannel;
     }
 
@@ -417,14 +465,6 @@ public class Order {
         this.grossWeight = grossWeight;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public LocalDateTime getAddTime() {
         return addTime;
     }
@@ -447,5 +487,53 @@ public class Order {
 
     public void setBeDeleted(Boolean beDeleted) {
         this.beDeleted = beDeleted;
+    }
+
+    public String getConsignee() {
+        return consignee;
+    }
+
+    public void setConsignee(String consignee) {
+        this.consignee = consignee;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getAddressDetail() {
+        return addressDetail;
+    }
+
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

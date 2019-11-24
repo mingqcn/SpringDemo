@@ -1,6 +1,8 @@
 package xmu.oomall.domain.coupon;
 
 import org.apache.ibatis.type.Alias;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xmu.oomall.domain.order.Order;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,8 @@ import java.util.Objects;
  **/
 @Alias("coupon")
 public class Coupon {
+    private static final Logger logger = LoggerFactory.getLogger(Coupon.class);
+
 
     /**
      * 未使用

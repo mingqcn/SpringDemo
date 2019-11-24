@@ -1,5 +1,7 @@
 package xmu.oomall.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xmu.oomall.domain.cart.CartItem;
@@ -12,13 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: Ming Qiu
- * @Description:
- * @Date: Created in 16:51 2019/11/5
- * @Modified By:
+ * @author: Ming Qiu
+ * @description:
+ * @date: Created in 16:51 2019/11/5
+ * @modified By:
  **/
 @Service
 public class OrderServiceImpl implements OrderService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
     GoodsService goodsService;
@@ -27,16 +31,23 @@ public class OrderServiceImpl implements OrderService {
     public Order submit(Order order, List<CartItem> cartItems) {
 
         //把购物车中的物品加入订单
-        List<OrderItem> orderItems = new ArrayList<OrderItem>(cartItems.size());
+        logger.debug("order = "+ order);
+        logger.debug("cartItems = "+ cartItems);
+
+        List<OrderItem> orderItems = new ArrayList<>(cartItems.size());
+
         for (CartItem cartItem: cartItems) {
             OrderItem orderItem = new OrderItem(cartItem);
             orderItems.add(orderItem);
         }
+
         order.setItems(orderItems);
+
         goodsService.clearCartItem(cartItems);
 
         //计算优惠价
-        order.cacuDealPrice();;
+        order.cacuDealPrice();
+
     return order;
 
     }
