@@ -41,7 +41,8 @@
                address_detail,
                add_time,
                update_time,
-               be_deleted
+               be_deleted,
+               promotion_id
         from order where id = #{id}
     </select>
 

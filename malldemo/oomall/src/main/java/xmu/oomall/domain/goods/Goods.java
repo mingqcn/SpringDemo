@@ -99,6 +99,11 @@ public class Goods {
      * 商品的不同规格货品
      */
     private List<Product> products;
+    /**
+     * 商品的促销活动
+     */
+    private Promotion promotion = null;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime = Common.DEFAULT_TIME;
     private Boolean beDeleted = false;
@@ -387,5 +392,13 @@ public class Goods {
 
     public void setBeDeleted(Boolean beDeleted) {
         this.beDeleted = beDeleted;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 }

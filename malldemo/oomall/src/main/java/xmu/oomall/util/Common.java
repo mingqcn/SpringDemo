@@ -7,10 +7,8 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * @Author: Ming Qiu
- * @Description:
- * @Date: Created in 20:14 2019/11/17
- * @Modified By:
+ * @author: Ming Qiu
+ * @date: Created in 20:14 2019/11/17
  **/
 public class Common {
 

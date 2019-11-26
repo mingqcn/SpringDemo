@@ -1,12 +1,15 @@
 package xmu.oomall.domain.order;
 
+import org.apache.ibatis.type.Alias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xmu.oomall.domain.coupon.Coupon;
 import xmu.oomall.domain.Payment;
+import xmu.oomall.domain.goods.Promotion;
 import xmu.oomall.domain.user.Address;
 import xmu.oomall.domain.user.User;
 import xmu.oomall.util.Common;
+import xmu.oomall.util.Config;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,6 +22,7 @@ import java.util.Objects;
  * @Date: Created in 16:08 2019/11/5
  * @Modified By:
  **/
+@Alias("order")
 public class Order {
     private static final Logger logger = LoggerFactory.getLogger(Order.class);
 
@@ -123,6 +127,11 @@ public class Order {
      * 使用的优惠卷（一个订单只能使用一张优惠卷）
      */
     private Coupon coupon;
+
+    /**
+     * 促销获得，团购、预售
+     */
+    private Promotion promotion = null;
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime = Common.DEFAULT_TIME;
@@ -267,6 +276,29 @@ public class Order {
         }
     }
 
+    /**
+     * 计算付款方式
+     */
+    public void cacuPayment(){
+        /**
+         * 逐项计算
+         */
+        this.cacuTotal();
+        if (this.promotion != null){
+            Payment payment = new Payment();
+            LocalDateTime now = LocalDateTime.now();
+            payment.setBeginTime(now);
+            payment.setEndTime(now.plusMinutes(Config.getInstance().getMaxPayTime()));
+            payment.setAmount(this.getDealPrice());
+        } else {
+            List<Payment> payments = this.promotion.getPayment(this);
+        }
+
+    }
+
+    public BigDecimal getDealPrice(){
+        return this.getGoodPrice().subtract(this.getCouponPrice()).subtract(this.getIntegralPrice()).add(this.getIntegralPrice());
+    }
     /****************************************************
      * 生成代码
      ****************************************************/
@@ -544,5 +576,13 @@ public class Order {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 }

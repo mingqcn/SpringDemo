@@ -1,5 +1,7 @@
 package xmu.oomall.domain.goods;
 
+import xmu.oomall.util.Common;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -16,19 +18,19 @@ public class PromotionPo {
     /**
      * 活动开始时间
      */
-    private LocalDateTime beginTime;
+    private LocalDateTime beginTime= Common.DEFAULT_TIME;
     /**
      * 活动开始时间
      */
-    private LocalDateTime endTime;
+    private LocalDateTime endTime = Common.DEFAULT_TIME;
     /**
      * 活动序号
      */
-    private String promotionSn;
+    private String promotionSn ="";
     /**
      * 活动描述
      */
-    private String descr;
+    private String descr="";
 
     /**
      * 付款策略
@@ -36,7 +38,7 @@ public class PromotionPo {
     private String payStrategy;
 
     private LocalDateTime addTime;
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = Common.DEFAULT_TIME;
     private Boolean beDeleted = false;
 
     /****************************************************
