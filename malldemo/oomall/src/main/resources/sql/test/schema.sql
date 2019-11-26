@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS `coupon_rule`;
 CREATE TABLE `coupon_rule` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `desc` varchar(5000) DEFAULT NULL,
+  `descr` varchar(5000) DEFAULT NULL,
   `begin_time` datetime DEFAULT NULL,
   `pic_url` varchar(255) DEFAULT NULL,
   `brief` varchar(10) DEFAULT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE `coupon_rule` (
 
 
 /*!40000 ALTER TABLE `coupon_rule` DISABLE KEYS */;
-INSERT INTO `coupon_rule` VALUES (1,'测试优惠卷1',NULL,'2019-11-23 21:28:30',NULL,NULL,1,'','2019-11-23 21:28:39',NULL,0,NULL),(2,'测试优惠卷2',NULL,'2019-11-24 13:36:25',NULL,NULL,4,'','2019-11-24 13:36:43',NULL,0,NULL);
+INSERT INTO `coupon_rule` VALUES (1,'测试优惠卷1',NULL,'2019-11-23 21:28:30',NULL,NULL,1,'{"gIDs":[1,2]}','2019-11-23 21:28:39',NULL,0,'{"name":"xmu.oomall.domain.coupon.CashOffStrategy","obj":{"threshold":1000.01,"offCash":10.01}}'),(2,'测试优惠卷2',NULL,'2019-11-24 13:36:25',NULL,NULL,4,'{"gIDs":[1]}','2019-11-24 13:36:43',NULL,0,'{"name":"xmu.oomall.domain.coupon.PercentageStrategy","obj":{"threshold":99.01,"percentage":0.9}}');
 /*!40000 ALTER TABLE `coupon_rule` ENABLE KEYS */;
 
 

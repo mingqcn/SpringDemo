@@ -1,6 +1,7 @@
 package xmu.oomall.domain.goods;
 
 import org.apache.ibatis.type.Alias;
+import xmu.oomall.util.Common;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Objects;
 /**
  * 商品信息
  * 该对象不可以删除
+ * @author Ming Qiu
  */
 @Alias("goods")
 public class Goods {
@@ -58,6 +60,14 @@ public class Goods {
      */
     private Integer netWeight;
     /**
+     * 分类名称
+     */
+    private String categoryName;
+    /**
+     * 品牌名称
+     */
+    private String brandName;
+    /**
      * 商品状态，下架，上架，
      */
     private Integer status;
@@ -90,7 +100,7 @@ public class Goods {
      */
     private List<Product> products;
     private LocalDateTime addTime;
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = Common.DEFAULT_TIME;
     private Boolean beDeleted = false;
 
 
@@ -104,6 +114,15 @@ public class Goods {
         this.id = id;
         this.setAddTime(LocalDateTime.now());
     }
+
+    public Goods(){
+    }
+
+
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
 
     @Override
     public String toString() {
@@ -120,6 +139,8 @@ public class Goods {
                 ", height=" + height +
                 ", grossWeight=" + grossWeight +
                 ", netWeight=" + netWeight +
+                ", categoryName='" + categoryName + '\'' +
+                ", brandName='" + brandName + '\'' +
                 ", status=" + status +
                 ", beHot=" + beHot +
                 ", beNew=" + beNew +
@@ -133,11 +154,6 @@ public class Goods {
                 ", beDeleted=" + beDeleted +
                 '}';
     }
-
-    /****************************************************
-     * 生成代码
-     ****************************************************/
-
 
 
     @Override
@@ -275,6 +291,22 @@ public class Goods {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public Integer getStatus() {

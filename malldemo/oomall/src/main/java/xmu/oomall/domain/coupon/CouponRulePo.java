@@ -29,7 +29,7 @@ public class CouponRulePo {
     /**
      *优惠卷描述
      */
-    private String desc = "";
+    private String descr = "";
     /**
      * 优惠卷开始领取时间，默认设为2019年10月1日
      */
@@ -76,7 +76,7 @@ public class CouponRulePo {
                 ", name='" + name + '\'' +
                 ", brief='" + brief + '\'' +
                 ", picUrl='" + picUrl + '\'' +
-                ", desc='" + desc + '\'' +
+                ", desc='" + descr + '\'' +
                 ", beginTime=" + beginTime +
                 ", validPeriod=" + validPeriod +
                 ", quantity=" + quantity +
@@ -137,12 +137,12 @@ public class CouponRulePo {
         this.picUrl = picUrl;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescr() {
+        return descr;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public LocalDateTime getBeginTime() {

@@ -1,7 +1,7 @@
 package xmu.oomall.domain.coupon;
 
-import com.alibaba.druid.support.logging.Log;
-import com.alibaba.druid.support.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xmu.oomall.domain.order.OrderItem;
 
 import java.math.BigDecimal;
@@ -10,13 +10,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @Author: Ming Qiu
- * @Description: 优惠卷策略的抽象類
- * @Date: Created in 15:47 2019/11/5
- * @Modified By:
+ *  优惠卷策略的抽象類
+ * @author: Ming Qiu
+ * @date: Created in 15:47 2019/11/5
  * */
 public abstract class AbstractCouponStrategy {
-    private Log logger = LogFactory.getLog(AbstractCouponStrategy.class);
+    private Logger logger = LoggerFactory.getLogger(AbstractCouponStrategy.class);
 
     /**
      * 用于判断是否已经满足优惠门槛
@@ -45,9 +44,10 @@ public abstract class AbstractCouponStrategy {
     /**
      * 获得优惠的费用
      * @param validItems 订单中可以用于优惠卷的明细
+     * @param couponSn 优惠卷序号
      * @return 更新的订单列表，包含可能因为误差拆开的明细
      */
-    public List<OrderItem> cacuDiscount(List<OrderItem> validItems){
+    public List<OrderItem> cacuDiscount(List<OrderItem> validItems, String couponSn){
         //优惠商品的总价和数量
         BigDecimal totalPrice = BigDecimal.ZERO;
         Integer totalQuantity = 0;
@@ -60,7 +60,7 @@ public abstract class AbstractCouponStrategy {
         boolean enough = this.isEnough(totalPrice, totalQuantity);
 
         while (itemIterator.hasNext() && !enough){
-            logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity+" 优惠门槛 enough = "+enough);
+            logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity+" 优惠门槛 enough = "+ enough);
             OrderItem item = itemIterator.next();
             totalPrice = totalPrice.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
             totalQuantity += item.getQuantity();

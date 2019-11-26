@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.oomall.mapper.OrderMapper">
+
+    <resultMap id="orderMap" type="order" autoMapping="true">
+        <id property="id" column="id"/>
+        <collection property="items" select="findOrderItemsByOrderId" ofType="orderItem" javaType="java.util.List" column="id"/>
+    </resultMap>
+
+    <select id="findOrderItemsByOrderId" parameterType="Integer" resultType="orderItem">
+            select id,
+                 quantity,
+                 price,
+                 deal_price,
+                 add_time,
+                 update_time,
+                 be_deleted,
+                 product_name,
+                 promotion_sn
+            from order_item where order_id = #{id}
+    </select>
+
+    <select id="findOrderById" parameterType="Integer" resultMap="orderMap">
+        select id,
+               order_sn,
+               status,
+               consignee,
+               mobile,
+               message,
+               good_price,
+               coupon_price,
+               freight_price,
+               integral_price,
+               ship_sn,
+               ship_channel,
+               ship_time,
+               confirm_time,
+               end_time,
+               province,
+               city,
+               address_detail,
+               add_time,
+               update_time,
+               be_deleted
+        from order where id = #{id}
+    </select>
+
+    <insert id="addOrder" parameterType="order" useGeneratedKeys="true" keyProperty="id">
+        insert into order(order_sn, status, consignee, mobile, message, good_price, coupon_price, freight_price, integral_price, ship_sn, ship_channel, ship_time, confirm_time, end_time, province, city, address_detail, add_time, update_time, be_deleted)
+        values (#{orderSn},#{status}, #{consignee}, #{mobile}, #{message}, #{goodPrice}, #{couponPrice}, #{feightPrice}, #{integralPrice}, #{shipSn}, #{shipChannel}, #{shipTime}, #{confirmTime}, #{endTime}, #{province}, #{city}, #{addressDetail}, #{addTime}, #{updateTime}, , #{beDeleted})
+    </insert>
+
+    <insert id="addOrderItems" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into order_item(quantity, price, deal_price, add_time, update_time, be_deleted, order_id, product_id, product_name, promotion_sn)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.orderId}, #{item.quantiy}, #{item.price},#{item.dealPrice}, #{item.addTime}, #{item.updateTime}, #{item.beDeleted}, #{item.product.getId()}, #{item.productName}, #{item.promotionSn})
+        </foreach>
+    </insert>
+
+
+    
+
+</mapper>

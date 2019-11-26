@@ -2,31 +2,22 @@ package xmu.oomall.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xmu.oomall.domain.cart.CartItem;
-import xmu.oomall.mapper.CartItemMapper;
+import xmu.oomall.dao.GoodsDao;
+import xmu.oomall.domain.goods.Product;
 import xmu.oomall.service.GoodsService;
-
-import java.util.List;
 
 /**
  * @author: Ming Qiu
- * @description:商品服务的实现
- * @date: Created in 15:50 2019/11/24
- * @modified By:
+ * @date: Created in 21:29 2019/11/25
  **/
 @Service
 public class GoodsServiceImpl implements GoodsService {
-
     @Autowired
-    CartItemMapper cartItemMapper;
+    private GoodsDao goodsDao;
 
     @Override
-    public CartItem findCartItemById(Integer id) {
-        return cartItemMapper.findCartItemById(id);
+    public Product findProductById(Integer id) {
+        return goodsDao.findProductById(id);
     }
 
-    @Override
-    public void clearCartItem(List<CartItem> cartItems) {
-        cartItemMapper.clearCartItem(cartItems);
-    }
 }

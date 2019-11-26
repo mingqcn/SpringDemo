@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 import xmu.oomall.OoMallApplication;
 import xmu.oomall.controller.vo.OrderSubmitVo;
 import xmu.oomall.domain.order.Order;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = OoMallApplication.class)
 @AutoConfigureMockMvc
+@Transactional
 public class OrderControllerTest {
 
     @Autowired
@@ -49,8 +51,6 @@ public class OrderControllerTest {
         vo.setCouponId(1);
 
         String jsonString = JacksonUtil.toJson(vo);
-
-        System.out.println(jsonString);
 
         String responseString = this.mockMvc.perform(post("/orders").contentType("application/json;charset=UTF-8").content(jsonString))
                 .andExpect(status().isOk())

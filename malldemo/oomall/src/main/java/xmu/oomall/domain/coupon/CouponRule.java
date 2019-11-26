@@ -33,9 +33,11 @@ public class CouponRule {
      * @return 适用的订单明细
      */
     private List<OrderItem> getValidItems(List<OrderItem> items){
+        logger.debug("getValidItems参数：items = "+items);
         List<OrderItem> validItems = new ArrayList<OrderItem>(items.size());
         for (OrderItem item: items){
             Goods goods = item.getProduct().getDesc();
+            logger.debug("goods = "+goods);
             if (this.isUsedOnGoods(goods.getId())){
                 validItems.add(item);
             }
@@ -120,15 +122,18 @@ public class CouponRule {
     /**
      * 获得优惠的费用
      * @param order 订单
+     * @param couponSn 优惠卷号
      * @return
      */
-    public void cacuCouponPrice(Order order){
-        logger.debug("cacuCouponPrice: Order = "+ order);
+    public void cacuCouponPrice(Order order, String couponSn){
+
+        logger.debug("cacuCouponPrice参数: Order = "+ order+ "couponSn = "+couponSn);
 
         List<OrderItem> validItems = this.getValidItems(order.getItems());
 
-        List<OrderItem> newItems = this.getStrategy().cacuDiscount(validItems);
+        List<OrderItem> newItems = this.getStrategy().cacuDiscount(validItems, couponSn);
         order.setItems(newItems);
+        logger.debug("cacuCouponPrice返回");
     }
 
     /**
@@ -140,7 +145,21 @@ public class CouponRule {
 
     @Override
     public String toString() {
-        return "CouponRule{"+realObj.toString()+"}";
+        return "CouponRule{" +
+                "id=" + this.getId() +
+                ", name='" + this.getName() + '\'' +
+                ", brief='" + this.getBrief() + '\'' +
+                ", picUrl='" + this.getPicUrl() + '\'' +
+                ", desc='" + this.getDescr() + '\'' +
+                ", beginTime=" + this.getBeginTime() +
+                ", validPeriod=" + this.getValidPeriod() +
+                ", quantity=" + this.getQuantity() +
+                ", goodsIds='" + this.getGoodsIds() + '\'' +
+                ", strategy='" + this.getStrategy() + '\'' +
+                ", addTime=" + this.getAddTime() +
+                ", updateTime=" + this.getUpdateTime() +
+                ", beDeleted=" + this.getBeDeleted() +
+                '}';
     }
 
     /****************************************************
@@ -192,12 +211,12 @@ public class CouponRule {
         realObj.setPicUrl(picUrl);
     }
 
-    public String getDesc() {
-        return realObj.getDesc();
+    public String getDescr() {
+        return realObj.getDescr();
     }
 
-    public void setDesc(String desc) {
-        realObj.setDesc(desc);
+    public void setDescr(String desc) {
+        realObj.setDescr(desc);
     }
 
     public LocalDateTime getBeginTime() {

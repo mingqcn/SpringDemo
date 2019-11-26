@@ -15,6 +15,7 @@ import java.util.Random;
 public class Common {
 
     private static DateTimeFormatter longFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+    public static LocalDateTime DEFAULT_TIME = LocalDateTime.of(2019,11,11,11,11,11,11);
 
     /**
      * 生成唯一随机数

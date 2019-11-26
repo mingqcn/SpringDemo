@@ -15,7 +15,7 @@ import xmu.oomall.mapper.CouponMapper;
  * @Modified By:
  **/
 
-@Component
+@Repository
 public class CouponDao {
 
     @Autowired

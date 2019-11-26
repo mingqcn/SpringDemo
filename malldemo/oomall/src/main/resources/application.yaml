@@ -31,9 +31,15 @@ mybatis:
 logging:
   #设置日志打印级别
   level:
-    root: warn
-    xmu.omomall: debug
+    root: error
+    xmu.oomall.controller: debug
+    xmu.oomall.service: debug
+    xmu.oomall.dao: debug
+    xmu.oomall.mapper: error
+    xmu.oomall.domain: debug
+    xmu.oomall.util: debug
   #使用logback日志，取代默认的common日志
   file:
     path: C:\Users\Ming Qiu\log
+  config: classpath:logback-spring.xml
 

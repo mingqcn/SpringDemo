@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import xmu.oomall.OoMallApplication;
 import xmu.oomall.domain.cart.CartItem;
-import xmu.oomall.service.GoodsService;
+import xmu.oomall.service.CartItemService;
 
 import java.math.BigDecimal;
 
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GoodsServiceImplTest {
 
     @Autowired
-    private GoodsService goodsService;
+    private CartItemService goodsService;
 
     @Test
     void findCartItemById() {

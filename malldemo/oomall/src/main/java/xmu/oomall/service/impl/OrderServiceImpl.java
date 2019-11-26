@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.order.OrderItem;
-import xmu.oomall.service.GoodsService;
+import xmu.oomall.mapper.OrderMapper;
+import xmu.oomall.service.CartItemService;
 import xmu.oomall.service.OrderService;
 
 import java.util.ArrayList;
@@ -25,14 +26,16 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
-    GoodsService goodsService;
+    CartItemService goodsService;
+
+    @Autowired
+    OrderMapper orderMapper;
 
     @Override
     public Order submit(Order order, List<CartItem> cartItems) {
 
         //把购物车中的物品加入订单
-        logger.debug("order = "+ order);
-        logger.debug("cartItems = "+ cartItems);
+        logger.debug("submit参数order = "+ order + " cartItems = " + cartItems);
 
         List<OrderItem> orderItems = new ArrayList<>(cartItems.size());
 
@@ -47,6 +50,10 @@ public class OrderServiceImpl implements OrderService {
 
         //计算优惠价
         order.cacuDealPrice();
+
+
+
+        logger.debug("submit返回值：order = "+ order);
 
     return order;
 

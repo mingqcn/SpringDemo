@@ -14,7 +14,7 @@ public interface GoodsMapper {
     /**
      * 用id获得货品
      * @param id 货品id
-     * @return 货品
+     * @return 货品,带商品一起返回
      */
     Product findProductById(Integer id);
 

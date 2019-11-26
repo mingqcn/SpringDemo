@@ -23,19 +23,18 @@ public class CartItem {
     /**
      * 归属的用户id
      */
-    Integer  userId;
+    private Integer  userId;
     /**
      * 货品
      */
     private Product product;
+    /**
+     * 货品ID
+     */
+    private Integer productId;
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
-
-    /****************************************************
-     * 生成代码
-     ****************************************************/
-
 
     @Override
     public String toString() {
@@ -44,10 +43,17 @@ public class CartItem {
                 ", quantity=" + quantity +
                 ", userId=" + userId +
                 ", product=" + product +
+                ", productId=" + productId +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
                 '}';
     }
+
+    /****************************************************
+     * 生成代码
+     ****************************************************/
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -112,5 +118,13 @@ public class CartItem {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 }

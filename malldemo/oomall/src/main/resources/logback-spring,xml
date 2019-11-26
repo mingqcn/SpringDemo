@@ -18,7 +18,7 @@
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -35,13 +35,6 @@
         </encoder>
     </appender>
 
-    <!-- 日志logger(包.类)的输出级别 -->
-    <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="DEBUG" >
-        <appender-ref ref="console" />
-        <appender-ref ref="file" />
-    </logger>
-
-    <logger name="org.springframework.boot" level="DEBUG"/>
 
     <!-- 日志输出级别 -->
     <root level="INFO"> <!-- 此时debug级别的信息会被过滤 -->

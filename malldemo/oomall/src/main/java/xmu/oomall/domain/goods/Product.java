@@ -1,6 +1,7 @@
 package xmu.oomall.domain.goods;
 
 import org.apache.ibatis.type.Alias;
+import xmu.oomall.util.Common;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -41,7 +42,7 @@ public class Product {
     private Goods desc;
 
     private LocalDateTime addTime;
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = Common.DEFAULT_TIME;
     private Boolean beDeleted = false;
 
 

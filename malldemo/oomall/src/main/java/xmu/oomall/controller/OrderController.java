@@ -14,6 +14,7 @@ import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.user.Address;
 import xmu.oomall.domain.user.User;
 import xmu.oomall.service.*;
+import xmu.oomall.util.ResponseUtil;
 
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
  * @author Ming Qiu
  */
 @RestController
-@RequestMapping("/orders")
+@RequestMapping(value = "/orders", produces = "application/json;charset=UTF-8", consumes = "application/json;charset=UTF-8")
 public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
@@ -32,7 +33,7 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
-    private GoodsService goodsService;
+    private CartItemService cartItemService;
 
     @Autowired
     private CouponService couponService;
@@ -46,7 +47,7 @@ public class OrderController {
     @PostMapping("")
     public Object submit(@RequestBody OrderSubmitVo submitVo) {
 
-        logger.info("submit方法的参数："+submitVo);
+        logger.debug("submit参数："+submitVo);
 
         //例子代码中把用户id强制设定为1
         User user = new User();
@@ -64,9 +65,13 @@ public class OrderController {
 
         List<CartItem> cartItems = new ArrayList<CartItem>(submitVo.getCartItemIds().size());
         for (Integer cartId: submitVo.getCartItemIds() ){
-            cartItems.add(goodsService.findCartItemById(cartId));
+            CartItem item = cartItemService.findCartItemById(cartId);
+            cartItems.add(item);
         }
 
-        return orderService.submit(newOrder, cartItems);
+        Order retOrder = orderService.submit(newOrder, cartItems);
+
+        logger.debug("submit的返回值："+retOrder);
+        return ResponseUtil.ok(retOrder);
     }
 }

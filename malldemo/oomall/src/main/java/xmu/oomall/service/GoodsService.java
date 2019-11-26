@@ -1,32 +1,20 @@
 package xmu.oomall.service;
 
 import org.springframework.stereotype.Service;
-import xmu.oomall.domain.cart.CartItem;
-
-import java.util.List;
+import xmu.oomall.domain.goods.Product;
 
 /**
- * @Author: Ming Qiu
- * @Description: 商品有关的服务
- * @Date: Created in 15:47 2019/11/5
- * @Modified By:
+ * 商品服务
+ * @author: Ming Qiu
+ * @date: Created in 21:03 2019/11/25
  **/
 @Service
 public interface GoodsService {
 
     /**
-     * 用ID获得CartItem对象
-     * @param id 对象ID
-     * @return cartItem对象
+     * 用id获得货品
+     * @param id 货品io
+     * @return 货品
      */
-    CartItem findCartItemById(Integer id);
-
-    /**
-     * 清空购物车里的指定项目
-     * @param cartItems 待清空的项目
-     */
-    void clearCartItem(List<CartItem> cartItems);
-
-
-
+    Product findProductById(Integer id);
 }

@@ -133,7 +133,7 @@ public class Coupon {
      */
     public void cacuCouponPrice(Order order) {
         if (this.isReadyToUse()){
-            this.getCouponRule().cacuCouponPrice(order);
+            this.getCouponRule().cacuCouponPrice(order, this.couponSn);
         }
     }
 

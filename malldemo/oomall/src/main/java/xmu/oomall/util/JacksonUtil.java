@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,7 +18,8 @@ public class JacksonUtil {
     private static final Log logger = LogFactory.getLog(JacksonUtil.class);
 
     public static String parseString(String body, String field) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -32,7 +35,8 @@ public class JacksonUtil {
 
 
     public static List<String> parseStringList(String body, String field) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -49,7 +53,8 @@ public class JacksonUtil {
     }
 
     public static Integer parseInteger(String body, String field) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -64,7 +69,8 @@ public class JacksonUtil {
     }
 
     public static List<Integer> parseIntegerList(String body, String field) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -82,7 +88,8 @@ public class JacksonUtil {
 
 
     public static Boolean parseBoolean(String body, String field) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -97,7 +104,8 @@ public class JacksonUtil {
     }
 
     public static Short parseShort(String body, String field) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -113,7 +121,8 @@ public class JacksonUtil {
     }
 
     public static Byte parseByte(String body, String field) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -129,7 +138,8 @@ public class JacksonUtil {
     }
 
     public static <T> T parseObject(String body, String field, Class<T> clazz) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         JsonNode node;
         try {
             node = mapper.readTree(body);
@@ -145,7 +155,8 @@ public class JacksonUtil {
         if (json == null) {
             return null;
         }
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         try {
 
             return mapper.readTree(json);
@@ -157,9 +168,10 @@ public class JacksonUtil {
     }
 
     public static Map<String, String> toMap(String data) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         try {
-            return objectMapper.readValue(data, new TypeReference<Map<String, String>>() {
+            return mapper.readValue(data, new TypeReference<Map<String, String>>() {
             });
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
@@ -168,9 +180,10 @@ public class JacksonUtil {
     }
 
     public static String toJson(Object data) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());;
         try {
-            return objectMapper.writeValueAsString(data);
+            return mapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

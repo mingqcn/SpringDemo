@@ -18,16 +18,16 @@
     <select id="findCouponRuleById" parameterType="Integer" resultType="couponRulePo">
             select id,
                    name,
-                   desc,
+                   descr,
                    begin_time,
-                    pic_url,
-                    brief,
-                    valid_period,
-                    goods_ids1,
-                    strategy,
-                    add_time,
-                    update_time,
-                    be_deleted
+                   pic_url,
+                   brief,
+                   valid_period,
+                   goods_ids1 as goods_ids,
+                   add_time,
+                   update_time,
+                   be_deleted,
+                    strategy
                     from coupon_rule where id = #{id}
     </select>
 

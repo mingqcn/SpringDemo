@@ -38,19 +38,19 @@ public class Order {
     /**
      * 订单费用
      */
-    private BigDecimal goodPrice;
+    private BigDecimal goodPrice = BigDecimal.ZERO;
     /**
      * 优惠卷减免费用
      */
-    private BigDecimal couponPrice;
+    private BigDecimal couponPrice  = BigDecimal.ZERO;
     /**
      * 配送费用
      */
-    private BigDecimal freightPrice;
+    private BigDecimal freightPrice  = BigDecimal.ZERO;
     /**
      * 积分费用
      */
-    private BigDecimal integralPrice;
+    private BigDecimal integralPrice  = BigDecimal.ZERO;
     /**
      * 收件人姓名
      */
@@ -82,11 +82,11 @@ public class Order {
     /**
      * 订单中货品件数
      */
-    private Integer quantity;
+    private Integer quantity = 0;
     /**
      * 订单毛重 单位克
      */
-    private Integer grossWeight;
+    private Integer grossWeight = 0;
     /**
      * 快递单编号
      */
@@ -94,19 +94,19 @@ public class Order {
     /**
      * 发货快递公司
      */
-    private Integer shipChannel;
+    private Integer shipChannel = 0;
     /**
      * 发货时间
      */
-    private LocalDateTime shipTime;
+    private LocalDateTime shipTime  = Common.DEFAULT_TIME;
     /**
      * 用户收货确认时间
      */
-    private LocalDateTime confirmTime;
+    private LocalDateTime confirmTime = Common.DEFAULT_TIME;
     /**
      * 订单关闭时间
      */
-    private LocalDateTime endTime;
+    private LocalDateTime endTime = Common.DEFAULT_TIME;
     /**
      * 订单明细
      */
@@ -125,7 +125,7 @@ public class Order {
     private Coupon coupon;
 
     private LocalDateTime addTime;
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = Common.DEFAULT_TIME;
     private Boolean beDeleted = false;
 
     /**
@@ -253,9 +253,18 @@ public class Order {
     public void cacuDealPrice(){
         //目前设计只支持一个订单中同类优惠卷只能使用一张优惠卷，一个货品只能选择使用一张优惠卷
         Coupon coupon = this.getCoupon();
-        logger.debug("coupon = "+ coupon);
         coupon.cacuCouponPrice(this);
         this.cacuTotal();
+    }
+
+    /**
+     * 设置items
+     * 需要设置OrderItem中的orderId
+     */
+    public void setItemsOrderId() {
+        for(OrderItem item: items){
+            item.setOrderId(this.getId());
+        }
     }
 
     /****************************************************

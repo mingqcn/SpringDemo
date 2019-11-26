@@ -23,7 +23,7 @@ public class PercentageStrategy extends AbstractCouponStrategy {
     /**
      * 优惠比例
      */
-    private BigDecimal percentage = BigDecimal.valueOf(100.0);
+    private BigDecimal percentage = BigDecimal.valueOf(1.0);
 
     @Override
     protected boolean isEnough(BigDecimal totalPrice, Integer totalQuantity) {

@@ -1,8 +1,10 @@
 package xmu.oomall.domain.order;
 
 
+import org.apache.ibatis.type.Alias;
 import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.goods.Product;
+import xmu.oomall.util.Common;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,28 +17,43 @@ import java.util.Objects;
  * @Date: Created in 16:08 2019/11/5
  * @Modified By:
  */
-public class OrderItem implements Cloneable {
+@Alias("orderItem")
+ public class OrderItem implements Cloneable {
 
     private Integer id;
     /**
+     * 所属订单的ID
+     */
+    private Integer orderId;
+    /**
      * 数量
      */
-    private Integer quantity;
+    private Integer quantity = 0;
     /**
      * 价格
      */
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.ZERO;
     /**
      * 成交价格，用于退货
      */
-    private BigDecimal dealPrice;
+    private BigDecimal dealPrice = BigDecimal.ZERO;
     /**
      * 货品
      */
     private Product product;
+    /**
+     * 商品名称+货品属性
+     * 冗余存储
+     */
+    private String productName = "";
+
+    /**
+     * 优惠活动序号（优惠卷，团购活动或者预售活动的编号）
+     */
+    private String promotionSn = "";
 
     private LocalDateTime addTime;
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime = Common.DEFAULT_TIME;
     private Boolean beDeleted = false;
 
     /**
@@ -45,8 +62,15 @@ public class OrderItem implements Cloneable {
      */
     public OrderItem(CartItem cartItem) {
         this.setQuantity(cartItem.getQuantity());
-        this.setProduct(cartItem.getProduct());
-        this.setPrice(this.getProduct().getPurchasePrice());
+        Product product = cartItem.getProduct();
+        this.setProduct(product);
+        this.setPrice(product.getPurchasePrice());
+
+        StringBuffer productName = new StringBuffer(product.getDesc().getName());
+        productName.append(" ");
+        productName.append(product.getProductProperty());
+        this.setProductName(productName.toString());
+
         this.setAddTime(LocalDateTime.now());
     }
 
@@ -66,6 +90,8 @@ public class OrderItem implements Cloneable {
         return newItem;
     }
 
+
+
     /****************************************************
      * 生成代码
      ****************************************************/
@@ -75,12 +101,16 @@ public class OrderItem implements Cloneable {
     public String toString() {
         return "OrderItem{" +
                 "id=" + id +
+                ", orderId=" + orderId +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", dealPrice=" + dealPrice +
                 ", product=" + product +
+                ", productName='" + productName + '\'' +
+                ", promotionSn='" + promotionSn + '\'' +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
+                ", beDeleted=" + beDeleted +
                 '}';
     }
 
@@ -107,6 +137,14 @@ public class OrderItem implements Cloneable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getQuantity() {
@@ -139,6 +177,22 @@ public class OrderItem implements Cloneable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getPromotionSn() {
+        return promotionSn;
+    }
+
+    public void setPromotionSn(String promotionSn) {
+        this.promotionSn = promotionSn;
     }
 
     public LocalDateTime getAddTime() {
