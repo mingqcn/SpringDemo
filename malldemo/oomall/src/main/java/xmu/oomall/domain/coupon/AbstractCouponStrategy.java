@@ -48,6 +48,7 @@ public abstract class AbstractCouponStrategy {
      * @return 更新的订单列表，包含可能因为误差拆开的明细
      */
     public List<OrderItem> cacuDiscount(List<OrderItem> validItems, String couponSn){
+        logger.debug("cacuDiscount的参数： validItems"+ validItems +" couponSn = "+couponSn);
         //优惠商品的总价和数量
         BigDecimal totalPrice = BigDecimal.ZERO;
         Integer totalQuantity = 0;
@@ -56,19 +57,19 @@ public abstract class AbstractCouponStrategy {
         List<OrderItem> discountItems = new ArrayList<>(validItems.size());
 
         Iterator<OrderItem> itemIterator = validItems.iterator();
-        //判断是否达到优惠门槛
-        boolean enough = this.isEnough(totalPrice, totalQuantity);
 
-        while (itemIterator.hasNext() && !enough){
-            logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity+" 优惠门槛 enough = "+ enough);
+        while (itemIterator.hasNext()){
             OrderItem item = itemIterator.next();
+            logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity);
             totalPrice = totalPrice.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
             totalQuantity += item.getQuantity();
             discountItems.add(item);
-            enough = this.isEnough(totalPrice, totalQuantity);
         }
 
-        logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity+" 优惠门槛 enough = "+enough);
+        logger.debug("总价 totalPrice="+ totalPrice + " 总数 totalQuantitiy = "+totalQuantity);
+        //判断是否达到优惠门槛
+        boolean enough = this.isEnough(totalPrice, totalQuantity);
+        logger.debug("优惠门槛 enough = "+enough);
 
         //计算优惠后的价格
         BigDecimal dealTotalPrice = BigDecimal.ZERO;
@@ -76,6 +77,7 @@ public abstract class AbstractCouponStrategy {
             for (OrderItem item: discountItems){
                 //按照比例分配，可能会出现精度误差，在后面补偿到第一个货品上
                 BigDecimal dealPrice = this.getDealPrice(item.getPrice(), totalPrice);
+                item.setPromotionSn(couponSn);
                 logger.debug("优惠价格 dealPrice="+ dealPrice);
                 item.setDealPrice(dealPrice);
                 dealTotalPrice = dealTotalPrice.add(dealPrice.multiply(BigDecimal.valueOf(item.getQuantity())));
@@ -93,7 +95,7 @@ public abstract class AbstractCouponStrategy {
                 for (OrderItem item : validItems){
                     if (item.getQuantity() == 1){
                         BigDecimal dealPrice = item.getDealPrice();
-                        item.setDealPrice(dealPrice.subtract(error));
+                        item.setDealPrice(dealPrice.add(error));
                         gotIt = true;
                         break;
                     }
@@ -109,16 +111,16 @@ public abstract class AbstractCouponStrategy {
                         newItem = (OrderItem) item.clone();
                         newItem.setQuantity(1);
                         BigDecimal dealPrice = newItem.getDealPrice();
-                        newItem.setDealPrice(dealPrice.subtract(error));
+                        newItem.setDealPrice(dealPrice.add(error));
                         validItems.add(newItem);
                     } catch (CloneNotSupportedException e) {
                         logger.error(e.getMessage(), e);
                     }
                 }
             }
-
         }
 
+        logger.debug("cacuDiscount返回 validItems = "+validItems);
         return validItems;
     }
 }

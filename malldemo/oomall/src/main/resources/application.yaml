@@ -6,9 +6,6 @@ spring:
     name: oomall
   profiles:
     active: test
-  output:
-    ansi:
-      enabled: detect
 
 management:
   endpoint:
@@ -31,7 +28,10 @@ mybatis:
 logging:
   #设置日志打印级别
   level:
+    #Spring框架中的日志级别
+    org.springframework.web: info
     root: error
+    #自己项目包名下的日志级别
     xmu.oomall.controller: debug
     xmu.oomall.service: debug
     xmu.oomall.dao: debug

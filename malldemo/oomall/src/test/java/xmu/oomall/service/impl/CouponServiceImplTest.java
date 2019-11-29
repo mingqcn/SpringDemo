@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import xmu.oomall.OoMallApplication;
-import xmu.oomall.dao.CouponDao;
 import xmu.oomall.domain.coupon.Coupon;
-import xmu.oomall.mapper.CouponMapper;
 import xmu.oomall.service.CouponService;
 
 import static org.junit.jupiter.api.Assertions.*;

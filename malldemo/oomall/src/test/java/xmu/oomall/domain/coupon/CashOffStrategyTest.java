@@ -2,6 +2,8 @@ package xmu.oomall.domain.coupon;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import xmu.oomall.OoMallApplication;
 import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.goods.Product;
 import xmu.oomall.domain.order.OrderItem;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest(classes = OoMallApplication.class)
 class CashOffStrategyTest {
 
     private List<OrderItem> validItems;
@@ -19,7 +22,7 @@ class CashOffStrategyTest {
 
     @BeforeEach
     void setUp() {
-        this.validItems = new ArrayList<OrderItem>(3);
+        this.validItems = new ArrayList<>(3);
         OrderItem item = new OrderItem();
         item.setQuantity(1);
         item.setPrice(BigDecimal.valueOf(10.01));
@@ -53,23 +56,24 @@ class CashOffStrategyTest {
 
     @Test
     void cacuDiscount() {
-        List<OrderItem> newItems = this.strategy.cacuDiscount(this.validItems);
+        List<OrderItem> newItems = this.strategy.cacuDiscount(this.validItems, "test001");
 
         OrderItem item = newItems.get(0);
-        System.out.println(item);
         BigDecimal dealPrice = item.getDealPrice();
-        assertTrue(dealPrice.equals(BigDecimal.valueOf(8.02)));
+        assertTrue(dealPrice.equals(BigDecimal.valueOf(9.28)));
+        assertEquals(item.getPromotionSn(),"test001");
 
         item = newItems.get(1);
         System.out.println(item);
         dealPrice = item.getDealPrice();
-        assertTrue(dealPrice.equals(BigDecimal.valueOf(16.01)));
+        assertTrue(dealPrice.equals(BigDecimal.valueOf(18.58)));
+        assertEquals(item.getPromotionSn(),"test001");
 
         item = newItems.get(2);
         System.out.println(item);
         dealPrice = item.getDealPrice();
-        assertTrue(dealPrice == null);
-
+        assertTrue(dealPrice.equals(BigDecimal.valueOf(27.87)));
+        assertEquals(item.getPromotionSn(),"test001");
     }
 
     @Test
@@ -78,27 +82,31 @@ class CashOffStrategyTest {
         OrderItem item = changedItems.get(0);
         item.setQuantity(2);
 
-        List<OrderItem> newItems = this.strategy.cacuDiscount(this.validItems);
+        List<OrderItem> newItems = this.strategy.cacuDiscount(this.validItems,  "test002");
 
         item = newItems.get(0);
         System.out.println(item);
         BigDecimal dealPrice = item.getDealPrice();
-        assertTrue(dealPrice.equals(BigDecimal.valueOf(8.34)));
+        assertTrue(dealPrice.equals(BigDecimal.valueOf(9.34)));
+        assertEquals(item.getPromotionSn(),"test002");
 
         item = newItems.get(1);
         System.out.println(item);
         dealPrice = item.getDealPrice();
-        assertTrue(dealPrice.equals(BigDecimal.valueOf(16.68)));
+        assertTrue(dealPrice.equals(BigDecimal.valueOf(18.68)));
+        assertEquals(item.getPromotionSn(),"test002");
 
         item = newItems.get(2);
         System.out.println(item);
         dealPrice = item.getDealPrice();
-        assertTrue(dealPrice == null);
+        assertTrue(dealPrice.equals(BigDecimal.valueOf(28.01)));
+        assertEquals(item.getPromotionSn(),"test002");
 
         item = newItems.get(3);
         System.out.println(item);
         dealPrice = item.getDealPrice();
-        assertTrue(dealPrice.equals(BigDecimal.valueOf(8.35)));
+        assertTrue(dealPrice.equals(BigDecimal.valueOf(9.33)));
+        assertEquals(item.getPromotionSn(),"test002");
     }
 
 }

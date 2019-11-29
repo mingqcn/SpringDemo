@@ -6,15 +6,13 @@ import java.util.Objects;
 
 /**
  * 满减的优惠策略
- * @Author: Ming Qiu
- * @Description:
- * @Date: Created in 18:00 2019/11/10
- * @Modified By:
+ * @author: Ming Qiu
+ * @date: Created in 18:00 2019/11/10
  **/
 public final class CashOffStrategy extends AbstractCouponStrategy {
     /**
      * JSON格式
-     * {threshold:xxx, offCash:xxx}
+     *{"name":“CashOffStrategy","obj":{"threshold":xxx, "offCash":xxx}}
      */
 
     /**
