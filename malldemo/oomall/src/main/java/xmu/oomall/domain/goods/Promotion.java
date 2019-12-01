@@ -2,10 +2,8 @@ package xmu.oomall.domain.goods;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import xmu.oomall.domain.Payment;
-import xmu.oomall.domain.coupon.AbstractCouponStrategy;
+import xmu.oomall.domain.payment.Payment;
 import xmu.oomall.domain.order.Order;
-import xmu.oomall.util.Common;
 import xmu.oomall.util.JacksonUtil;
 
 import java.time.LocalDateTime;
@@ -26,10 +24,11 @@ public class Promotion {
     /**
      * 计算活动付款
      * @param order 订单
+     * @param maxPayTime 付款间隔
      * @return 付款列表
      */
-    public List<Payment> getPayment(Order order){
-        return this.getPayStrategy().getPayment(Order);
+    public List<Payment> getPayment(Order order, Integer maxPayTime){
+        return this.getPayStrategy().getPayment(order, maxPayTime);
     }
 
     public AbstractPaymentStrategy getPayStrategy() {

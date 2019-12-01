@@ -72,6 +72,7 @@ public abstract class AbstractCouponStrategy {
         logger.debug("优惠门槛 enough = "+enough);
 
         //计算优惠后的价格
+        List<OrderItem> newItems = new ArrayList<>();
         BigDecimal dealTotalPrice = BigDecimal.ZERO;
         if (enough) {
             for (OrderItem item: discountItems){
@@ -101,18 +102,17 @@ public abstract class AbstractCouponStrategy {
                     }
                 }
 
-                OrderItem newItem = null;
                 if (!gotIt){
                     //无数量为1的明细，拆第一个
                     OrderItem item = validItems.get(0);
                     Integer quantity = item.getQuantity();
                     item.setQuantity(quantity - 1);
                     try {
-                        newItem = (OrderItem) item.clone();
+                        OrderItem newItem = (OrderItem) item.clone();
                         newItem.setQuantity(1);
                         BigDecimal dealPrice = newItem.getDealPrice();
                         newItem.setDealPrice(dealPrice.add(error));
-                        validItems.add(newItem);
+                        newItems.add(newItem);
                     } catch (CloneNotSupportedException e) {
                         logger.error(e.getMessage(), e);
                     }
@@ -120,7 +120,7 @@ public abstract class AbstractCouponStrategy {
             }
         }
 
-        logger.debug("cacuDiscount返回 validItems = "+validItems);
-        return validItems;
+        logger.debug("cacuDiscount返回 validItems = "+newItems);
+        return newItems;
     }
 }

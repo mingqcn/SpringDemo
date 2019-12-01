@@ -4,23 +4,22 @@ import org.apache.ibatis.type.Alias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xmu.oomall.domain.coupon.Coupon;
-import xmu.oomall.domain.Payment;
 import xmu.oomall.domain.goods.Promotion;
+import xmu.oomall.domain.payment.Payment;
 import xmu.oomall.domain.user.Address;
 import xmu.oomall.domain.user.User;
 import xmu.oomall.util.Common;
-import xmu.oomall.util.Config;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * @Author: Ming Qiu
- * @Description:
- * @Date: Created in 16:08 2019/11/5
- * @Modified By:
+ * 订单对象
+ * @author: Ming Qiu
+ * @date: Created in 16:08 2019/11/5
  **/
 @Alias("order")
 public class Order {
@@ -145,6 +144,7 @@ public class Order {
      * 尾部随机数长度
      */
     private final static int RANDOM_LEN = 1;
+
     /**
      * 订单的状态
      * <p>
@@ -260,10 +260,15 @@ public class Order {
      * 计算订单的成交价格
      */
     public void cacuDealPrice(){
+        logger.debug("cacuDealPrice参数");
         //目前设计只支持一个订单中同类优惠卷只能使用一张优惠卷，一个货品只能选择使用一张优惠卷
+        for (OrderItem item : this.getItems()){
+            item.setDealPrice(item.getPrice());
+        }
         Coupon coupon = this.getCoupon();
-        coupon.cacuCouponPrice(this);
-        this.cacuTotal();
+        if (coupon != null) {
+            coupon.cacuCouponPrice(this);
+        }
     }
 
     /**
@@ -271,34 +276,49 @@ public class Order {
      * 需要设置OrderItem中的orderId
      */
     public void setItemsOrderId() {
-        for(OrderItem item: items){
+        for(OrderItem item: this.getItems()){
             item.setOrderId(this.getId());
         }
     }
 
     /**
-     * 计算付款方式
+     * 设置payment
+     * 需要设置payment对象中的orderId
      */
-    public void cacuPayment(){
+    public void setPaymentsOrderId() {
+        for(Payment payment: this.getPayments()){
+            payment.setOrderId(this.getId());
+        }
+    }
+
+    /**
+     * 计算付款方式
+     * @param maxPayTime 最长付款间隔
+     */
+    public void cacuPayment(Integer maxPayTime){
         /**
          * 逐项计算
          */
         this.cacuTotal();
+        List<Payment> payments = null;
         if (this.promotion != null){
             Payment payment = new Payment();
             LocalDateTime now = LocalDateTime.now();
             payment.setBeginTime(now);
-            payment.setEndTime(now.plusMinutes(Config.getInstance().getMaxPayTime()));
+            payment.setEndTime(now.plusMinutes(maxPayTime));
             payment.setAmount(this.getDealPrice());
+            payments = new ArrayList<>(1);
+            payments.add(payment);
         } else {
-            List<Payment> payments = this.promotion.getPayment(this);
+            payments = this.promotion.getPayment(this, maxPayTime);
         }
-
+        this.setPayments(payments);
     }
 
     public BigDecimal getDealPrice(){
         return this.getGoodPrice().subtract(this.getCouponPrice()).subtract(this.getIntegralPrice()).add(this.getIntegralPrice());
     }
+
     /****************************************************
      * 生成代码
      ****************************************************/

@@ -58,19 +58,18 @@ class CashOffStrategyTest {
     void cacuDiscount() {
         List<OrderItem> newItems = this.strategy.cacuDiscount(this.validItems, "test001");
 
-        OrderItem item = newItems.get(0);
+        assertEquals(newItems.size(),0);
+        OrderItem item = this.validItems.get(0);
         BigDecimal dealPrice = item.getDealPrice();
         assertTrue(dealPrice.equals(BigDecimal.valueOf(9.28)));
         assertEquals(item.getPromotionSn(),"test001");
 
-        item = newItems.get(1);
-        System.out.println(item);
+        item = this.validItems.get(1);
         dealPrice = item.getDealPrice();
         assertTrue(dealPrice.equals(BigDecimal.valueOf(18.58)));
         assertEquals(item.getPromotionSn(),"test001");
 
-        item = newItems.get(2);
-        System.out.println(item);
+        item = this.validItems.get(2);
         dealPrice = item.getDealPrice();
         assertTrue(dealPrice.equals(BigDecimal.valueOf(27.87)));
         assertEquals(item.getPromotionSn(),"test001");
@@ -83,27 +82,24 @@ class CashOffStrategyTest {
         item.setQuantity(2);
 
         List<OrderItem> newItems = this.strategy.cacuDiscount(this.validItems,  "test002");
+        assertEquals(newItems.size(),1);
 
-        item = newItems.get(0);
-        System.out.println(item);
+        item = this.validItems.get(0);
         BigDecimal dealPrice = item.getDealPrice();
         assertTrue(dealPrice.equals(BigDecimal.valueOf(9.34)));
         assertEquals(item.getPromotionSn(),"test002");
 
-        item = newItems.get(1);
-        System.out.println(item);
+        item = this.validItems.get(1);
         dealPrice = item.getDealPrice();
         assertTrue(dealPrice.equals(BigDecimal.valueOf(18.68)));
         assertEquals(item.getPromotionSn(),"test002");
 
-        item = newItems.get(2);
-        System.out.println(item);
+        item = this.validItems.get(2);
         dealPrice = item.getDealPrice();
         assertTrue(dealPrice.equals(BigDecimal.valueOf(28.01)));
         assertEquals(item.getPromotionSn(),"test002");
 
-        item = newItems.get(3);
-        System.out.println(item);
+        item = newItems.get(0);
         dealPrice = item.getDealPrice();
         assertTrue(dealPrice.equals(BigDecimal.valueOf(9.33)));
         assertEquals(item.getPromotionSn(),"test002");

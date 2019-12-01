@@ -1,4 +1,6 @@
-package xmu.oomall.domain;
+package xmu.oomall.domain.payment;
+
+import org.apache.ibatis.type.Alias;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ import java.util.Objects;
  * @Date: Created in 13:12 2019/11/5
  * @Modified By:
  **/
+@Alias("payment")
 public class Payment {
 
     private Integer id;
@@ -45,6 +48,7 @@ public class Payment {
      * 订单Id
      */
     private Integer orderId;
+
     private LocalDateTime addTime;
     private LocalDateTime updateTime;
 

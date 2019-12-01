@@ -21,7 +21,6 @@
 	</properties>
 
 	<modules>
-		<module>litemall</module>
 		<module>oomall</module>
 	</modules>
 

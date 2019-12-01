@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.oomall.mapper.PaymentMapper">
+    <insert id="addPayment" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into payment(pay_sn, status, end_time, begin_time, add_time, update_time, order_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.paySn}, ,#{item.status},#{item.endTime}, #{item.beginTime}, #{item.addTime}, #{item.updateTime}, #{item.orderId} )
+        </foreach>
+    </insert>
+</mapper>

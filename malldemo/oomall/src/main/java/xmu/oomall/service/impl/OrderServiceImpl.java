@@ -4,13 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xmu.oomall.dao.OrderDao;
 import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.goods.Promotion;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.order.OrderItem;
-import xmu.oomall.mapper.OrderMapper;
 import xmu.oomall.service.CartItemService;
 import xmu.oomall.service.OrderService;
+import xmu.oomall.util.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,14 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
-    CartItemService goodsService;
+    CartItemService cartItemService;
 
     @Autowired
-    OrderMapper orderMapper;
+    OrderDao orderDao;
+
+
+    @Autowired
+    Config config;
 
     @Override
     public Order submit(Order order, List<CartItem> cartItems) {
@@ -52,18 +57,19 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setItems(orderItems);
 
-        goodsService.clearCartItem(cartItems);
+        cartItemService.clearCartItem(cartItems);
 
         //计算优惠价
         order.cacuDealPrice();
 
         //计算付款方式
-        order.cacuPayment();
+        order.cacuPayment(config.getMaxPayTime());
 
+        Order newOrder = orderDao.addOrder(order);
 
-        logger.debug("submit返回值：order = "+ order);
+        logger.debug("submit返回值：order = "+ newOrder);
 
-    return order;
+    return newOrder;
 
     }
 }

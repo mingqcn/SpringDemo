@@ -131,8 +131,10 @@ public class CouponRule {
 
         List<OrderItem> validItems = this.getValidItems(order.getItems());
 
-        List<OrderItem> newItems = this.getStrategy().cacuDiscount(validItems, couponSn);
-        order.setItems(newItems);
+        if (validItems.size() != 0) {
+            List<OrderItem> newItems = this.getStrategy().cacuDiscount(validItems, couponSn);
+            order.getItems().addAll(newItems);
+        }
         logger.debug("cacuCouponPrice返回");
     }
 

@@ -27,15 +27,15 @@ public class Product {
     /**
      * 库存量
      */
-    private Integer stock;
+    private Integer stock = 0;
     /**
      * 零售价
      */
-    private BigDecimal retailPrice;
+    private BigDecimal retailPrice = BigDecimal.ZERO;
     /**
      * 销售价
      */
-    private BigDecimal purchasePrice;
+    private BigDecimal purchasePrice = BigDecimal.ZERO;
     /**
      * 商品
      */

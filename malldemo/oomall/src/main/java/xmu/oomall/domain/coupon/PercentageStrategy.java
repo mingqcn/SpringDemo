@@ -27,12 +27,12 @@ public class PercentageStrategy extends AbstractCouponStrategy {
 
     @Override
     protected boolean isEnough(BigDecimal totalPrice, Integer totalQuantity) {
-        return false;
+        return  (totalPrice.compareTo(this.threshold) >=0);
     }
 
     @Override
     protected BigDecimal getDealPrice(BigDecimal itemPrice, BigDecimal totalPrice) {
-        return  itemPrice.subtract(this.percentage.multiply(itemPrice));
+        return  this.percentage.multiply(itemPrice).setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override

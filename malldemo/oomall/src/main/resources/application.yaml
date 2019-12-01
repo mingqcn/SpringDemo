@@ -43,3 +43,7 @@ logging:
     path: C:\Users\Ming Qiu\log
   config: classpath:logback-spring.xml
 
+oomall:
+  #最大付款时间, 单位分钟
+  maxpaytime: 30
+
