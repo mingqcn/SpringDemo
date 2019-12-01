@@ -37,10 +37,10 @@ CREATE TABLE `cart_item` (
 -- Dumping data for table `cart_item`
 --
 
+
 /*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
 INSERT INTO `cart_item` VALUES (1,2,'2019-11-24 18:22:31',NULL,1,1),(2,3,'2019-11-24 18:22:49',NULL,1,2);
 /*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
-
 
 --
 -- Table structure for table `coupon`
@@ -66,7 +66,6 @@ CREATE TABLE `coupon` (
 --
 -- Dumping data for table `coupon`
 --
-
 
 /*!40000 ALTER TABLE `coupon` DISABLE KEYS */;
 INSERT INTO `coupon` VALUES (1,'SF0001','2019-11-23 21:25:37','2019-12-23 21:25:44',0,'2019-11-23 21:26:03',NULL,0,1),(2,'SF0002','2019-12-24 13:32:33','2020-11-24 13:32:44',0,'2019-11-24 13:32:55',NULL,0,1),(3,'SF0003','2019-10-24 13:34:18','2019-11-23 13:34:27',0,'2019-11-24 13:34:35',NULL,0,2),(4,'SF0004','2019-11-24 13:35:16','2019-12-24 13:35:21',1,'2019-11-24 13:35:31',NULL,0,2);
@@ -100,9 +99,8 @@ CREATE TABLE `coupon_rule` (
 -- Dumping data for table `coupon_rule`
 --
 
-
 /*!40000 ALTER TABLE `coupon_rule` DISABLE KEYS */;
-INSERT INTO `coupon_rule` VALUES (1,'测试优惠卷1',NULL,'2019-11-23 21:28:30',NULL,NULL,1,'{"gIDs":[1,2]}','2019-11-23 21:28:39',NULL,0,'{"name":"xmu.oomall.domain.coupon.CashOffStrategy","obj":{"threshold":1000.01,"offCash":10.01}}'),(2,'测试优惠卷2',NULL,'2019-11-24 13:36:25',NULL,NULL,4,'{"gIDs":[1]}','2019-11-24 13:36:43',NULL,0,'{"name":"xmu.oomall.domain.coupon.PercentageStrategy","obj":{"threshold":99.01,"percentage":0.9}}');
+INSERT INTO `coupon_rule` VALUES (1,'测试优惠卷1',NULL,'2019-11-23 21:28:30',NULL,NULL,1,'{\"gIDs\":[1,2]}','2019-11-23 21:28:39',NULL,0,'{\"name\":\"xmu.oomall.domain.coupon.CashOffStrategy\",\"obj\":{\"threshold\":1000.01,\"offCash\":10.01}}'),(2,'测试优惠卷2',NULL,'2019-11-24 13:36:25',NULL,NULL,4,'{\"gIDs\":[1]}','2019-11-24 13:36:43',NULL,0,'{\"name\":\"xmu.oomall.domain.coupon.PercentageStrategy\",\"obj\":{\"threshold\":99.01,\"percentage\":0.9}}');
 /*!40000 ALTER TABLE `coupon_rule` ENABLE KEYS */;
 
 
@@ -150,7 +148,7 @@ CREATE TABLE `goods` (
 
 
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
-INSERT INTO `goods` VALUES (1,'G001','测试商品1','测试商品短名1','English name 1','111111111111','台',10,10,10,10,9,'分类1','品牌1',1,0,0,'从v ','尺寸','','','2019-11-24 23:45:21',NULL,0,1,1),(2,'G002','测试商品2','测试商品短名2','English Name 2','222222222222','条',20,20,20,20,19,'分类2','品牌2',1,1,1,'烦烦烦','订单',NULL,NULL,'2019-11-24 23:45:25',NULL,NULL,1,1);
+INSERT INTO `goods` VALUES (1,'G001','测试商品1','测试商品短名1','English name 1','111111111111','台',10,10,10,10,9,'分类1','品牌1',1,0,0,'从v ','尺寸','','','2019-11-24 23:45:21',NULL,0,1,1),(2,'G002','测试商品2','测试商品短名2','English Name 2','222222222222','条',20,20,20,20,19,'分类2','品牌2',1,1,1,'烦烦烦','订单','d','d','2019-11-24 23:45:25',NULL,0,1,1),(3,'G003','测试商品3','测试商品短名3','English Name3','333333333333','个',30,30,30,30,30,'分类3',NULL,1,0,0,'测试3','的','d','d',NULL,NULL,0,2,2);
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 
 
@@ -183,6 +181,7 @@ CREATE TABLE `order` (
   `add_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `be_deleted` int(11) DEFAULT NULL,
+  `promotion_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -192,8 +191,61 @@ CREATE TABLE `order` (
 --
 
 
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+
+--
+-- Table structure for table `order_item`
+--
+
+DROP TABLE IF EXISTS `order_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quantity` int(11) DEFAULT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
+  `deal_price` decimal(10,0) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `be_deleted` int(11) DEFAULT NULL,
+  `order_id` bigint(20) DEFAULT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `promotion_sn` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_item_order_id_index` (`order_id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_item`
+--
+
+--
+-- Table structure for table `payment`
+--
+
+DROP TABLE IF EXISTS `payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pay_sn` varchar(20) DEFAULT NULL,
+  `pay_time` datetime DEFAULT NULL,
+  `pay_channel` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `begin_time` datetime DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `order_id` bigint(20) DEFAULT NULL,
+  `amount` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment`
+--
 
 
 --
@@ -224,9 +276,41 @@ CREATE TABLE `product` (
 
 
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'P001',NULL,10,100,99,'2019-11-24 18:20:45',NULL,0,1),(2,'P002',NULL,11,101,100,'2019-11-24 18:21:39',NULL,0,2);
+INSERT INTO `product` VALUES (1,'P001',NULL,10,100,99,'2019-11-24 18:20:45',NULL,0,1),(2,'P002',NULL,11,101,100,'2019-11-24 18:21:39',NULL,0,2),(3,'P003',NULL,11,201,200,NULL,NULL,0,3),(4,'P004',NULL,11,101,100,NULL,NULL,0,3);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+--
+-- Table structure for table `promotion`
+--
+
+DROP TABLE IF EXISTS `promotion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `promotion` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `begin_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `promotion_sn` varchar(20) DEFAULT NULL,
+  `pay_strategy` varchar(1000) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `be_deleted` int(11) DEFAULT NULL,
+  `goods_id` bigint(20) DEFAULT NULL,
+  `descr` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `promotion_goods_id_index` (`goods_id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `promotion`
+--
+
+
+/*!40000 ALTER TABLE `promotion` DISABLE KEYS */;
+INSERT INTO `promotion` VALUES (1,'2019-12-01 09:14:38','2019-12-07 09:14:56','p0001',NULL,NULL,NULL,0,3,'预售活动');
+/*!40000 ALTER TABLE `promotion` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -236,4 +320,4 @@ INSERT INTO `product` VALUES (1,'P001',NULL,10,100,99,'2019-11-24 18:20:45',NULL
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-24 23:59:58
+-- Dump completed on 2019-12-01 11:31:04

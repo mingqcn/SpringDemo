@@ -120,7 +120,7 @@ public abstract class AbstractCouponStrategy {
             }
         }
 
-        logger.debug("cacuDiscount返回 validItems = "+newItems);
+        logger.debug("cacuDiscount返回 newItems = "+newItems);
         return newItems;
     }
 }

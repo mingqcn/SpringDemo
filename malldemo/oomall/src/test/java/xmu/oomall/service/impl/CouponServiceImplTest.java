@@ -28,6 +28,5 @@ class CouponServiceImplTest {
         assertEquals(coupon.getCouponSn(), "SF0003");
         assertEquals(coupon.getCouponRuleId(), 2);
         assertEquals(coupon.getName(), "测试优惠卷2");
-
     }
 }

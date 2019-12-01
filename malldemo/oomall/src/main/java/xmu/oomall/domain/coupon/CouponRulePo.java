@@ -1,5 +1,6 @@
 package xmu.oomall.domain.coupon;
 
+import io.micrometer.core.instrument.util.StringEscapeUtils;
 import org.apache.ibatis.type.Alias;
 
 import java.time.LocalDateTime;

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xmu.oomall.dao.OrderDao;
 import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.goods.Promotion;
@@ -38,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
     Config config;
 
     @Override
+    @Transactional
     public Order submit(Order order, List<CartItem> cartItems) {
 
         //把购物车中的物品加入订单
@@ -61,6 +63,8 @@ public class OrderServiceImpl implements OrderService {
 
         //计算优惠价
         order.cacuDealPrice();
+
+        logger.debug("order = "+ order);
 
         //计算付款方式
         order.cacuPayment(config.getMaxPayTime());

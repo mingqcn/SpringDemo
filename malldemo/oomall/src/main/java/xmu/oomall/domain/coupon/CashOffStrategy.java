@@ -62,6 +62,14 @@ public final class CashOffStrategy extends AbstractCouponStrategy {
      * 生成代码
      ****************************************************/
 
+    @Override
+    public String toString() {
+        return "CashOffStrategy{" +
+                "threshold=" + threshold +
+                ", offCash=" + offCash +
+                '}';
+    }
+
     public CashOffStrategy() {
     }
 

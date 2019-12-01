@@ -296,12 +296,15 @@ public class Order {
      * @param maxPayTime 最长付款间隔
      */
     public void cacuPayment(Integer maxPayTime){
+        logger.debug("cacuPayment参数：maxPayTime = "+maxPayTime);
         /**
          * 逐项计算
          */
         this.cacuTotal();
+        logger.debug("dealPrice =" +this.getDealPrice());
         List<Payment> payments = null;
-        if (this.promotion != null){
+        if (this.promotion == null){
+            logger.debug("无优惠活动");
             Payment payment = new Payment();
             LocalDateTime now = LocalDateTime.now();
             payment.setBeginTime(now);
@@ -310,6 +313,7 @@ public class Order {
             payments = new ArrayList<>(1);
             payments.add(payment);
         } else {
+            logger.debug("有优惠活动 promotion =" + this.promotion);
             payments = this.promotion.getPayment(this, maxPayTime);
         }
         this.setPayments(payments);

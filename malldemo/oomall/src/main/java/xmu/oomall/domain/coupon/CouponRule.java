@@ -1,6 +1,7 @@
 package xmu.oomall.domain.coupon;
 
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import xmu.oomall.domain.goods.Goods;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.order.OrderItem;
@@ -21,10 +22,6 @@ public class CouponRule {
     private static final Logger logger = LoggerFactory.getLogger(CouponRule.class);
 
     private CouponRulePo realObj;
-        /**
-     * 用TreeSet存储该优惠卷可以用的商品id
-     */
-    private Set<Integer> goodsIds = new TreeSet<Integer>();
 
 
     /**
@@ -52,7 +49,10 @@ public class CouponRule {
      * @return 折扣策略对象
      */
     public AbstractCouponStrategy getStrategy() {
+        logger.debug("getStrategy参数：");
         String jsonString = this.realObj.getStrategy();
+        logger.debug("jsonString = "+ jsonString);
+        jsonString = org.apache.commons.text.StringEscapeUtils.unescapeJson(jsonString);
         String strategyName = JacksonUtil.parseString(jsonString, "name");
 
         AbstractCouponStrategy strategy = null;
@@ -87,14 +87,15 @@ public class CouponRule {
      * @return
      */
     public boolean isUsedOnGoods(Integer goodsId) {
-        if (this.goodsIds.size() == 0) {
-            this.goodsIds.addAll(this.getGoodsIds());
-        }
 
-        if (this.goodsIds.contains(Goods.ALL_GOODS.getId())){
+        Set<Integer> goodsIds = new TreeSet<>();
+        goodsIds.clear();
+        goodsIds.addAll(this.getGoodsIds());
+
+        if (goodsIds.contains(Goods.ALL_GOODS.getId())){
             return true;
         } else {
-            return this.goodsIds.contains(goodsId);
+            return goodsIds.contains(goodsId);
         }
     }
 
@@ -104,7 +105,10 @@ public class CouponRule {
      * @return 商品id列表
      */
     public List<Integer> getGoodsIds() {
+        logger.debug("getGoodsIds参数");
         String jsonString = realObj.getGoodsIds();
+        jsonString = org.apache.commons.text.StringEscapeUtils.unescapeJson(jsonString);
+        logger.debug("jsonString =" +jsonString);
         return JacksonUtil.parseIntegerList(jsonString, "gIDs");
     }
 
@@ -116,7 +120,6 @@ public class CouponRule {
         Map<String,Object> idMap = new HashMap<String, Object>(1);
         idMap.put("gIDs", goodsIds);
         realObj.setGoodsIds(JacksonUtil.toJson(idMap));
-        this.goodsIds.clear();
     }
 
     /**

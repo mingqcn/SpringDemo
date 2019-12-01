@@ -19,6 +19,6 @@ public class Config {
 
 
     public Integer getMaxPayTime(){
-        return this.getMaxPayTime();
+        return this.maxPayTime;
     }
 }

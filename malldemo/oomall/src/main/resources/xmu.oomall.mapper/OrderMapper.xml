@@ -48,7 +48,7 @@
 
     <insert id="addOrder" parameterType="order" useGeneratedKeys="true" keyProperty="id">
         insert into order(order_sn, status, consignee, mobile, message, good_price, coupon_price, freight_price, integral_price, ship_sn, ship_channel, ship_time, confirm_time, end_time, province, city, address_detail, add_time, update_time, be_deleted)
-        values (#{orderSn},#{status}, #{consignee}, #{mobile}, #{message}, #{goodPrice}, #{couponPrice}, #{feightPrice}, #{integralPrice}, #{shipSn}, #{shipChannel}, #{shipTime}, #{confirmTime}, #{endTime}, #{province}, #{city}, #{addressDetail}, #{addTime}, #{updateTime}, , #{beDeleted})
+        values (#{orderSn},#{status}, #{consignee}, #{mobile}, #{message}, #{goodPrice}, #{couponPrice}, #{feightPrice}, #{integralPrice}, #{shipSn}, #{shipChannel}, #{shipTime}, #{confirmTime}, #{endTime}, #{province}, #{city}, #{addressDetail}, #{addTime}, #{updateTime}, #{beDeleted})
     </insert>
 
     <insert id="addOrderItems" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
