@@ -1,12 +1,19 @@
 package xmu.oomall.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import xmu.oomall.domain.cart.CartItem;
 import xmu.oomall.domain.goods.Product;
 import xmu.oomall.mapper.CartItemMapper;
 import xmu.oomall.service.CartItemService;
 import xmu.oomall.service.GoodsService;
+import xmu.oomall.service.impl.OrderServiceImpl;
+import xmu.oomall.util.Config;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 购物车Dao对象
@@ -16,12 +23,15 @@ import xmu.oomall.service.GoodsService;
 
 @Repository
 public class CartItemDao {
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
     private CartItemMapper cartItemMapper;
 
     @Autowired
     private GoodsService goodsService;
+
+
 
     /**
      * 用id返回购物车明细

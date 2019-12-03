@@ -44,4 +44,30 @@
         from product where id = #{id}
     </select>
 
+    <select id="findPromotionByGoodsId" resultType="promotionPo" parameterType="Integer">
+        select id, begin_time, end_time, promotion_sn, pay_strategy, add_time, update_time, be_deleted, descr
+        from promotion
+        where goods_id = #{id}
+    </select>
+
+    <select id="getStockInDB" resultType="Integer" parameterType="Integer">
+        select stock
+        from product where id = #{id}
+    </select>
+
+    <update id="updateProduct" parameterType="product">
+        update product
+        <trim prefix="set" suffixOverrides=",">
+            <if test="productSn!=null">product_sn=#{productSn},</if>
+            <if test="productProperty!=null">product_property=#{productProperty},</if>
+            <if test="stock!=null">stock=#{stock},</if>
+            <if test="retailPrice!=null">retail_price=#{retailPrice},</if>
+            <if test="purchasePrice!=null">purchase_price=#{purchasePrice},</if>
+            <if test="addTime!=null">add_time=#{addTime},</if>
+            <if test="updateTime!=null">update_time=#{updateTime},</if>
+            <if test="beDelete!=null">be_delete=#{beDelete},</if>
+            <if test="goodsId!=null">goods_id=#{goodsId},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
 </mapper>

@@ -5,7 +5,7 @@ spring:
   application:
     name: oomall
   profiles:
-    active: test
+    active: dev
 
 management:
   endpoint:
@@ -46,4 +46,8 @@ logging:
 oomall:
   #最大付款时间, 单位分钟
   maxpaytime: 30
+  #redis缓存失效时间，单位分钟
+  redisexpiretime: 1
+  #预提库存数量
+  predeductQty: 3
 

@@ -1,11 +1,13 @@
 package xmu.oomall.domain.goods;
 
+import org.apache.ibatis.type.Alias;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xmu.oomall.domain.payment.Payment;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.util.JacksonUtil;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.Map;
  * @author Ming Qiu
  * @date 2019/11/26 10:39
  */
-public class Promotion {
+public class Promotion implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Order.class);
 
     private PromotionPo realObj;
@@ -55,7 +57,11 @@ public class Promotion {
 
 
     public Promotion() {
-        this.realObj = new PromotionPo();
+
+    }
+
+    public Promotion(PromotionPo realObj){
+        this.realObj = realObj;
     }
 
     public PromotionPo getRealObj() {

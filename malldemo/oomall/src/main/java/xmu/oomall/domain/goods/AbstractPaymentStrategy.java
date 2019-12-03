@@ -10,7 +10,7 @@ import java.util.List;
  * @author: Ming Qiu
  * @date: Created in 14:21 2019/11/26
  **/
-public interface AbstractPaymentStrategy {
+public interface AbstractPaymentStrategy{
     /**
      * 获得付款方式
      * @param order 订单对象

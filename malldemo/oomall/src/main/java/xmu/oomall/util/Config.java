@@ -17,8 +17,27 @@ public class Config {
     @Value("${oomall.maxpaytime}")
     private Integer maxPayTime;
 
+    /**
+     * redis缓存失效时间，单位分钟
+     */
+    @Value("${oomall.redisexpiretime}")
+    private Integer redisExpireTime;
+
+    /**
+     * 预提库存数量
+     */
+    @Value("${oomall.predeductQty}")
+    private Integer preDeductQty;
 
     public Integer getMaxPayTime(){
         return this.maxPayTime;
+    }
+
+    public Integer getRedisExpireTime() {
+        return redisExpireTime;
+    }
+
+    public Integer getPreDeductQty() {
+        return preDeductQty;
     }
 }

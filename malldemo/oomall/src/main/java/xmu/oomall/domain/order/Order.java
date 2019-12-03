@@ -1,6 +1,7 @@
 package xmu.oomall.domain.order;
 
 import org.apache.ibatis.type.Alias;
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xmu.oomall.domain.coupon.Coupon;
@@ -319,7 +320,12 @@ public class Order {
         this.setPayments(payments);
     }
 
-    public BigDecimal cacuOrderDealPrice(){
+
+    /**
+     * 计算订单的成交价格
+     * @return 成交价格
+     */
+    private BigDecimal cacuOrderDealPrice(){
         return this.getGoodPrice().subtract(this.getCouponPrice()).subtract(this.getIntegralPrice()).add(this.getIntegralPrice());
     }
 

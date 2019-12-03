@@ -3,6 +3,7 @@ package xmu.oomall.domain.goods;
 import org.apache.ibatis.type.Alias;
 import xmu.oomall.util.Common;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.Objects;
  * 该对象不可以删除
  */
 @Alias("product")
-public class Product {
+public class Product implements Serializable {
     private Integer id;
     /**
      * 货品编号
@@ -55,6 +56,24 @@ public class Product {
      */
     public Product() {
         this.setAddTime(LocalDateTime.now());
+    }
+
+    /**
+     * 把对象的属性全部置为空
+     */
+    public void setNull(){
+        this.id = null;
+        this.addTime = null;
+        this.productSn= null;
+        this.productProperty=null;
+        this.stock = null;
+        this.retailPrice = null;
+        this.purchasePrice = null;
+        this.desc = null;
+        this.goodsId = null;
+        this.addTime = null;
+        this.updateTime = null;
+        this.beDeleted = null;
     }
 
     /****************************************************

@@ -3,6 +3,7 @@ package xmu.oomall.domain.goods;
 import org.apache.ibatis.type.Alias;
 import xmu.oomall.util.Common;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @author Ming Qiu
  */
 @Alias("goods")
-public class Goods {
+public class Goods implements Serializable {
     private Integer id;
     /**
      * 商品编码
@@ -102,7 +103,7 @@ public class Goods {
     /**
      * 商品的促销活动
      */
-    private Promotion promotion = null;
+    private List<Promotion> promotions;
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime = Common.DEFAULT_TIME;
@@ -123,6 +124,23 @@ public class Goods {
     public Goods(){
     }
 
+    /**
+     * 获得可用的Promotion
+     * @return null 无可用，否则可用的Promotion
+     */
+    public Promotion validPromotion(){
+        Promotion ret = null;
+        if (this.promotions != null){
+            LocalDateTime now = LocalDateTime.now();
+            for (Promotion item : this.promotions){
+                if (now.compareTo(item.getBeginTime())>=0 && now.compareTo(item.getEndTime())<0 ){
+                    ret = item;
+                    break;
+                }
+            }
+        }
+        return ret;
+    }
 
 
     /****************************************************
@@ -394,11 +412,11 @@ public class Goods {
         this.beDeleted = beDeleted;
     }
 
-    public Promotion getPromotion() {
-        return promotion;
+    public List<Promotion> getPromotion() {
+        return promotions;
     }
 
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
+    public void setPromotion(List<Promotion> promotion) {
+        this.promotions = promotion;
     }
 }

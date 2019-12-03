@@ -4,6 +4,7 @@ import xmu.oomall.domain.payment.Payment;
 import xmu.oomall.domain.order.Order;
 import xmu.oomall.domain.order.OrderItem;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author: Ming Qiu
  * @date: Created in 22:36 2019/11/29
  **/
-public class PrePayStrategy implements AbstractPaymentStrategy {
+public class PrePayStrategy implements AbstractPaymentStrategy, Serializable {
 
     /**
      * 预付款

@@ -1,7 +1,9 @@
 package xmu.oomall.domain.goods;
 
+import org.apache.ibatis.type.Alias;
 import xmu.oomall.util.Common;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,7 +13,8 @@ import java.util.Objects;
  * @author: Ming Qiu
  * @date: Created in 14:16 2019/11/26
  **/
-public class PromotionPo {
+@Alias("promotionPo")
+public class PromotionPo implements Serializable {
 
     private Integer id;
 

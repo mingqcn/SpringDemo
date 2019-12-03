@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
         for (CartItem cartItem: cartItems) {
             OrderItem orderItem = new OrderItem(cartItem);
             orderItems.add(orderItem);
-            Promotion promotion = orderItem.getProduct().getDesc().getPromotion();
+            Promotion promotion = orderItem.getProduct().getDesc().validPromotion();
             if (order.getPromotion() == null){
                 order.setPromotion(promotion);
             }else if (!order.getPromotion().equals(promotion)){
