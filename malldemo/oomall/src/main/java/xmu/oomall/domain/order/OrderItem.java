@@ -42,6 +42,11 @@ import java.util.Objects;
      */
     private Product product;
     /**
+     * 货品id
+     */
+    private Integer productId;
+
+    /**
      * 商品名称+货品属性
      * 冗余存储
      */
@@ -216,5 +221,13 @@ import java.util.Objects;
 
     public void setBeDeleted(Boolean beDeleted) {
         this.beDeleted = beDeleted;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 }

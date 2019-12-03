@@ -40,6 +40,10 @@ public class Product {
      * 商品
      */
     private Goods desc;
+    /**
+     * 商品对象ID
+     */
+    private Integer goodsId;
 
     private LocalDateTime addTime;
     private LocalDateTime updateTime = Common.DEFAULT_TIME;
@@ -170,5 +174,13 @@ public class Product {
 
     public void setBeDeleted(Boolean deleted) {
         beDeleted = deleted;
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 }

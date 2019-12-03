@@ -16,7 +16,8 @@
                  update_time,
                  be_deleted,
                  product_name,
-                 promotion_sn
+                 promotion_sn,
+                 product_id
             from order_item where order_id = #{id}
     </select>
 
@@ -43,19 +44,21 @@
                update_time,
                be_deleted,
                promotion_id
-        from order where id = #{id}
+        from oomall_order where id = #{id}
     </select>
 
     <insert id="addOrder" parameterType="order" useGeneratedKeys="true" keyProperty="id">
-        insert into order(order_sn, status, consignee, mobile, message, good_price, coupon_price, freight_price, integral_price, ship_sn, ship_channel, ship_time, confirm_time, end_time, province, city, address_detail, add_time, update_time, be_deleted)
-        values (#{orderSn},#{status}, #{consignee}, #{mobile}, #{message}, #{goodPrice}, #{couponPrice}, #{feightPrice}, #{integralPrice}, #{shipSn}, #{shipChannel}, #{shipTime}, #{confirmTime}, #{endTime}, #{province}, #{city}, #{addressDetail}, #{addTime}, #{updateTime}, #{beDeleted})
+        insert into oomall_order(order_sn, status, consignee, mobile, message, good_price, coupon_price, freight_price, integral_price, ship_sn, ship_channel, ship_time, confirm_time, end_time, province, city, county , address_detail, add_time, update_time, be_deleted, quantity)
+        values (#{orderSn},#{orderStatus}, #{consignee}, #{mobile}, #{message}, #{goodPrice}, #{couponPrice}, #{freightPrice}, #{integralPrice}, #{shipSn}, #{shipChannel}, #{shipTime}, #{confirmTime}, #{endTime}, #{province}, #{city}, #{county}, #{addressDetail}, #{addTime}, #{updateTime}, #{beDeleted},#{quantity})
     </insert>
 
+
+
     <insert id="addOrderItems" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into order_item(quantity, price, deal_price, add_time, update_time, be_deleted, order_id, product_id, product_name, promotion_sn)
+        insert into order_item(order_id, quantity, price, deal_price, add_time, update_time, be_deleted, product_id, product_name, promotion_sn)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.orderId}, #{item.quantiy}, #{item.price},#{item.dealPrice}, #{item.addTime}, #{item.updateTime}, #{item.beDeleted}, #{item.product.getId()}, #{item.productName}, #{item.promotionSn})
+            (#{item.orderId}, #{item.quantity}, #{item.price},#{item.dealPrice}, #{item.addTime}, #{item.updateTime}, #{item.beDeleted}, #{item.productId}, #{item.productName}, #{item.promotionSn})
         </foreach>
     </insert>
 

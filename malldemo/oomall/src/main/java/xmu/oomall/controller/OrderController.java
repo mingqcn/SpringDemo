@@ -70,8 +70,9 @@ public class OrderController {
         }
 
         Order retOrder = orderService.submit(newOrder, cartItems);
+        Object retObj = ResponseUtil.ok(retOrder);
 
-        logger.debug("submit的返回值："+retOrder);
-        return ResponseUtil.ok(retOrder);
+        logger.debug("submit的返回值："+retObj);
+        return retObj;
     }
 }

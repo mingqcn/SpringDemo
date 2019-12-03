@@ -156,10 +156,10 @@ INSERT INTO `goods` VALUES (1,'G001','测试商品1','测试商品短名1','Engl
 -- Table structure for table `order`
 --
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `oomall_order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order` (
+CREATE TABLE `oomall_order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `order_sn` varchar(50) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
@@ -177,18 +177,17 @@ CREATE TABLE `order` (
   `end_time` datetime DEFAULT NULL,
   `province` varchar(50) DEFAULT NULL,
   `city` varchar(50) DEFAULT NULL,
+  `county` varchar(255) DEFAULT NULL,
   `address_detail` varchar(255) DEFAULT NULL,
   `add_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `be_deleted` int(11) DEFAULT NULL,
   `promotion_id` bigint(20) DEFAULT NULL,
+  `quantity` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `order`
---
 
 
 
@@ -216,9 +215,6 @@ CREATE TABLE `order_item` (
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `order_item`
---
 
 --
 -- Table structure for table `payment`

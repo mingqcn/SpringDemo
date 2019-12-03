@@ -301,7 +301,7 @@ public class Order {
          * 逐项计算
          */
         this.cacuTotal();
-        logger.debug("dealPrice =" +this.getDealPrice());
+        logger.debug("dealPrice =" +this.cacuOrderDealPrice());
         List<Payment> payments = null;
         if (this.promotion == null){
             logger.debug("无优惠活动");
@@ -309,7 +309,7 @@ public class Order {
             LocalDateTime now = LocalDateTime.now();
             payment.setBeginTime(now);
             payment.setEndTime(now.plusMinutes(maxPayTime));
-            payment.setAmount(this.getDealPrice());
+            payment.setAmount(this.cacuOrderDealPrice());
             payments = new ArrayList<>(1);
             payments.add(payment);
         } else {
@@ -319,7 +319,7 @@ public class Order {
         this.setPayments(payments);
     }
 
-    public BigDecimal getDealPrice(){
+    public BigDecimal cacuOrderDealPrice(){
         return this.getGoodPrice().subtract(this.getCouponPrice()).subtract(this.getIntegralPrice()).add(this.getIntegralPrice());
     }
 

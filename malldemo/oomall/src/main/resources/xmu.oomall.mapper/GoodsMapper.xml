@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xmu.oomall.mapper.GoodsMapper">
-    <resultMap id="productMap" type="product" autoMapping="true">
-        <id property="id" column="id"/>
-        <association property="desc" column="goods_id" select="findGoodsById" fetchType="eager"/>
-    </resultMap>
 
     <select id="findGoodsById" resultType="goods" parameterType="Integer">
         select id,
@@ -34,7 +30,7 @@
         from goods where id = #{id}
     </select>
 
-    <select id="findProductById" resultMap="productMap" parameterType="Integer">
+    <select id="findProductById" resultType="product" parameterType="Integer">
         select id,
            product_sn,
            product_property,

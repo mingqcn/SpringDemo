@@ -5,7 +5,7 @@
         insert into payment(pay_sn, status, end_time, begin_time, add_time, update_time, order_id)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.paySn}, ,#{item.status},#{item.endTime}, #{item.beginTime}, #{item.addTime}, #{item.updateTime}, #{item.orderId} )
+            (#{item.paySn}, #{item.status},#{item.endTime}, #{item.beginTime}, #{item.addTime}, #{item.updateTime}, #{item.orderId} )
         </foreach>
     </insert>
 </mapper>

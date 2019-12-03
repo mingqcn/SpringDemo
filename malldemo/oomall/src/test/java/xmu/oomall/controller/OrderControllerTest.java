@@ -67,11 +67,6 @@ public class OrderControllerTest {
         assertEquals(order.getCity(),"厦门");
         assertEquals(order.getProvince(),"福建");
         assertEquals(order.getConsignee(),"王OO");
-        List<OrderItem> orderItems = order.getItems();
-        assertEquals(orderItems.get(0).getPrice(), 100.01);
-        assertEquals(orderItems.get(0).getDealPrice(), 100.01);
-        assertEquals(orderItems.get(1).getPrice(), 100.01);
-        assertEquals(orderItems.get(1).getDealPrice(), 100.01);
 
     }
 
