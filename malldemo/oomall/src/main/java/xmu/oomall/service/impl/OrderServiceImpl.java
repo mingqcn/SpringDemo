@@ -44,36 +44,51 @@ public class OrderServiceImpl implements OrderService {
 
         //把购物车中的物品加入订单
         logger.debug("submit参数order = "+ order + " cartItems = " + cartItems);
+        Order newOrder = null;
+        if (this.createOrderItemFromCartItem(order, cartItems)) {
+            cartItemService.clearCartItem(cartItems);
 
-        List<OrderItem> orderItems = new ArrayList<>(cartItems.size());
+            //计算优惠价
+            order.cacuDealPrice();
 
-        for (CartItem cartItem: cartItems) {
-            OrderItem orderItem = new OrderItem(cartItem);
-            orderItems.add(orderItem);
-            Promotion promotion = orderItem.getProduct().getDesc().validPromotion();
-            if (order.getPromotion() == null){
-                order.setPromotion(promotion);
-            }else if (!order.getPromotion().equals(promotion)){
-                //TODO:报错，一个订单只能有一个促销活动
-            }
+            logger.debug("order = " + order);
+
+            //计算付款方式
+            order.cacuPayment(config.getMaxPayTime());
+
+            newOrder = orderDao.addOrder(order);
         }
-        order.setItems(orderItems);
-
-        cartItemService.clearCartItem(cartItems);
-
-        //计算优惠价
-        order.cacuDealPrice();
-
-        logger.debug("order = "+ order);
-
-        //计算付款方式
-        order.cacuPayment(config.getMaxPayTime());
-
-        Order newOrder = orderDao.addOrder(order);
-
         logger.debug("submit返回值：order = "+ newOrder);
-
     return newOrder;
+    }
 
+    /**
+     * 用CartItem构造OrderItem
+     * @param order 订单对象
+     * @param cartItems 购物车对象列表
+     */
+    private Boolean createOrderItemFromCartItem(Order order, List<CartItem> cartItems) {
+        Boolean ret = true;
+        List<OrderItem> orderItems = new ArrayList<>(cartItems.size());
+        for (CartItem cartItem: cartItems) {
+            if (this.orderDao.deductStock(cartItem.getProductId(), cartItem.getQuantity())) {
+                OrderItem orderItem = new OrderItem(cartItem);
+                orderItems.add(orderItem);
+                Promotion promotion = orderItem.getProduct().getDesc().validPromotion();
+                if (order.getPromotion() == null) {
+                    order.setPromotion(promotion);
+                } else if (!order.getPromotion().equals(promotion)) {
+                    //TODO:报错，一个订单只能有一个促销活动
+                }
+            }else {
+                ret = false;
+                break;
+            }
+
+        }
+        if (ret) {
+            order.setItems(orderItems);
+        }
+        return ret;
     }
 }

@@ -70,6 +70,7 @@ import java.util.Objects;
         Product product = cartItem.getProduct();
         this.setProduct(product);
         this.setPrice(product.getPurchasePrice());
+        this.setDealPrice(this.getPrice());
 
         StringBuffer productName = new StringBuffer(product.getDesc().getName());
         productName.append(" ");
