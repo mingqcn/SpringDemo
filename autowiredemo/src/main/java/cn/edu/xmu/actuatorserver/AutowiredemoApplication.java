@@ -1,4 +1,4 @@
-package cn.edu.xmu.autowiredemo;
+package cn.edu.xmu.actuatorserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
