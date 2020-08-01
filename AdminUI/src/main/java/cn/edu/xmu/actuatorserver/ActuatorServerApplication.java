@@ -1,4 +1,4 @@
-package cn.edu.xmu.autowiredemo;
+package cn.edu.xmu.actuatorserver;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;

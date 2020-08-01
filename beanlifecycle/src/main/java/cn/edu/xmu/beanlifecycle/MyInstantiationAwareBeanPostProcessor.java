@@ -18,9 +18,7 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
         //仅对容器中的person bean处理
-        if ("person".equals(beanName)) {
-            System.out.println("InstantiationAwareBeanPostProcessorAdapter.postProcessBeforeInstantiation invoke, name = "+beanName);
-        }
+        System.out.println("InstantiationAwareBeanPostProcessorAdapter.postProcessBeforeInstantiation invoke, name = " + beanName);
         return null;
     }
 
@@ -28,9 +26,7 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
     @Override
     public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
         //仅对容器中的person bean处理
-        if ("person".equals(beanName)) {
-            System.out.println("InstantiationAwareBeanPostProcessorAdapter.postProcessAfterInstantiation invoke, name = "+beanName);
-        }
+        System.out.println("InstantiationAwareBeanPostProcessorAdapter.postProcessAfterInstantiation invoke, name = " + beanName);
         return true;
     }
 
@@ -43,9 +39,7 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
     @Override
     public PropertyValues postProcessPropertyValues(PropertyValues pvs, PropertyDescriptor[] pds, Object bean, String beanName) throws BeansException {
         //仅对容器中的person bean处理
-        if ("person".equals(beanName)) {
-            System.out.println("InstantiationAwareBeanPostProcessorAdapter.postProcessPropertyValues invoke, name = "+beanName);
-        }
+        System.out.println("InstantiationAwareBeanPostProcessorAdapter.postProcessPropertyValues invoke, name = " + beanName);
         return pvs;
     }
 

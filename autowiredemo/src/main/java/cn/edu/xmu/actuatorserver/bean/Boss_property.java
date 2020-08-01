@@ -1,4 +1,4 @@
-package cn.edu.xmu.autowiredemo.bean;
+package cn.edu.xmu.actuatorserver.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
