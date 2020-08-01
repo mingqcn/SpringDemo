@@ -9,10 +9,9 @@ import xmu.demo.domain.Goods;
 import xmu.demo.service.GoodsService;
 import xmu.demo.util.ResponseUtil;
 
-import javax.validation.constraints.NotNull;
 
 @RestController /*Restful的Controller对象*/
-@RequestMapping("/wx/goods")
+@RequestMapping(value = "/wx/goods", produces = "application/json;charset=UTF-8")
 @Validated
 public class GoodsController {
 
@@ -29,7 +28,7 @@ public class GoodsController {
     }
 
     @RequestMapping("search")
-    public Object search(@NotNull @RequestParam String name) {
+    public Object search(@RequestParam String name) {
 
         Goods goods = goodsService.searchByName(name);
         return ResponseUtil.ok(goods);
