@@ -14,14 +14,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = DemoApplication.class)
-@AutoConfigureMockMvc
+@SpringBootTest(classes = DemoApplication.class)   //标识本类是一个SpringBootTest
+@AutoConfigureMockMvc    //配置模拟的MVC，这样可以不启动服务器测试
 public class GoodsControllerTests {
 
     @Autowired
     private MockMvc mvc;
 
-    @Test
+    @Test   //标识此方法为测试方法
     public void getDetailTest() throws Exception {
         this.mvc.perform(get("/wx/goods/1/detail"))
                 .andExpect(status().isOk())
