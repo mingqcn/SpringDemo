@@ -47,6 +47,8 @@ public class UserService {
         UserPo user = new UserPo();
         user.setId(userId);
         user.setUserType(ObjectType.USER_ADMIN);
+        user.setForbid(false);
+        user.setAuthorized(true);
         if (userId == 2) {
             user.setForbid(true);
         }

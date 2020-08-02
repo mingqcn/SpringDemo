@@ -92,17 +92,18 @@ public class GoodsControllerTests {
 
         String responseString = this.login("4","hello");
         String token = JacksonUtil.parseObject(responseString,"data", String.class);
-//        this.mvc.perform(post("/wx/goods")
-//                .header("authorization",token)
-//                .contentType("application/json;charset=UTF-8")
-//                .content(goodJson))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType("application/json;charset=UTF-8")).
-//                andExpect(content().json("{\"errno\":0,\"data\":{\"id\":1,\"goodsSn\":\"111111\"," +
-//                        "\"name\":\"测试商品\",\"categoryId\":null,\"brandId\":null,\"gallery\":null,\"keywords\":null,\"brief\":null," +
-//                        "\"isOnSale\":null,\"sortOrder\":null,\"picUrl\":null,\"shareUrl\":null,\"isNew\":null,\"isHot\":true,\"unit\":null," +
-//                        "\"counterPrice\":null,\"retailPrice\":null,\"addTime\":null,\"updateTime\":null,\"deleted\":null,\"detail\":null," +
-//                        "\"goodsAttributeList\":null,\"goodsSpecificationList\":null},\"errmsg\":\"成功\"}"));
+        System.out.println("11token = "+token);
+        this.mvc.perform(post("/wx/goods")
+                .header("authorization",token)
+                .contentType("application/json;charset=UTF-8")
+                .content(goodJson))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8")).
+                andExpect(content().json("{\"errno\":0,\"data\":{\"id\":1,\"goodsSn\":\"111111\"," +
+                        "\"name\":\"测试商品\",\"categoryId\":null,\"brandId\":null,\"gallery\":null,\"keywords\":null,\"brief\":null," +
+                        "\"isOnSale\":null,\"sortOrder\":null,\"picUrl\":null,\"shareUrl\":null,\"isNew\":null,\"isHot\":true,\"unit\":null," +
+                        "\"counterPrice\":null,\"retailPrice\":null,\"addTime\":null,\"updateTime\":null,\"deleted\":null,\"detail\":null," +
+                        "\"goodsAttributeList\":null,\"goodsSpecificationList\":null},\"errmsg\":\"成功\"}"));
 
     }
 

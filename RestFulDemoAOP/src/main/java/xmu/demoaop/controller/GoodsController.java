@@ -39,6 +39,7 @@ public class GoodsController {
     @Audit(login = true, userType = 0)
     public Object createGood(@RequestBody Goods goods){
         Goods new_goods = goodsService.create(goods);
+        logger.info("goods="+goods);
         return ResponseUtil.ok(new_goods);
     }
 }

@@ -72,7 +72,7 @@ public class AuditAspect {
         String ip = request.getRemoteAddr();
         Integer userId = new JwtHelper().getUserId(token);
 
-        logger.info("userId = "+userId+", token = "+token);
+        logger.info("userId = "+userId+", token = "+token +"login =" + login);
 
         if (login) {
             if (userId == null) {
@@ -80,10 +80,12 @@ public class AuditAspect {
             }
 
             List<UserPo> userList = userService.findUserById(userId);
+            logger.info("userList = "+userList);
             if (userList.size() == 0) {
                 return ResponseUtil.fail(ResponseCode.AUTH_ID_NOTEXIST, ResponseCode.AUTH_ID_NOTEXIST_MSG);
             }
             UserPo user = userList.get(0);
+            logger.info("user = "+user);
             if (user.getForbid()) {
                 return ResponseUtil.fail(ResponseCode.AUTH_USER_FORBIDDEN, ResponseCode.AUTH_USER_FORBIDDEN_MSG);
             }
@@ -93,6 +95,7 @@ public class AuditAspect {
             if (!(userType == ObjectType.USER_ALL || user.getUserType().equals(userType))) {
                 return ResponseUtil.fail(ResponseCode.AUTH_NOT_ALLOW, ResponseCode.AUTH_NOT_ALLOW_MSG);
             }
+            logger.info("user = "+ user);
         }
 
         Object[] args = joinPoint.getArgs();
@@ -126,6 +129,7 @@ public class AuditAspect {
             long end = System.currentTimeMillis();
                 logger.info("around " + joinPoint + "\tUse time : " + (end - start) + " ms with exception : " + e.getMessage());
         }
+        logger.info("Audit Aspect finished obj =" + obj);
         return obj;
     }
 }
