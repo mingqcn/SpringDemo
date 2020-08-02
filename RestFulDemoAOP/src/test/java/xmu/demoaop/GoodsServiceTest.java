@@ -1,10 +1,10 @@
-package xmu.demo;
+package xmu.demoaop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import xmu.demo.model.Goods;
-import xmu.demo.service.GoodsService;
+import xmu.demoaop.domain.Goods;
+import xmu.demoaop.service.GoodsService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author: Ming Qiu
  * @date: Created in 22:06 2020/8/1
  **/
-@SpringBootTest(classes = DemoApplication.class)
+@SpringBootTest(classes = DemoAopApplication.class)
 public class GoodsServiceTest {
 
     @Autowired

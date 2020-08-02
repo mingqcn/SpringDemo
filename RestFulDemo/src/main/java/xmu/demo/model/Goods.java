@@ -1,4 +1,4 @@
-package xmu.demo.domain;
+package xmu.demo.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,11 +1,11 @@
-package xmu.demo;
+package xmu.demoaop;
 
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-@SpringBootTest(classes = DemoApplication.class)
+@SpringBootTest(classes = DemoAopApplication.class)
 public class DemoApplicationTests {
 
 	@Test

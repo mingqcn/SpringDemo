@@ -1,13 +1,14 @@
-package xmu.demo.controller;
+package xmu.demoaop.controller;
 
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import xmu.demo.model.Goods;
-import xmu.demo.service.GoodsService;
-import xmu.demo.util.ResponseUtil;
+import xmu.demoaop.annotation.Audit;
+import xmu.demoaop.domain.Goods;
+import xmu.demoaop.service.GoodsService;
+import xmu.demoaop.util.ResponseUtil;
 
 
 @RestController /*Restful的Controller对象*/
@@ -27,7 +28,7 @@ public class GoodsController {
         return ResponseUtil.ok(goods);
     }
 
-    @GetMapping("search")
+    @RequestMapping("search")
     public Object search(@RequestParam String name) {
 
         Goods goods = goodsService.searchByName(name);
@@ -35,8 +36,10 @@ public class GoodsController {
     }
 
     @PostMapping("")
+    @Audit(login = true, userType = 0)
     public Object createGood(@RequestBody Goods goods){
         Goods new_goods = goodsService.create(goods);
+        logger.info("goods="+goods);
         return ResponseUtil.ok(new_goods);
     }
 }

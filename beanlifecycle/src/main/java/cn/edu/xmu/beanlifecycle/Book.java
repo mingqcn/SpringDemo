@@ -22,22 +22,27 @@ public class Book implements BeanNameAware, BeanFactoryAware,
         System.out.println("Book constructor invoke");
     }
 
+    @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         System.out.println("Book.setBeanFactory invoke");
     }
 
+    @Override
     public void setBeanName(String name) {
         System.out.println("Book.setBeanName invoke");
     }
 
+    @Override
     public void destroy() throws Exception {
         System.out.println("Book.destory invoke");
     }
 
+    @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("Book.afterPropertiesSet invoke");
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         System.out.println("Book.setApplicationContext invoke");
     }
