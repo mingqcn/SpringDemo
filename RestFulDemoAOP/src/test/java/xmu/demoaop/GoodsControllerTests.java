@@ -92,7 +92,6 @@ public class GoodsControllerTests {
 
         String responseString = this.login("4","hello");
         String token = JacksonUtil.parseObject(responseString,"data", String.class);
-        System.out.println("token = "+token);
 //        this.mvc.perform(post("/wx/goods")
 //                .header("authorization",token)
 //                .contentType("application/json;charset=UTF-8")

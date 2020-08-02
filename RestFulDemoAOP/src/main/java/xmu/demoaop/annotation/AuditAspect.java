@@ -72,6 +72,8 @@ public class AuditAspect {
         String ip = request.getRemoteAddr();
         Integer userId = new JwtHelper().getUserId(token);
 
+        logger.info("userId = "+userId+", token = "+token);
+
         if (login) {
             if (userId == null) {
                 return ResponseUtil.fail(ResponseCode.AUTH_NEED_LOGIN, ResponseCode.AUTH_NEED_LOGIN_MSG);
