@@ -1,4 +1,4 @@
-package xmu.demo.domain;
+package xmu.demoaop.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

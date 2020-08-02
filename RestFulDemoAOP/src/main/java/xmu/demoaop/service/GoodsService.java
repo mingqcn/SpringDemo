@@ -1,9 +1,9 @@
-package xmu.demo.service;
+package xmu.demoaop.service;
 
 import org.springframework.stereotype.Service;
-import xmu.demo.model.Goods;
-import xmu.demo.model.GoodsAttribute;
-import xmu.demo.model.GoodsSpecification;
+import xmu.demoaop.domain.Goods;
+import xmu.demoaop.domain.GoodsAttribute;
+import xmu.demoaop.domain.GoodsSpecification;
 
 import java.util.ArrayList;
 import java.util.List;
